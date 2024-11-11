@@ -65,7 +65,7 @@ const NoticeCard = async () => {
                   height="10"
                   viewBox="0 0 100 100"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="fill-current text-subtext3"
+                  className="fill-current text-blue"
                 >
                   <rect x="45" y="10" width="10" height="80" />
                   <rect x="10" y="45" width="80" height="10" />
