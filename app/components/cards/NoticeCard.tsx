@@ -37,11 +37,11 @@ const NoticeCard = async () => {
       {boardList.map((item, index) => (
         <div
           key={item.id}
-          className={`w-full h-10 px-3 flex justify-between items-center transition-all ${
+          className={`w-full h-10 px-3 gap-3 flex justify-between items-center transition-all ${
             index !== boardList.length - 1
               ? "border-b border-dashed border-slate-200"
               : ""
-          } hover:bg-blue-50`}
+          } hover:bg-semiblue`}
         >
           <div className="flex gap-2 items-center flex-1 overflow-hidden">
             <span
@@ -70,7 +70,7 @@ const NoticeCard = async () => {
                   <rect x="45" y="10" width="10" height="80" />
                   <rect x="10" y="45" width="80" height="10" />
                 </svg>
-                <span className="text-subtext3 font-bold text-xs">
+                <span className="text-blue font-bold text-xs">
                   {item.replyNum}
                 </span>
               </span>
