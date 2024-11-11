@@ -11,6 +11,7 @@ export interface UserInfo {
 
 export interface BoardItem {
   id: number;
+  postType: number;
   username: string;
   nickname: string;
   userIp: string;
