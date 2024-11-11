@@ -49,114 +49,6 @@ interface TipTapProps {
   onChange: (content: string) => void;
 }
 
-const Tiptap = ({ value, onChange }: TipTapProps) => {
-  const editor = useEditor({
-    editorProps: {
-      attributes: {
-        class:
-          "prose prose-sm sm:prose-sm lg:prose-lg xl:prose-2xl prose-p:m-0 shadow appearance-none min-w-full min-h-[200px] sm:min-h-[400px] border rounded w-full py-2 px-3 bg-white text-black text-sm mt-0 md:mt-3 leading-tight focus:outline-none focus:shadow-outline",
-      },
-      handleDrop(view, event, slice, moved) {
-        const dataTransfer = event.dataTransfer;
-
-        if (
-          dataTransfer &&
-          dataTransfer.files &&
-          dataTransfer.files.length > 0
-        ) {
-          event.preventDefault();
-          handleMultipleImagesUpload(dataTransfer.files, editor);
-        }
-        return false;
-      },
-    },
-    extensions: [
-      StarterKit.configure({
-        history: false,
-        bulletList: { keepMarks: true, keepAttributes: false },
-        orderedList: { keepMarks: true, keepAttributes: false },
-        heading: { levels: [1, 2, 3] },
-        paragraph: { HTMLAttributes: { class: "text-xs md:text-base min-h-[12px] md:min-h-[16px]" } },
-      }),
-      FontSize,
-      TextStyle,
-      TextAlign.configure({
-        types: ["heading", "paragraph", "image"],
-        defaultAlignment: "left",
-      }),
-      Link.configure({
-        openOnClick: false,
-        autolink: true,
-        defaultProtocol: "https",
-        HTMLAttributes: {
-          target: "_blank",
-          rel: "noopener noreferrer",
-          class: "text-blue",
-        },
-      }),
-      ImageExtension,
-      ImageResize,
-      Color,
-    ],
-    content: value,
-    onUpdate: ({ editor }) => {
-      onChange(editor.getHTML());
-    },
-    immediatelyRender: false,
-  });
-
-  const uploadImagesToServer = async (files: File[]): Promise<string[]> => {
-    const formData = new FormData();
-    files.forEach((file) => formData.append("files", file));
-
-    const response = await fetch("/api/images", {
-      method: "POST",
-      body: formData,
-    });
-    if (!response.ok) throw new Error("Failed to upload images.");
-
-    const result = await response.json();
-    return result.data;
-  };
-
-  const handleMultipleImagesUpload = async (
-    files: FileList,
-    editorInstance: any
-  ) => {
-    const images = Array.from(files);
-    const imageDimensions = await Promise.all(
-      images.map((file) => getImageDimensions(file))
-    );
-
-    const uploadedImageUrls = await uploadImagesToServer(images);
-    uploadedImageUrls.forEach((url: string, index: number) => {
-      const { width } = imageDimensions[index];
-      editorInstance
-        .chain()
-        .focus()
-        .setImage({ src: url, style: `width: ${width}px;` })
-        .run();
-    });
-  };
-
-  const getImageDimensions = (file: File): Promise<{ width: number; height: number }> => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => {
-        resolve({ width: img.width, height: img.height });
-      };
-      img.src = URL.createObjectURL(file);
-    });
-  };
-
-  return (
-    <div className="flex flex-col border border-solid border-gray-200">
-      <MenuBar editor={editor} uploadImagesToServer={uploadImagesToServer} />
-      <EditorContent className="min-h-[200px] sm:min-h-[400px]" editor={editor} />
-    </div>
-  );
-};
-
 const MenuBar = ({ editor, uploadImagesToServer }: any) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [linkUrl, setLinkUrl] = useState<string>("");
@@ -310,6 +202,132 @@ const MenuBar = ({ editor, uploadImagesToServer }: any) => {
     <option value="56px">56px</option>
   </select>
 </div>
+  );
+};
+
+
+// 팁탭
+const Tiptap = ({ value, onChange }: TipTapProps) => {
+  const [loading, setLoading] = useState(false);
+
+  const editor = useEditor({
+    editorProps: {
+      attributes: {
+        class:
+          "prose prose-sm sm:prose-sm lg:prose-lg xl:prose-2xl prose-p:m-0 shadow appearance-none min-w-full min-h-[200px] sm:min-h-[400px] border rounded w-full py-2 px-3 bg-white text-black text-sm mt-0 md:mt-3 leading-tight focus:outline-none focus:shadow-outline",
+      },
+      handleDrop(view, event, slice, moved) {
+        const dataTransfer = event.dataTransfer;
+
+        if (
+          dataTransfer &&
+          dataTransfer.files &&
+          dataTransfer.files.length > 0
+        ) {
+          event.preventDefault();
+          handleMultipleImagesUpload(dataTransfer.files, editor);
+        }
+        return false;
+      },
+    },
+    extensions: [
+      StarterKit.configure({
+        history: false,
+        bulletList: { keepMarks: true, keepAttributes: false },
+        orderedList: { keepMarks: true, keepAttributes: false },
+        heading: { levels: [1, 2, 3] },
+        paragraph: { HTMLAttributes: { class: "text-xs md:text-base min-h-[12px] md:min-h-[16px]" } },
+      }),
+      FontSize,
+      TextStyle,
+      TextAlign.configure({
+        types: ["heading", "paragraph", "image"],
+        defaultAlignment: "left",
+      }),
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: "https",
+        HTMLAttributes: {
+          target: "_blank",
+          rel: "noopener noreferrer",
+          class: "text-blue",
+        },
+      }),
+      ImageExtension,
+      ImageResize,
+      Color,
+    ],
+    onUpdate: ({ editor }) => {
+      if (!loading) {
+        onChange(editor.getHTML());
+      }
+    },
+    content: value,
+    immediatelyRender: false,
+  });
+
+  const uploadImagesToServer = async (files: File[]): Promise<string[]> => {
+    const formData = new FormData();
+    files.forEach((file) => formData.append("files", file));
+
+    const response = await fetch("/api/images", {
+      method: "POST",
+      body: formData,
+    });
+    if (!response.ok) throw new Error("Failed to upload images.");
+
+    const result = await response.json();
+    return result.data;
+  };
+
+  const handleMultipleImagesUpload = async (
+    files: FileList,
+    editorInstance: any
+  ) => {
+    const images = Array.from(files);
+    const imageDimensions = await Promise.all(
+      images.map((file) => getImageDimensions(file))
+    );
+
+    const uploadedImageUrls = await uploadImagesToServer(images);
+    uploadedImageUrls.forEach((url: string, index: number) => {
+      const { width } = imageDimensions[index];
+      editorInstance
+        .chain()
+        .focus()
+        .setImage({ src: url, style: `width: ${width}px;` })
+        .run();
+    });
+  };
+
+  const getImageDimensions = (file: File): Promise<{ width: number; height: number }> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        resolve({ width: img.width, height: img.height });
+      };
+      img.src = URL.createObjectURL(file);
+    });
+  };
+
+  const handleCompleteWriting = async () => {
+    if (loading) return;
+
+    setLoading(true);
+    try {
+      alert("게시글 저장중입니다.");
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="flex flex-col border border-solid border-gray-200">
+      <MenuBar editor={editor} uploadImagesToServer={uploadImagesToServer} />
+      <EditorContent className="min-h-[200px] sm:min-h-[400px]" editor={editor} />
+    </div>
   );
 };
 

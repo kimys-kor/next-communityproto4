@@ -20,6 +20,7 @@ function Profile({ userInfo }: ProfileProps) {
     removeCookie();
     setLoggedIn(false);
     clearUserInfo();
+    window.location.href = "/"
   };
 
   return (

@@ -61,10 +61,6 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
     try {
       const result = await postSaveServerAction(postData);
 
-      if (result.status === 401) {
-        toast.error("로그인을 해주세요.");
-        return;
-      }
 
       if (result.status === "OK") {
         toast.success("게시물이 성공적으로 저장되었습니다!");
@@ -72,7 +68,8 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
       } else if (result.status === "406") {
         toast.error("포인트가 부족합니다.");
       } else {
-        toast.error("게시물 저장에 실패했습니다.");
+        toast.error("로그인을 해주세요.");
+        window.location.href = "/"
       }
     } catch (error) {
       toast.error("서버에 문제가 발생했습니다.");
