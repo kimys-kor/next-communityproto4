@@ -76,7 +76,7 @@ const Tiptap = ({ value, onChange }: TipTapProps) => {
         bulletList: { keepMarks: true, keepAttributes: false },
         orderedList: { keepMarks: true, keepAttributes: false },
         heading: { levels: [1, 2, 3] },
-        paragraph: { HTMLAttributes: { class: "text-xs md:text-base m-0" } },
+        paragraph: { HTMLAttributes: { class: "text-xs md:text-base min-h-[12px] md:min-h-[16px]" } },
       }),
       FontSize,
       TextStyle,
