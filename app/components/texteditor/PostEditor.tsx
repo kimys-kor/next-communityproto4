@@ -53,13 +53,8 @@ const Tiptap = ({ value, onChange }: TipTapProps) => {
   const editor = useEditor({
     editorProps: {
       attributes: {
-        class: [
-          "prose prose-sm sm:prose-sm lg:prose-lg xl:prose-2xl",
-          "min-w-full min-h-[200px] sm:min-h-[400px] w-full py-2 px-3",
-          "bg-white border border-gray-200 rounded",
-          "shadow appearance-none focus:outline-none focus:shadow-outline",
-          "mt-0 md:mt-3 leading-tight"
-        ].join(" "),
+        class:
+          "prose prose-sm sm:prose-sm lg:prose-lg xl:prose-2xl shadow appearance-none min-w-full min-h-[400px] border rounded w-full py-2 px-3 bg-white text-black text-sm mt-0 md:mt-3 leading-tight focus:outline-none focus:shadow-outline",
       },
       handleDrop(view, event, slice, moved) {
         const dataTransfer = event.dataTransfer;
@@ -80,8 +75,8 @@ const Tiptap = ({ value, onChange }: TipTapProps) => {
         history: false,
         bulletList: { keepMarks: true, keepAttributes: false },
         orderedList: { keepMarks: true, keepAttributes: false },
-        heading: { levels: [1] },
-        paragraph: { HTMLAttributes: { class: "text-sm md:text-xl h-[14px] md:h-[20px]"} },
+        heading: { levels: [1, 2, 3] },
+        paragraph: { HTMLAttributes: { class: "text-sm md:text-xl min-h-[2rem] md:min-h-[3rem]" } },
       }),
       FontSize,
       TextStyle,
@@ -299,7 +294,7 @@ const MenuBar = ({ editor, uploadImagesToServer }: any) => {
   <input
     type="color"
     onInput={handleTextColorChange}
-    className="p-1 w-8 h-8 sm:w-auto sm:h-auto border border-gray-400 rounded"
+    className="p-1 w-8 h-8 border border-gray-400 rounded"
     title="Text Color"
   />
 
