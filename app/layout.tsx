@@ -7,6 +7,7 @@ import LoginModal from "./components/modals/LoginModal";
 import ScrollButtons from "./components/ScrollButtons";
 import localFont from "next/font/local";
 import Head from "next/head";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -88,6 +89,12 @@ export default function RootLayout({
           {children}
         </main>
         <ScrollButtons />
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_ID} />
+            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+          </>
+        )}
       </body>
     </html>
   );
