@@ -135,7 +135,6 @@ export const fetchInitialCommunityTabData = async () => {
     { method: "GET" }
   );
   const data = await response.json();
-  console.log(data.data.content)
   return data.data.content
 };
 
