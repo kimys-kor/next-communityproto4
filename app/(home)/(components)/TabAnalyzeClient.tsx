@@ -114,7 +114,7 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
                       </svg>
                       <span className="text-blue font-bold text-xs">{item.replyNum}</span>
                     </span>
-                    <div className="w-14 text-sm text-gray-600  flex justify-end truncate">
+                    <div className="w-[15%] truncate text-sm text-gray-600  flex justify-end truncate">
                       <p>{item.nickname}</p>
                     </div>
                   </div>

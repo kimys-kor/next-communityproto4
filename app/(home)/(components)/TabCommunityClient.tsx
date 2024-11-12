@@ -147,7 +147,7 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
                     <span className="text-blue font-bold text-xs">{item.replyNum}</span>
                   </span>
                 </div>
-                <p className="text-sm w-14 text-right">{item.nickname}</p>
+                <p className="text-sm w-[15%] truncate text-right">{item.nickname}</p>
               </div>
             ))
           )}
