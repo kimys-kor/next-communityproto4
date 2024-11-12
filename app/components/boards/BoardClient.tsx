@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { BoardItem, Member } from "../../types";
+import { BoardItem } from "../../types";
 import Paging from "@/app/components/Paging";
 import Link from "next/link";
 import NewIcon from "../NewIcon";
@@ -33,7 +33,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
 
   const { userInfo } = useUserStore();
   const [boardList, setBoardList] = useState<BoardItem[]>(initialItems);
-  const [page, setPage] = useState(initialPage || 1); // Default to page 1 if initialPage is missing
+  const [page, setPage] = useState(initialPage || 1);
   const [totalElements, setTotalElements] = useState(initialTotalElements);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);

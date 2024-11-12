@@ -91,6 +91,44 @@ export const fetchInitialBoardListData = async (
   }
 };
 
+export async function fetchInitialPhotoData(postType: number) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/guest/photoList?postType=${postType}&page=0&size=12`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch initial photo data");
+    }
+
+    const data = await response.json();
+    const { content, totalElements, totalPages } = data.data;
+
+    const formattedContent = content.map((item: any) => ({
+      ...item,
+      changedcreatedDt: formatDate(item.createdDt.toString()),
+    }));
+
+    return {
+      boardList: formattedContent,
+      totalElements,
+      totalPages,
+    };
+  } catch (error) {
+    console.error("Error fetching initial photo data:", error);
+    return {
+      boardList: [],
+      totalElements: 0,
+      totalPages: 0,
+    };
+  }
+}
+
 export const fetchInitialCommunityData = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/guest/list?typ=6&keyword=&page=0&size=4`,
@@ -244,27 +282,7 @@ export async function fetchInitialPartnerData() {
   };
 }
 
-export async function fetchInitialPhotoData(postType: number) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/guest/photoList?postType=${postType}&page=0&size=12`,
-    {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      cache: "no-store",
-    }
-  );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch initial partner content");
-  }
-
-  const data = await response.json();
-  return {
-    boardList: data.data.content,
-    totalElements: data.data.totalElements,
-    totalPages: data.data.totalPages,
-  };
-}
 
 export const fetchInitialBoardContent = async (id: string) => {
   try {

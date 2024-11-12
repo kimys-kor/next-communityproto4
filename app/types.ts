@@ -52,6 +52,7 @@ export interface PhotoItem {
   likes: number;
   replyNum: number;
   createdDt: Date;
+  changedcreatedDt: string;
 }
 
 export interface BoardDetailClientProps {

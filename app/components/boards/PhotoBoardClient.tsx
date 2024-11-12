@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import Paging from "@/app/components/Paging";
 import Link from "next/link";
 import Image from "next/image";
@@ -60,9 +60,6 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
     }
   };
 
-  useEffect(() => {
-    fetchData(currentPage);
-  }, [currentPage, typ, keyword]);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
@@ -223,7 +220,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
                 {item.title}
               </h1>
               <p className="w-full text-center truncate text-base font-medium text-semiblack">
-                {item.createdDt.toString()}
+                {item.changedcreatedDt}
               </p>
               <p className="w-full text-center truncate text-base text-subtext">
                 {item.nickname}
