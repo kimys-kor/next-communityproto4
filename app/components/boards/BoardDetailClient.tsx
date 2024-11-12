@@ -26,7 +26,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
   initialCommentsData,
 }) => {
   const pathname = usePathname();
-  const basePath = pathname?.split("/")[1] || "";
+  const basePath = pathname?.split("/").slice(0, -1).join("/") || "";
   const [isEditing, setIsEditing] = useState(false);
 
   const sanitizedData = () => {
@@ -130,7 +130,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
                 </button>
               </>
             )}
-            <Link href={`/${basePath}`}>
+            <Link href={basePath}>
               <div className="flex items-center gap-1 cursor-pointer text-[#6c757d] hover:text-gray-600">
                 <HiBars3 size={20} />
                 <span>목록</span>
