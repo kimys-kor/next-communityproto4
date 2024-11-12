@@ -76,11 +76,6 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
         {/* Tab content */}
         <div className="text-sm w-full">
           {boardList.map((item) => {
-            // Check if the created date is within 24 hours
-            const isNew =
-              new Date().getTime() - new Date(item.createdDt).getTime() <
-              86400000;
-
             return (
               <Link
                 key={item.id}
@@ -103,7 +98,7 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
                 >
                   <div className="flex gap-2 items-center py-2 w-full">
                     <div className="flex items-center gap-1 text-sm font-medium w-[80%] truncate">
-                      {isNew && <NewIcon />}
+                      <NewIcon />
                       <span className="truncate">{item.title}</span>
                     </div>
                     <div className="text-sm text-gray-600 w-[20%] flex justify-end truncate">
