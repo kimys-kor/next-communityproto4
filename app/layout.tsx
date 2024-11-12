@@ -74,6 +74,7 @@ export default function RootLayout({
           type="image/<generated>"
           sizes="<generated>"
         />
+        <meta name="google-site-verification" content="zUrRPXRwKAbdVJVGGRQDBa7UPmpatqnQiTDF2rbypJc" />
       </Head>
       <body className={`${pretendard.variable} font-pretendard`}>
         <main className="pb-[10px]">
