@@ -4,7 +4,7 @@ import { BoardItem } from "@/app/types";
 
 const fetchBoardList = async () => {
   const page = 0;
-  const size = 5;
+  const size = 15;
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/guest/newList?page=${page}&size=${size}`,
     {

@@ -396,17 +396,17 @@ export const tabsCommunity = [
     icon: <Image src={photoIcon} width={20} height={20} alt="menuIcon" />,
   },
   {
-    label: "이벤트",
+    label: "유머 & 이슈",
     typ: 3,
     icon: <Image src={event} width={20} height={20} alt="menuIcon" />,
   },
   {
-    label: "자유게시판",
+    label: "나는분석왕",
     typ: 4,
     icon: <Image src={gameIcon} width={20} height={20} alt="menuIcon" />,
   },
   {
-    label: "분석왕",
+    label: "피해사례",
     typ: 5,
     icon: <Image src={analyze} width={20} height={20} alt="menuIcon" />,
   },

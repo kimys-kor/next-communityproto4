@@ -31,8 +31,8 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showTransferPopup, setShowTransferPopup] = useState(false);
 
-  // Parameters with default values
-  const size = 12; // items per page
+
+  const size = 12;
   const typ = searchParams.get("typ") || "9";
   const keyword = searchParams.get("keyword") || "";
 
@@ -199,7 +199,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
       <ul className="mt-5 min-w-full bg-white overflow-hidden overflow-x-auto text-[14px] grid grid-cols-2 md:grid-cols-3 gap-5">
         {boardList.map((item) => (
           <li key={item.id} className="bg-white rounded-lg cursor-pointer">
-            <div className="overflow-hidden rounded-lg relative">
+            <div className="relative w-full h-[230px] overflow-hidden rounded-lg">
               {userInfo?.sck && (
                 <input
                   type="checkbox"
@@ -212,7 +212,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
                 <Image
                   width={326}
                   height={230}
-                  className="rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-110"
+                  className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-110"
                   src={item.thumbNail || "/images/default-thumbnail.jpg"}
                   alt={item.title}
                 />
