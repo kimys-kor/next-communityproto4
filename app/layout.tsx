@@ -58,36 +58,11 @@ export const metadata = {
     title:
       "꽁머니팡: 토토사이트 추천 꽁머니 먹튀검증 커뮤니티 안전놀이터 추천 배당흐름 분석 예상 정보 순위 모음",
   },
-};
-
-export const metadata2 = {
-  title: "꽁머니팡: 토토 사이트 추천 무료 머니 사기 검증 커뮤니티 안전 놀이터 추천 배당 흐름 분석 기대 정보 순위",
-  description: "꽁머니팡: 실시간 라이브 스코어, 스포츠 토토 사이트, 무료 머니, 안전 놀이터, 배당, 파워볼, 배당 흐름, 정보, 분석, 추천, 순위",
-  keywords: "꽁머니팡: 무료 머니, 사기 검증, 토토 사이트, 메이저 놀이터, 메이저 사이트, 안전 놀이터, 사기 사이트, 프로토, 승무패, 스포츠 토토, 파워볼, 배당, 정보, 순위, 추천",
-  authors: [{ name: "꽁머니팡" }],
-  openGraph: {
-    type: "website",
-    locale: "ko_KR",
-    siteName: "꽁머니팡: 토토 사이트 추천 무료 머니 사기 검증 커뮤니티 안전 놀이터 추천 배당 흐름 분석 기대 정보 순위",
-    title: "꽁머니팡: 토토 사이트 추천 무료 머니 사기 검증 커뮤니티 안전 놀이터 추천 배당 흐름 분석 기대 정보 순위",
-    description: "꽁머니팡: 실시간 라이브 스코어, 스포츠 토토 사이트, 무료 머니, 안전 놀이터, 배당, 파워볼, 배당 흐름, 정보, 분석, 추천, 순위",
-    url: "https://ggongpang.com/",
-    images: [{ url: "/logo.png" }],
-  },
-  Twitter: {
-    card: "summary_large_image",
-    title: "꽁머니팡: 토토 사이트 추천 무료 머니 사기 검증 커뮤니티 안전 놀이터 추천 배당 흐름 분석 기대 정보 순위",
-    description: "꽁머니팡: 실시간 라이브 스코어, 스포츠 토토 사이트, 무료 머니, 안전 놀이터, 배당, 파워볼, 배당 흐름, 정보, 분석, 추천, 순위",
-    creator: "꽁머니팡",
-    images: [{ url: "/logo.png" }],
-  },
-  appleWebApp: {
-    title: "꽁머니팡: 토토 사이트 추천 무료 머니 사기 검증 커뮤니티 안전 놀이터 추천 배당 흐름 분석 기대 정보 순위",
-  },
   verification: {
     google: "zUrRPXRwKAbdVJVGGRQDBa7UPmpatqnQiTDF2rbypJc"
   }
 };
+
 
 export default function RootLayout({
   children,
