@@ -37,7 +37,7 @@ export const metadata = {
     url: "https://ggongpang.com/",
     images: [
       {
-        url: "", // 이미지 URL을 설정하세요.
+        url: "/logo.png",
       },
     ],
   },
@@ -48,7 +48,11 @@ export const metadata = {
     description:
       "꽁머니팡: 실시간 라이브스코어, 스포츠토토사이트, 꽁머니, 안전놀이터, 배당, 파워볼, 배당 흐름, 정보, 분석, 추천, 순위",
     creator: "꽁머니팡",
-    images: [{ url: "" }], // 이미지 URL을 설정하세요.
+    images: [
+      { 
+        url: "/logo.png", 
+      }
+    ],
   },
   // appleWebApp: {
   //   title:
