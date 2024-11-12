@@ -101,7 +101,20 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
                       <NewIcon />
                       <span className="truncate">{item.title}</span>
                     </div>
-                    <div className="text-sm text-gray-600 w-[20%] flex justify-end truncate">
+                    <span className="text-[10px] flex items-center gap-1">
+                      <svg
+                        width="10"
+                        height="10"
+                        viewBox="0 0 100 100"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="fill-current text-blue"
+                      >
+                        <rect x="45" y="10" width="10" height="80" />
+                        <rect x="10" y="45" width="80" height="10" />
+                      </svg>
+                      <span className="text-blue font-bold text-xs">{item.replyNum}</span>
+                    </span>
+                    <div className="w-14 text-sm text-gray-600  flex justify-end truncate">
                       <p>{item.nickname}</p>
                     </div>
                   </div>
