@@ -24,13 +24,11 @@ export async function GET(request: Request) {
 
     const data = await response.json();
 
-    // Format the date for each item in the content array
     const formattedContent = data.data.content.map((item: any) => ({
       ...item,
-      changedcreatedDt: formatDate(item.createdDt), // Apply formatDate to createdDt field
+      changedcreatedDt: formatDate(item.createdDt),
     }));
 
-    // Return the modified data structure
     return NextResponse.json({
       ...data,
       data: {

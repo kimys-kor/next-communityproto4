@@ -129,19 +129,14 @@ export async function fetchInitialPhotoData(postType: number) {
   }
 }
 
-export const fetchInitialCommunityData = async () => {
+export const fetchInitialCommunityTabData = async () => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/guest/list?typ=6&keyword=&page=0&size=4`,
+    `${process.env.NEXT_PUBLIC_API_URL}/guest/list?typ=9&keyword=&page=0&size=4`,
     { method: "GET" }
   );
   const data = await response.json();
-  return data.data.content.map((item: any) => ({
-    id: item.id,
-    title: item.title,
-    img: `/images/dog${(item.id % 4) + 1}.PNG`,
-    date: "24.06.12",
-    writer: item.username || "관리자",
-  }));
+  console.log(data.data.content)
+  return data.data.content
 };
 
 export async function fetchInitialAnalyzeData(typ: number) {
@@ -387,21 +382,21 @@ export const getPostUrl = (postType: number, id: number): string => {
     case 2:
       return `/sport/${id}`;
     case 3:
-      return `/sport/base/${id}`;
+      return `/sport/asia/${id}`;
     case 4:
-      return `/sport/basket/${id}`;
+      return `/sport/mlb/${id}`;
     case 5:
-      return `/sport/volley/${id}`;
+      return `/sport/baseball/${id}`;
     case 6:
-      return `/community/${id}`;
+      return `/sport/nba/${id}`;
     case 7:
-      return `/community/humor/${id}`;
+      return `/sport/basket/${id}`;
     case 8:
-      return `/community/pickster/${id}`;
+      return `/sport/volley/${id}`;
     case 9:
-      return `/community/free/${id}`;
+      return `/community/${id}`;
     case 10:
-      return `/community/case/${id}`;
+      return `/community/humor/${id}`;
     default:
       return `/unknown/${id}`;
   }

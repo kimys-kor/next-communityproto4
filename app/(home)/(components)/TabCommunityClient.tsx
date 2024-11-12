@@ -9,13 +9,18 @@ import { BoardItem } from "@/app/types";
 
 type TabContent = {
   id: number;
-  title: string;
-  img: string;
-  date: string;
+  postType: number;
+  username: string;
   nickname: string;
+  userIp: string;
+  title: string;
   thumbNail: string;
-  changedcreatedDt: string;
+  hit: number;
+  hate: number;
+  likes: number;
   replyNum: number;
+  createdDt: string;
+  changedcreatedDt: string;
 }[];
 
 interface TabACommunityClientProps {
@@ -128,7 +133,18 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
               >
                 <div className="flex gap-1 items-center flex-1 overflow-hidden">
                   <NewIcon />
-                  <Link href={`/community/${item.id}`} className="flex-1 min-w-0">
+                  <Link
+                    href={
+                      activeTab === 0
+                        ? `/community/${item.id}`
+                        : activeTab === 1
+                        ? `/community/humor/${item.id}`
+                        : activeTab === 2
+                        ? `/community/pickster/${item.id}`
+                        : `/community/case/${item.id}`
+                    }
+                    className="flex-1 min-w-0"
+                  >
                     <p className="truncate text-sm cursor-pointer hover:underline">
                       {item.title}
                     </p>

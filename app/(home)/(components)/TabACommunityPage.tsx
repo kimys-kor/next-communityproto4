@@ -1,8 +1,8 @@
 import { TabACommunityClient } from "./TabCommunityClient";
-import { fetchInitialCommunityData } from "@/app/utils";
+import { fetchInitialCommunityTabData } from "@/app/utils";
 
 const TabACommunityPage = async () => {
-  const initialData = await fetchInitialCommunityData();
+  const initialData = await fetchInitialCommunityTabData();
   return <TabACommunityClient initialTab={0} initialData={initialData} />;
 };
 
