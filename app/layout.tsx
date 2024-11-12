@@ -6,6 +6,7 @@ import ToasterProvider from "./components/providers/ToasterProvider";
 import LoginModal from "./components/modals/LoginModal";
 import ScrollButtons from "./components/ScrollButtons";
 import localFont from "next/font/local";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -62,6 +63,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <Head>
+      <link
+          rel="icon"
+          href="/icon?<generated>"
+          type="image/<generated>"
+          sizes="<generated>"
+        />
+      </Head>
       <body className={`${pretendard.variable} font-pretendard`}>
         <main className="pb-[10px]">
           <ToasterProvider />
