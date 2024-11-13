@@ -61,7 +61,10 @@ export const metadata = {
   },
   verification: {
     google: "zUrRPXRwKAbdVJVGGRQDBa7UPmpatqnQiTDF2rbypJc"
-  }
+  },
+  icons: {
+    icon: '/path/to/your/favicon.ico',
+  },
 };
 
 
@@ -72,15 +75,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <Head>
-      <link
-          rel="icon"
-          href="/icon?<generated>"
-          type="image/<generated>"
-          sizes="<generated>"
-        />
-        <meta name="google-site-verification" content="zUrRPXRwKAbdVJVGGRQDBa7UPmpatqnQiTDF2rbypJc" />
-      </Head>
       <body className={`${pretendard.variable} font-pretendard`}>
         <main className="pb-[10px]">
           <ToasterProvider />
