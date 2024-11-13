@@ -1,12 +1,15 @@
 import Link from "next/link";
 import NewIcon from "../NewIcon";
 import { BoardItem } from "@/app/types";
+import { getPostUrl } from "@/app/utils";
 
-const fetchBoardList = async () => {
+const fetchBoardList = async (typeList: number[]) => {
   const page = 0;
   const size = 15;
+  const typeListQuery = typeList.map((type) => `typeList=${type}`).join("&");
+
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/guest/newList?page=${page}&size=${size}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/guest/newList?page=${page}&size=${size}&${typeListQuery}`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -19,28 +22,14 @@ const fetchBoardList = async () => {
   }
 
   const data = await response.json();
-  return data.data.content as BoardItem[];
+  return data.data.content as BoardItem[]; // Cast to BoardItem array
 };
 
-const getPostLink = (postType: number, id: number) => {
-  switch (postType) {
-    case 6:
-      return `/sport/nba/${id}`;
-    case 7:
-      return `/sport/basket/${id}`;
-    case 8:
-      return `/sport/volley/${id}`;
-    case 9:
-      return `/community/${id}`;
-    case 10:
-      return `/community/humor/${id}`;
-    default:
-      return `/`;
-  }
-};
 
 const NewPostCard = async () => {
-  const boardList = await fetchBoardList();
+  const boardList = await fetchBoardList([
+    2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18,
+  ]);
 
   return (
     <div className="w-full rounded-md bg-white font-semibold border-solid border-slate-200 border">
@@ -59,7 +48,7 @@ const NewPostCard = async () => {
           <div className="flex gap-1 items-center flex-1 overflow-hidden">
             <NewIcon />
             <div className="flex-1 min-w-0 flex items-center overflow-hidden">
-            <Link href={getPostLink(item.postType, item.id)} className="flex-1 min-w-0">
+            <Link href={getPostUrl(item.postType, item.id)} className="flex-1 min-w-0">
                 <p className="truncate text-sm cursor-pointer hover:underline">
                   {item.title}
                 </p>
