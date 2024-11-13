@@ -65,7 +65,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
         setTotalElements(data.data.totalElements);
         setTotalPages(data.data.totalPages);
       } catch (error) {
-        toast.error('서버에 문제가 발생했습니다')
+        toast.error("서버에 문제가 발생했습니다");
       }
     };
 
@@ -131,7 +131,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
 
       router.refresh();
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("서버에 문제가 발생했습니다");
     }
   };
 
@@ -169,7 +169,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
       setSelectedItems([]);
       setSelectAll(false);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("서버에 문제가 발생했습니다");
     }
   };
 
@@ -249,9 +249,9 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
               </Link>
             </div>
             <div className="p-2 flex flex-col items-center">
-              <h3 className="font-semibold text-md text-gray-800">
+              <h1 className="font-semibold text-md text-gray-800">
                 {item.title}
-              </h3>
+              </h1>
               <p className="text-gray-500 mt-1 text-sm">Code: {item.code}</p>
               {item.replyNum > 0 && (
                 <p className="text-xs mt-1 text-blue-700 font-bold">

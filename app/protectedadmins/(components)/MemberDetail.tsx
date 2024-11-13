@@ -74,9 +74,7 @@ function MemberDetail({ member, onBack }: MemberDetailProps) {
 
   return (
     <div className="p-4 bg-white rounded-md border border-gray-300 shadow-sm max-w-lg mx-auto">
-      <h2 className="text-2xl font-semibold mb-4 text-center">
-        회원 상세 정보
-      </h2>
+      <p className="text-2xl font-semibold mb-4 text-center">회원 상세 정보</p>
       <div className="space-y-3 text-gray-700">
         <div className="flex items-center justify-between">
           <p>

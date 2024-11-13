@@ -74,7 +74,7 @@ const NewBannerForm = ({ onClose, onSave }: NewBannerFormProps) => {
       setImageUrl(uploadedUrl);
       toast.success("이미지가 성공적으로 업로드되었습니다.");
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("서버에 문제가 발생했습니다");
     } finally {
       setUploading(false);
     }
@@ -101,14 +101,14 @@ const NewBannerForm = ({ onClose, onSave }: NewBannerFormProps) => {
       onSave();
       onClose();
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("서버에 문제가 발생했습니다");
     }
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
       <div className="bg-white p-5 rounded-lg shadow-lg w-[90%] max-w-md">
-        <h2 className="text-xl font-semibold mb-4">배너 추가</h2>
+        <p className="text-xl font-semibold mb-4">배너 추가</p>
         <input
           type="text"
           placeholder="파트너 이름"

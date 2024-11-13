@@ -80,7 +80,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
   return (
     <div>
       <section className="flex flex-col gap-1 mt-3">
-        <h2 className="font-semibold text-lg md:text:xl">{content.title}</h2>
+        <h1 className="font-semibold text-lg md:text:xl">{content.title}</h1>
         <article className="mt-3 w-full px-3 py-2 flex items-center justify-between gap-1 bg-semiblue">
           <div className="flex items-center gap-1">
             {content.username === "master" && (
@@ -141,9 +141,15 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
       </section>
       <section className="px-3 py-10 flex flex-col gap-5">
         <article dangerouslySetInnerHTML={sanitizedData()}></article>
-        <h1 className="text-white text-xs text-center">#토토사이트 #토토사이트추천 #먹튀사이트 #먹튀폴리스 #토토지노 #가입머니 #토토 #토토꽁머니 #토지노 ​#스포츠중계 #꽁머니팡 #중계 #축구중계 #중계사이트 #스포츠분석 #축구분석 #분석 #무료분석 
-          #스포츠티비 #스포츠방송 #무료스포츠티비  #스포츠실시간 #토토추천 #토토사이트추천 #먹튀사이트 #먹튀없는사이트 #스포츠실시간중계 #꽁머니팡분석 #구글검색꽁머니팡7 #아시아스포츠중계 #아시아축구 #해외축구중계 
-          #A리그 #J리그 #K리그 #국내축구 #일본축구 #호주축구 </h1>
+        <h2 className="text-white text-xs text-center">
+          #토토사이트 #토토사이트추천 #먹튀사이트 #먹튀폴리스 #토토지노
+          #가입머니 #토토 #토토꽁머니 #토지노 ​#스포츠중계 #꽁머니팡 #중계
+          #축구중계 #중계사이트 #스포츠분석 #축구분석 #분석 #무료분석
+          #스포츠티비 #스포츠방송 #무료스포츠티비 #스포츠실시간 #토토추천
+          #토토사이트추천 #먹튀사이트 #먹튀없는사이트 #스포츠실시간중계
+          #꽁머니팡분석 #구글검색꽁머니팡7 #아시아스포츠중계 #아시아축구
+          #해외축구중계 #A리그 #J리그 #K리그 #국내축구 #일본축구 #호주축구{" "}
+        </h2>
       </section>
       {/* Conditionally render CommentPageClient only when not editing */}
       {!isEditing && (

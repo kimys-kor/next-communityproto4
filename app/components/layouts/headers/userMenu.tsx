@@ -7,7 +7,7 @@ import Profile from "../../Profile";
 import { useAuthStore } from "@/app/globalStatus/useAuthStore";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
 import { UserInfo } from "@/app/types";
-import { refreshUser } from "@/app/api/authAction";
+import { refreshUserInfo } from "@/app/api/authAction";
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +20,7 @@ const UserMenu = () => {
 
   useEffect(() => {
     const initializeUser = async () => {
-      const data = await refreshUser();
+      const data = await refreshUserInfo();
       if (data != null) {
         setLoggedIn(true);
         setUserInfo(data);

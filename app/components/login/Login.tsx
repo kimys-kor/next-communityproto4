@@ -7,7 +7,7 @@ import Image from "next/image";
 import Profile from "../Profile";
 import ProfileSk from "../skeleton/ProfileSk";
 import toast from "react-hot-toast";
-import { refreshUser } from "@/app/api/authAction";
+import { refreshUserInfo } from "@/app/api/authAction";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
 import { UserInfo } from "@/app/types";
 
@@ -19,7 +19,7 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     const initializeUser = async () => {
-      const data = await refreshUser();
+      const data = await refreshUserInfo();
       if (data != null) {
         setUserInfo(data);
       } else {
@@ -74,7 +74,13 @@ const Login: React.FC = () => {
               placeholder="아이디"
               required
             />
-            <Image src={IdIcon} width={17} height={17} alt="Id Icon" className="absolute top-2 left-2" />
+            <Image
+              src={IdIcon}
+              width={17}
+              height={17}
+              alt="Id Icon"
+              className="absolute top-2 left-2"
+            />
           </div>
           <div className="relative mb-4">
             <input
@@ -86,7 +92,13 @@ const Login: React.FC = () => {
               placeholder="비밀번호"
               required
             />
-            <Image src={PassIcon} width={17} height={17} alt="Password Icon" className="absolute top-2 left-2" />
+            <Image
+              src={PassIcon}
+              width={17}
+              height={17}
+              alt="Password Icon"
+              className="absolute top-2 left-2"
+            />
           </div>
           <section className="flex flex-col gap-3">
             <button

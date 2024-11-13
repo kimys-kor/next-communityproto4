@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
-import { refreshUser } from "@/app/api/authAction";
+import { refreshUserInfo } from "@/app/api/authAction";
 import { useRouter } from "next/navigation";
 
 interface MenuItem {
@@ -40,7 +40,7 @@ export default function AdminSide() {
 
   useEffect(() => {
     const initializeUser = async () => {
-      const data = await refreshUser();
+      const data = await refreshUserInfo();
       if (data) {
         setUserInfo(data);
       } else {

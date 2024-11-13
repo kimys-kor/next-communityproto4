@@ -60,13 +60,13 @@ const NewAdminMemberForm: React.FC<NewAdminMemberFormProps> = ({
       fetchData(currentPage, keyword);
       onSave();
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("서버에 문제가 발생했습니다");
     }
   };
 
   return (
     <div className="mt-4 p-4 bg-gray-100 border rounded-md">
-      <h3 className="text-lg font-semibold mb-2">New Admin Member</h3>
+      <p className="text-lg font-semibold mb-2">New Admin Member</p>
       <div className="space-y-2">
         <input
           type="text"

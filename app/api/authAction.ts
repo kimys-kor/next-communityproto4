@@ -4,21 +4,24 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { savePostRequest, CommentRequest } from "@/app/types";
 
-export async function refreshUser() {
+export async function refreshUserInfo() {
   const tokens = await getCookie();
   if (!tokens) return null;
 
   const { accessToken, refreshToken } = tokens;
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/myinfo`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        ...(accessToken && { Authorization: accessToken }),
-        Cookie: `refresh_token=${refreshToken}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/myinfo`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          ...(accessToken && { Authorization: accessToken }),
+          Cookie: `refresh_token=${refreshToken}`,
+        },
+      }
+    );
 
     if (!response.ok) {
       console.error(
@@ -49,14 +52,17 @@ export const commentSaveServerAction = async (data: CommentRequest) => {
   }
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/write/comment`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/write/comment`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -83,14 +89,17 @@ export const postSaveServerAction = async (data: savePostRequest) => {
   }
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/save/post`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/save/post`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
     if (!response.ok) {
       const errorText = await response.text();

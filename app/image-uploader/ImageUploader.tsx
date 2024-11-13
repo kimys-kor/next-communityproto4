@@ -64,7 +64,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = () => {
 
       window.close();
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("서버에 문제가 발생했습니다");
     } finally {
       setUploading(false);
     }
@@ -77,7 +77,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-6 bg-sky-100">
-      <h2 className="text-3xl font-semibold text-sky-600">사진 첨부하기</h2>
+      <p className="text-3xl font-semibold text-sky-600">사진 첨부하기</p>
       <div className="py-2 w-full flex justify-end">
         <input
           type="file"

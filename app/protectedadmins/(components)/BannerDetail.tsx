@@ -49,8 +49,7 @@ function BannerDetail({ banner, onBack }: BannerDetailProps) {
           setImagePreview(uploadedUrl);
         } else {
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     }
   };
 
@@ -78,7 +77,6 @@ function BannerDetail({ banner, onBack }: BannerDetailProps) {
       thumbNail,
     };
 
-
     try {
       const response = await fetch("/api/admin/updatebanner", {
         method: "POST",
@@ -93,15 +91,12 @@ function BannerDetail({ banner, onBack }: BannerDetailProps) {
         onBack();
       } else {
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   return (
     <div className="p-4 bg-white rounded-md border border-gray-300 shadow-sm max-w-lg mx-auto">
-      <h2 className="text-2xl font-semibold mb-4 text-center">
-        배너 상세 정보
-      </h2>
+      <p className="text-2xl font-semibold mb-4 text-center">배너 상세 정보</p>
       <div className="space-y-3 text-gray-700">
         <div className="flex items-center justify-between">
           <p>

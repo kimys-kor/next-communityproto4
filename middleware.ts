@@ -16,37 +16,43 @@ export async function middleware(request: NextRequest) {
   }
 
   if (!refreshToken) {
+    console.warn("Missing refresh token.");
     return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
-  
+  // Attempt to refresh the token
   try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/refresh`, {
-            method: "GET",
-            headers: {
-                Cookie: `refresh_token=${refreshToken}`,
-                "Content-Type": "application/json",
-            },
-        });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/refresh`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Cookie: `refresh_token=${refreshToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-        if (!response.ok) {
-            console.error(
-                "Failed to refresh user data:",
-                response.status,
-                response.statusText
-            );
-            const errorDetails = await response.json();
-            console.error("Error details:", errorDetails);
-            throw new Error(`Failed to refresh user data: ${response.status}`);
-        }
-
-        const { data } = await response.json();
-
-        return NextResponse.next({ request: { headers: requestHeaders } });
-    } catch (error) {
-        console.error("Error refreshing user data:", error);
-        return NextResponse.next({ request: { headers: requestHeaders } });
+    if (!response.ok) {
+      console.error(
+        "Failed to refresh user data:",
+        response.status,
+        response.statusText
+      );
+      const errorDetails = await response.json();
+      console.error("Error details:", errorDetails);
+      throw new Error(`Failed to refresh user data: ${response.status}`);
     }
+
+    const { data } = await response.json();
+    // Optionally update headers or cookies based on refreshed tokens
+
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  } catch (error) {
+    console.error("Error refreshing user data:", error);
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  }
 }
 
 export const config = {
@@ -62,6 +68,7 @@ export const config = {
   ],
 };
 
+// Helper function to get all cookies
 export async function getCookie() {
   const cookieStore = cookies();
   const allCookies = cookieStore.getAll();
@@ -93,11 +100,11 @@ function isTokenExpiringSoon(accessToken: string | undefined): boolean {
       return false;
     }
 
-    const expirationTime = tokenPayload.exp * 1000; // Convert to milliseconds
+    const expirationTime = tokenPayload.exp * 1000;
     const currentTime = Date.now();
     const timeUntilExpiration = expirationTime - currentTime;
 
-    return timeUntilExpiration <= 7200 * 60 * 1000;
+    return timeUntilExpiration <= 10 * 60 * 1000;
   } catch (error) {
     console.error("Error decoding access token:", error);
     return false;

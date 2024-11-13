@@ -4,10 +4,9 @@ import IdIcon from "/public/images/idIcon.png";
 import PassIcon from "/public/images/passIcon.png";
 import Link from "next/link";
 import Image from "next/image";
-import Profile from "../Profile";
 import ProfileSk from "../skeleton/ProfileSk";
 import toast from "react-hot-toast";
-import { refreshUser } from "@/app/api/authAction";
+import { refreshUserInfo } from "@/app/api/authAction";
 import { useAuthStore } from "@/app/globalStatus/useAuthStore";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
 import { UserInfo } from "@/app/types";
@@ -23,7 +22,7 @@ const LoginSide: React.FC = () => {
   useEffect(() => {
     console.log("로그인 유즈이펙트실행");
     const initializeUser = async () => {
-      const data = await refreshUser();
+      const data = await refreshUserInfo();
       console.log(data + "데이타입니다");
 
       if (data != null) {

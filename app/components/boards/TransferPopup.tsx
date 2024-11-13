@@ -46,9 +46,9 @@ const TransferPopup: React.FC<TransferPopupProps> = ({
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-70 z-50 p-4">
       <div className="bg-white p-6 rounded-2xl shadow-lg max-w-lg w-full transform transition-all duration-300 sm:p-8">
-        <h2 className="text-xl font-semibold mb-4 text-gray-800 text-center sm:text-2xl">
+        <p className="text-xl font-semibold mb-4 text-gray-800 text-center sm:text-2xl">
           이동할 게시판을 선택하세요
-        </h2>
+        </p>
         {/* Scrollable content area */}
         <ul className="grid grid-cols-2 gap-2 overflow-y-auto mb-4 max-h-[40vh]">
           {categories.map((category) => (

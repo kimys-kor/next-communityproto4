@@ -12,26 +12,30 @@ export async function POST(request: Request) {
 
     const { username, password } = await request.json();
 
-    const apiResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + "/guest/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    });
+    const apiResponse = await fetch(
+      process.env.NEXT_PUBLIC_API_URL + "/guest/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      }
+    );
 
     if (apiResponse.ok) {
       const accessToken = apiResponse.headers.get("Authorization");
+
       if (accessToken != null) {
         cookieStore.set("Authorization", accessToken, {
+          secure: true,
           httpOnly: true,
           maxAge: 7200,
           sameSite: "none",
-          path: "/",
         });
       }
 
