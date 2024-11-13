@@ -216,9 +216,9 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
               </Link>
             </div>
             <section className="w-full flex flex-col justify-center px-2 py-4">
-              <h1 className="w-full text-center font-bold text-base truncate">
+              <p className="w-full text-center font-bold text-base truncate">
                 {item.title}
-              </h1>
+              </p>
               <p className="w-full text-center truncate text-base font-medium text-semiblack">
                 {item.changedcreatedDt}
               </p>

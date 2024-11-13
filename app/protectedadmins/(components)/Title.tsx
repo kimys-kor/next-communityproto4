@@ -5,7 +5,7 @@ type TitleProps = {
 };
 
 const Title: React.FC<TitleProps> = ({ title }) => {
-  return <h1 className="text-2xl font-semibold text-gray-800 mb-4">{title}</h1>;
+  return <p className="text-2xl font-semibold text-gray-800 mb-4">{title}</p>;
 };
 
 export default Title;

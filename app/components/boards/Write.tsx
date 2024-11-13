@@ -78,7 +78,7 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
 
   return (
     <div className="p-4">
-      <h1 className="text-lg md:text-xl py-2">{title} 작성</h1>
+      <p className="text-lg md:text-xl py-2">{title} 작성</p>
       <section className="border-gray-300 flex flex-col gap-3">
         <div className="flex flex-col border-solid border-t">
           <div className="flex justify-between items-center h-12 md:h-16 border-b border-solid border-gray-200">

@@ -12,7 +12,7 @@ function HomeBoard() {
         <div className="font-bold text-lg flex justify-between items-center">
           <div className="flex items-center justify-between">
             <Image src={newBlue} width={40} height={40} alt="Id Icon" />
-            <h1 className="text-lg font-bold">주간 베스트</h1>
+            <p className="text-lg font-bold">주간 베스트</p>
           </div>
           {/* <div className="group cursor-pointer bg-semiblue w-6 h-6 flex justify-center items-center rounded-full hover:bg-blue">
             <svg
@@ -33,7 +33,7 @@ function HomeBoard() {
         <div className="font-bold text-lg flex justify-between items-center">
           <div className="flex items-center justify-between">
             <Image src={newPurple} width={40} height={40} alt="Id Icon" />
-            <h1 className="text-lg font-bold">실시간 베스트</h1>
+            <p className="text-lg font-bold">실시간 베스트</p>
           </div>
           {/* <div className="group cursor-pointer bg-semiblue w-6 h-6 flex justify-center items-center rounded-full hover:bg-blue">
             <svg

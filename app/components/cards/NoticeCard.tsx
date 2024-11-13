@@ -31,7 +31,7 @@ const NoticeCard = async () => {
       <div className="h-11 px-3 leading-8 flex justify-between items-center border-solid border-b border-gray-200">
         <div className="flex gap-2 justify-center items-center">
           <Image src={noticeIcon} width={27} height={27} alt="menuIcon" />
-          <h1 className="text-lg font-bold">공지사항</h1>
+          <p className="text-lg font-bold">공지사항</p>
         </div>
       </div>
       {boardList.map((item, index) => (

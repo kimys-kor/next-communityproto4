@@ -35,8 +35,8 @@ function page() {
           <div className="w-full max-w-[1000px] pt-20 px-5 flex items-center justify-between">
             <section className="hidden lg:flex w-1/2 h-full  flex-col justify-center items-center">
               <div className="font-bold text-center">
-                <h1 className="text-2xl ">꽁머니</h1>
-                <h1 className="text-2xl ">이용 주의사항</h1>
+                <p className="text-2xl ">꽁머니</p>
+                <p className="text-2xl ">이용 주의사항</p>
               </div>
               <Image
                 alt="꽁머니팡소개"

@@ -21,7 +21,7 @@ function Profile({ userInfo }: ProfileProps) {
   return (
     <section className="p-2 flex flex-col gap-2 items-center justify-center">
       <Avatar />
-      <h1 className="text-xl font-medium">{userInfo?.nickname || "Guest"}</h1>
+      <p className="text-xl font-medium">{userInfo?.nickname || "Guest"}</p>
       <div>
         이름: <span className="text-base text-black font-medium">{userInfo?.fullName || "Unknown"}</span>
       </div>

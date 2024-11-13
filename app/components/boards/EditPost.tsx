@@ -85,7 +85,7 @@ const EditPost: React.FC<EditPostProps> = ({
 
   return (
     <div className="p-4">
-      <h1 className="text-xl py-2">게시물 수정</h1>
+      <p className="text-xl py-2">게시물 수정</p>
       <section className="border-gray-300 flex flex-col gap-3">
         <div className="flex flex-col border-solid border-t">
           {userInfo?.sck && (

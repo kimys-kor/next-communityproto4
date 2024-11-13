@@ -35,7 +35,7 @@ const NewPostCard = async () => {
     <div className="w-full rounded-md bg-white font-semibold border-solid border-slate-200 border">
       <div className="h-11 px-3 leading-8 flex justify-between items-center border-solid border-b border-gray-200">
         <div className="flex gap-2 justify-center items-center">
-          <h1 className="text-lg font-bold">최근글</h1>
+          <p className="text-lg font-bold">최근글</p>
         </div>
       </div>
       {boardList.map((item, index) => (
