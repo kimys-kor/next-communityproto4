@@ -14,7 +14,7 @@ export default function Home() {
         <ProgressSliderPage></ProgressSliderPage>
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          <TabAnalyzePage></TabAnalyzePage>
+          <TabAnalyzePage />
           <TabACommunityPage></TabACommunityPage>
         </section>
 

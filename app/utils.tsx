@@ -2,6 +2,7 @@ import Image from "next/image";
 import photoIcon from "/public/images/icon/photoIcon.png";
 import event from "/public/images/icon/event.png";
 import gameIcon from "/public/images/icon/gameIcon.png";
+import freeBoardIcon from "/public/images/icon/freeBoardIcon.png";
 import analyze from "/public/images/icon/analyze.png";
 import SocIcon from "/public/images/icon/Msoccer.png";
 import BaseIcon from "/public/images/icon/Mbase.png";
@@ -413,6 +414,7 @@ export const getPostUrl = (postType: number, id: number): string => {
   }
 };
 
+
 export const tabsCommunity = [
   {
     label: "안구정화",
@@ -430,27 +432,44 @@ export const tabsCommunity = [
     icon: <Image src={gameIcon} width={20} height={20} alt="menuIcon" />,
   },
   {
-    label: "피해사례",
+    label: "자유게시판",
     typ: 5,
+    icon: <Image src={freeBoardIcon} width={20} height={20} alt="freeBoardIcon" />,
+  },
+  {
+    label: "피해사례",
+    typ: 6,
     icon: <Image src={analyze} width={20} height={20} alt="menuIcon" />,
   },
 ];
 
 export const tabsAnalyze = [
   {
-    label: "축구 분석",
+    label: "해외축구분석",
     icon: <Image src={SocIcon} width={14} height={14} alt="menuIcon" />,
   },
   {
-    label: "야구 분석",
+    label: "아시아축구분석",
+    icon: <Image src={SocIcon} width={14} height={14} alt="menuIcon" />,
+  },
+  {
+    label: "MLB분석",
     icon: <Image src={BaseIcon} width={14} height={14} alt="menuIcon" />,
   },
   {
-    label: "농구 분석",
+    label: "KBO/NPB분석",
+    icon: <Image src={SocIcon} width={14} height={14} alt="menuIcon" />,
+  },
+  {
+    label: "NBA분석",
+    icon: <Image src={SocIcon} width={14} height={14} alt="menuIcon" />,
+  },
+  {
+    label: "국내외농구분석",
     icon: <Image src={BaskIcon} width={14} height={14} alt="menuIcon" />,
   },
   {
-    label: "배구 분석",
+    label: "배구분석",
     icon: <Image src={VolleyIcon} width={14} height={14} alt="menuIcon" />,
   },
 ];

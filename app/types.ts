@@ -39,14 +39,30 @@ export interface BoardItem2 {
   createdDt: Date;
 }
 
+export interface BoardItem3 {
+  id: number;
+  postType: number;
+  username: string;
+  nickname: string;
+  userIp: string;
+  title: string;
+  thumbNail: string;
+  hit: number;
+  hate: number;
+  likes: number;
+  replyNum: number;
+  createdDt: string;
+  changedcreatedDt: string;
+}
+
 export interface PhotoItem {
   id: number;
   postType: number;
   username: string;
   nickname: string;
   userIp: string;
-  thumbNail: string;
   title: string;
+  thumbNail: string;
   code: string;
   hit: number;
   hate: number;

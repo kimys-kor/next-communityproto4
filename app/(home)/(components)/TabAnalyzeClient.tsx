@@ -1,11 +1,12 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { tabsAnalyze } from "@/app/utils";
 import { BoardItem } from "@/app/types";
 import toast from "react-hot-toast";
 import NewIcon from "@/app/components/NewIcon";
+import { getPostUrl } from "@/app/utils";
 
 interface TabAnalyzeClientProps {
   initialTab: number;
@@ -44,86 +45,75 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
       }
     };
 
-    const typMap = [2, 4, 6, 8];
+    const typMap = [2, 3, 4, 5, 6, 7, 8];
     const typ = typMap[activeTab];
 
     fetchBoardList(typ);
   }, [activeTab]);
 
   return (
-    <div className="w-full truncate bg-white rounded-2xl flex flex-col gap-5 border border-solid border-gray-200">
+    <article className="min-h-[266px] w-full truncate bg-white rounded-2xl flex flex-col gap-5 border border-solid border-gray-200">
       <div className="w-full flex flex-col">
-        {/* Tab buttons */}
-        <div className="h-12 px-3 flex justify-start items-center gap-1 rounded-t bg-[#FAFAFA]">
+        {/* Tab buttons using flex layout */}
+        <div className="flex flex-wrap gap-1 p-2 bg-[#FAFAFA] rounded-t">
           {tabsAnalyze.map((tab, index) => (
             <div
               key={index}
-              className={`border-solid border rounded-2xl cursor-pointer font-semibold text-sm px-2 py-1 transition-all hover:text-blue ${
+              className={`border-solid border rounded-md cursor-pointer font-medium text-sm px-2 py-1 text-center transition-all hover:bg-blue-100 hover:border-blue-400 hover:text-blue-600 whitespace-nowrap ${
                 activeTab === index
-                  ? "text-blue border-blue bg-[#F2F5FF]"
-                  : "text-[#999999] border-[#999999]"
+                  ? "text-sky-700 border-sky-500 bg-sky-50"
+                  : "text-gray-700 border-gray-300 bg-white"
               }`}
               onClick={() => setActiveTab(index)}
             >
               <div className="flex justify-center items-center gap-1">
                 {tab.icon}
-                {tab.label}
+                <span className="whitespace-nowrap">{tab.label}</span>
               </div>
             </div>
           ))}
         </div>
 
         {/* Tab content */}
-        <div className="text-sm w-full">
-          {boardList.map((item) => {
-            return (
-              <Link
-                key={item.id}
-                href={
-                  activeTab === 0
-                    ? `/sport/${item.id}`
-                    : activeTab === 1
-                    ? `/sport/base/${item.id}`
-                    : activeTab === 2
-                    ? `/sport/basket/${item.id}`
-                    : `/sport/volley/${item.id}`
-                }
+        <div className="text-sm w-full min-h-[18px]">
+          {boardList.map((item) => (
+            <Link key={item.id} href={getPostUrl(item.postType, item.id)}>
+              <div
+                className={`px-3 flex justify-between items-center hover:bg-slate-200 hover:cursor-pointer ${
+                  item.id !== boardList[boardList.length - 1]?.id
+                    ? "border-b border-dashed border-slate-200"
+                    : ""
+                }`}
               >
-                <div
-                  className={`px-3 flex justify-between items-center hover:bg-slate-200 hover:cursor-pointer ${
-                    item.id !== boardList[boardList.length - 1]?.id
-                      ? "border-b border-dashed border-slate-200"
-                      : ""
-                  }`}
-                >
-                  <div className="flex gap-2 items-center py-2 w-full">
-                    <div className="flex items-center gap-1 text-sm font-medium w-[80%] truncate">
-                      <NewIcon />
-                      <span className="truncate">{item.title}</span>
-                    </div>
-                    <span className="text-[10px] flex items-center gap-1">
-                      <svg
-                        width="10"
-                        height="10"
-                        viewBox="0 0 100 100"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="fill-current text-blue"
-                      >
-                        <rect x="45" y="10" width="10" height="80" />
-                        <rect x="10" y="45" width="80" height="10" />
-                      </svg>
-                      <span className="text-blue font-bold text-xs">{item.replyNum}</span>
+                <div className="flex gap-2 items-center py-2 w-full">
+                  <div className="flex items-center gap-1 text-sm font-medium w-[80%] truncate">
+                    <NewIcon />
+                    <span className="truncate">{item.title}</span>
+                  </div>
+                  <span className="text-[10px] flex items-center gap-1">
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 100 100"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="fill-current text-blue"
+                    >
+                      <rect x="45" y="10" width="10" height="80" />
+                      <rect x="10" y="45" width="80" height="10" />
+                    </svg>
+                    <span className="text-blue font-bold text-xs">
+                      {item.replyNum}
                     </span>
-                    <div className="w-[20%] truncate text-sm text-gray-600  flex justify-end truncate">
-                      <p>{item.nickname}</p>
-                    </div>
+                  </span>
+                  <div className="w-[20%] truncate text-sm text-gray-600 flex justify-end">
+                    <p>{item.nickname}</p>
                   </div>
                 </div>
-              </Link>
-            );
-          })}
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
-    </div>
+    </article>
   );
 };
