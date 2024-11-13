@@ -391,6 +391,8 @@ export async function fetchInitialMemberData(
 
 export const getPostUrl = (postType: number, id: number): string => {
   switch (postType) {
+    case 1:
+      return `/partner/${id}`;
     case 2:
       return `/sport/${id}`;
     case 3:
@@ -409,6 +411,26 @@ export const getPostUrl = (postType: number, id: number): string => {
       return `/community/${id}`;
     case 10:
       return `/community/humor/${id}`;
+    case 11:
+      return `/community/pickster/${id}`;
+    case 12:
+      return `/community/free/${id}`;
+    case 13:
+      return `/community/case/${id}`;
+    case 14:
+      return `/event/${id}`;
+    case 15:
+      return `/unknown/${id}`;
+    case 16:
+      return `/promotion/${id}`;
+    case 17:
+      return `/promotion/ggong/${id}`;
+    case 18:
+      return `/promotion/hunting/${id}`
+    case 19:
+      return `/customer/${id}`
+    case 20:
+      return `/customer/qalist/${id}`
     default:
       return `/unknown/${id}`;
   }

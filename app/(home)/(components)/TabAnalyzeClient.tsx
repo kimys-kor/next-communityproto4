@@ -26,7 +26,7 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
         setBoardList([]);
 
         const response = await fetch(
-          `/api/board/list?typ=${typ}&keyword=&page=0&size=5`,
+          `/api/board/list?typ=${typ}&keyword=&page=0&size=10`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -52,7 +52,7 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
   }, [activeTab]);
 
   return (
-    <article className="h-[300px] sm:h-[266px] w-full truncate bg-white rounded-2xl flex flex-col gap-5 border border-solid border-gray-200">
+    <article className="h-[450px] sm:h-[450px] w-full truncate bg-white rounded-2xl flex flex-col gap-5 border border-solid border-gray-200">
       <div className="w-full flex flex-col">
         {/* Tab buttons using flex layout */}
         <div className="flex flex-wrap gap-1 p-2 bg-[#FAFAFA] rounded-t">

@@ -14,7 +14,7 @@ type TabContent = {
   nickname: string;
   userIp: string;
   title: string;
-  thumbNail: string | null; // Allow for null values
+  thumbNail: string | null;
   hit: number;
   hate: number;
   likes: number;
@@ -28,18 +28,35 @@ interface TabACommunityClientProps {
   initialData: any[];
 }
 
+// Custom hook for screen size detection
+const useResponsiveSize = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640); // `sm` breakpoint at 640px
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return isMobile;
+};
+
 export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
   initialTab,
   initialData,
 }) => {
   const [activeTab, setActiveTab] = useState(initialTab);
   const [tabContent, setTabContent] = useState<any[]>(initialData);
+  const isMobile = useResponsiveSize();
 
   useEffect(() => {
     const fetchTabContent = async (typ: number, size: number) => {
       try {
         setTabContent([]);
-
         const response = await fetch(
           `/api/board/list?typ=${typ}&keyword=&page=0&size=${size}`,
           {
@@ -64,15 +81,14 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
 
     const typMap = [9, 10, 11, 12, 13];
     const typ = typMap[activeTab];
-    const size = activeTab === 0 ? 4 : 5;
+    const size = isMobile ? 8 : 10;
 
     fetchTabContent(typ, size);
-  }, [activeTab]);
+  }, [activeTab, isMobile]);
 
   return (
     <article className="min-h-[266px] w-full truncate bg-white rounded-2xl flex flex-col gap-5 border border-solid border-gray-200">
       <div className="w-full flex flex-col">
-        {/* Tab buttons using flex layout */}
         <div className="flex flex-wrap gap-1 p-2 bg-[#FAFAFA] rounded-t">
           {tabsCommunity.map((tab, index) => (
             <div
@@ -91,43 +107,43 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
             </div>
           ))}
         </div>
-
-        {/* Tab content */}
         <div className="text-sm w-full">
-          {activeTab === 0 ? (
+        {activeTab === 0 ? (
             <div className="grid grid-cols-4 gap-4 py-3">
-              {(tabContent as TabContent).map((item) => (
-                <Link
-                  key={item.id}
-                  href={`/community/${item.id}`}
-                  className="flex flex-col justify-evenly items-center gap-2 px-2 hover:cursor-pointer"
-                >
-                  {item.thumbNail ? (
-                    <Image
-                      className="rounded-md h-28 w-full object-cover"
-                      src={item.thumbNail}
-                      width={100}
-                      height={130}
-                      alt={`photo content ${item.title}`}
-                    />
-                  ) : (
-                    <div className="rounded-md h-28 w-full bg-gray-200 flex items-center justify-center">
-                      <span className="text-xs text-gray-500">No Image</span>
+              {(tabContent as TabContent)
+                .slice(0, 8)
+                .map((item) => (
+                  <Link
+                    key={item.id}
+                    href={`/community/${item.id}`}
+                    className="flex flex-col justify-center items-center gap-2 px-2 hover:cursor-pointer"
+                  >
+                    {item.thumbNail ? (
+                      <Image
+                        className="rounded-md h-28 w-full object-cover"
+                        src={item.thumbNail}
+                        width={100}
+                        height={130}
+                        alt={`photo content ${item.title}`}
+                      />
+                    ) : (
+                      <div className="rounded-md h-28 w-full bg-gray-200 flex items-center justify-center">
+                        <span className="text-xs text-gray-500">No Image</span>
+                      </div>
+                    )}
+                    <div className="text-center w-full flex flex-col justify-center">
+                      <div className="text-sm truncate">{item.title}</div>
+                      <div className="flex justify-center">
+                        <span className="w-1/2 truncate text-xs text-gray-500">
+                          {item.changedcreatedDt}
+                        </span>
+                        <span className="w-1/2 truncate text-xs text-gray-500">
+                          {item.nickname}
+                        </span>
+                      </div>
                     </div>
-                  )}
-                  <div className="text-center w-full">
-                    <div className="text-sm truncate">{item.title}</div>
-                    <div className="flex justify-center">
-                      <span className="w-1/2 truncate text-xs text-gray-500">
-                        {item.changedcreatedDt}
-                      </span>
-                      <span className="w-1/2 truncate text-xs text-gray-500">
-                        {item.nickname}
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
             </div>
           ) : (
             (tabContent as TabContent).map((item, index) => (
@@ -138,40 +154,32 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
                       ? "border-b border-dashed border-slate-200"
                       : ""
                   }`}
-                ></div>
-              <div
-                key={item.id}
-                className={`px-3 flex justify-between items-center hover:bg-slate-200 hover:cursor-pointer ${
-                  index !== tabContent.length - 1
-                    ? "border-b border-dashed border-slate-200"
-                    : ""
-                }`}
-              >
-                <div className="flex gap-2 items-center py-2 w-full">
-                  <div className="flex items-center gap-1 text-sm font-medium w-[80%] truncate">
-                    <NewIcon />
-                    <span className="truncate">{item.title}</span>
-                  </div>
-                  <span className="text-[10px] flex items-center gap-1">
-                    <svg
-                      width="10"
-                      height="10"
-                      viewBox="0 0 100 100"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="fill-current text-blue"
-                    >
-                      <rect x="45" y="10" width="10" height="80" />
-                      <rect x="10" y="45" width="80" height="10" />
-                    </svg>
-                    <span className="text-blue font-bold text-xs">
-                      {item.replyNum}
+                >
+                  <div className="flex gap-2 items-center py-2 w-full">
+                    <div className="flex items-center gap-1 text-sm font-medium w-[80%] truncate">
+                      <NewIcon />
+                      <span className="truncate">{item.title}</span>
+                    </div>
+                    <span className="text-[10px] flex items-center gap-1">
+                      <svg
+                        width="10"
+                        height="10"
+                        viewBox="0 0 100 100"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="fill-current text-blue"
+                      >
+                        <rect x="45" y="10" width="10" height="80" />
+                        <rect x="10" y="45" width="80" height="10" />
+                      </svg>
+                      <span className="text-blue font-bold text-xs">
+                        {item.replyNum}
+                      </span>
                     </span>
-                  </span>
-                  <div className="w-[20%] truncate text-sm text-gray-600 flex justify-end">
-                    <p>{item.nickname}</p>
+                    <div className="w-[20%] truncate text-sm text-gray-600 flex justify-end">
+                      <p>{item.nickname}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
               </Link>
             ))
           )}
