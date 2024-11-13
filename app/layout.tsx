@@ -56,10 +56,6 @@ export const metadata = {
       }
     ],
   },
-  appleWebApp: {
-    title:
-      "꽁머니팡: 토토사이트 추천 꽁머니 먹튀검증 커뮤니티 안전놀이터 추천 배당흐름 분석 예상 정보 순위 모음",
-  },
   verification: {
     google: "zUrRPXRwKAbdVJVGGRQDBa7UPmpatqnQiTDF2rbypJc"
   },

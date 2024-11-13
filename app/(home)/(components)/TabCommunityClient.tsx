@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import NewIcon from "@/app/components/NewIcon";
-import { tabsCommunity } from "@/app/utils";
+import { getPostUrl, tabsCommunity } from "@/app/utils";
 import { BoardItem } from "@/app/types";
 
 type TabContent = {
@@ -131,6 +131,14 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
             </div>
           ) : (
             (tabContent as TabContent).map((item, index) => (
+              <Link key={item.id} href={getPostUrl(item.postType, item.id)}>
+                <div
+                  className={`px-3 flex justify-between items-center hover:bg-slate-200 hover:cursor-pointer ${
+                    item.id !== tabContent[tabContent.length - 1]?.id
+                      ? "border-b border-dashed border-slate-200"
+                      : ""
+                  }`}
+                ></div>
               <div
                 key={item.id}
                 className={`px-3 flex justify-between items-center hover:bg-slate-200 hover:cursor-pointer ${
@@ -164,6 +172,7 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
                   </div>
                 </div>
               </div>
+              </Link>
             ))
           )}
         </div>
