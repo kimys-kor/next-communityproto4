@@ -80,7 +80,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
   return (
     <div>
       <section className="flex flex-col gap-1 mt-3">
-        <p className="font-semibold text-lg md:text:xl">{content.title}</p>
+        <h2 className="font-semibold text-lg md:text:xl">{content.title}</h2>
         <article className="mt-3 w-full px-3 py-2 flex items-center justify-between gap-1 bg-semiblue">
           <div className="flex items-center gap-1">
             {content.username === "master" && (
