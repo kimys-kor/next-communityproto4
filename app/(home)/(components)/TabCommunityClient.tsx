@@ -4,9 +4,24 @@ import Link from "next/link";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import NewIcon from "@/app/components/NewIcon";
-import { getPostUrl, tabsCommunity } from "@/app/utils";
-import { BoardItem3 } from "@/app/types";
+import { tabsCommunity } from "@/app/utils";
+import { BoardItem } from "@/app/types";
 
+type TabContent = {
+  id: number;
+  postType: number;
+  username: string;
+  nickname: string;
+  userIp: string;
+  title: string;
+  thumbNail: string | null; // Allow for null values
+  hit: number;
+  hate: number;
+  likes: number;
+  replyNum: number;
+  createdDt: string;
+  changedcreatedDt: string;
+}[];
 
 interface TabACommunityClientProps {
   initialTab: number;
@@ -18,12 +33,12 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
   initialData,
 }) => {
   const [activeTab, setActiveTab] = useState(initialTab);
-  const [boardList, setBoardList] = useState<BoardItem3[]>(initialData);
+  const [tabContent, setTabContent] = useState<any[]>(initialData);
 
   useEffect(() => {
     const fetchTabContent = async (typ: number, size: number) => {
       try {
-        setBoardList([]);
+        setTabContent([]);
 
         const response = await fetch(
           `/api/board/list?typ=${typ}&keyword=&page=0&size=${size}`,
@@ -41,7 +56,7 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
         const data = await response.json();
         let content = data.data.content;
 
-        setBoardList(content);
+        setTabContent(content);
       } catch (error) {
         toast.error("서버에 문제가 발생했습니다");
       }
@@ -55,16 +70,16 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
   }, [activeTab]);
 
   return (
-    <article className="min-h-[266px] truncate w-full bg-white rounded-2xl flex flex-col gap-5 border border-solid border-gray-200">
-      <div className="w-full flex flex-col justify-center">
-        {/* Tab buttons */}
+    <article className="min-h-[266px] w-full truncate bg-white rounded-2xl flex flex-col gap-5 border border-solid border-gray-200">
+      <div className="w-full flex flex-col">
+        {/* Tab buttons using flex layout */}
         <div className="flex flex-wrap gap-1 p-2 bg-[#FAFAFA] rounded-t">
           {tabsCommunity.map((tab, index) => (
             <div
               key={index}
               className={`border-solid border rounded-md cursor-pointer font-medium text-sm px-2 py-1 text-center transition-all hover:bg-blue-100 hover:border-blue-400 hover:text-blue-600 whitespace-nowrap ${
                 activeTab === index
-                   ? "text-sky-700 border-sky-500 bg-sky-50"
+                  ? "text-sky-700 border-sky-500 bg-sky-50"
                   : "text-gray-700 border-gray-300 bg-white"
               }`}
               onClick={() => setActiveTab(index)}
@@ -79,21 +94,27 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
 
         {/* Tab content */}
         <div className="text-sm w-full">
-        {activeTab === 0 ? (
-              <div className="grid grid-cols-4 gap-4 py-3">
-              {boardList.map((item) => (
+          {activeTab === 0 ? (
+            <div className="grid grid-cols-4 gap-4 py-3">
+              {(tabContent as TabContent).map((item) => (
                 <Link
                   key={item.id}
                   href={`/community/${item.id}`}
-                  className="flex flex-col items-center justify-between gap-2 px-2 hover:cursor-pointer"
+                  className="flex flex-col justify-evenly items-center gap-2 px-2 hover:cursor-pointer"
                 >
-                  <Image
-                    className="rounded-md h-28 w-full object-cover"
-                    src={item.thumbNail}
-                    width={100}
-                    height={130}
-                    alt={`photo content ${item.title}`}
-                  />
+                  {item.thumbNail ? (
+                    <Image
+                      className="rounded-md h-28 w-full object-cover"
+                      src={item.thumbNail}
+                      width={100}
+                      height={130}
+                      alt={`photo content ${item.title}`}
+                    />
+                  ) : (
+                    <div className="rounded-md h-28 w-full bg-gray-200 flex items-center justify-center">
+                      <span className="text-xs text-gray-500">No Image</span>
+                    </div>
+                  )}
                   <div className="text-center w-full">
                     <div className="text-sm truncate">{item.title}</div>
                     <div className="flex justify-center">
@@ -109,11 +130,11 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
               ))}
             </div>
           ) : (
-            boardList.map((item, index) => (
-              <Link key={item.id} href={getPostUrl(item.postType, item.id)}>
+            (tabContent as TabContent).map((item, index) => (
               <div
+                key={item.id}
                 className={`px-3 flex justify-between items-center hover:bg-slate-200 hover:cursor-pointer ${
-                  item.id !== boardList[boardList.length - 1]?.id
+                  index !== tabContent.length - 1
                     ? "border-b border-dashed border-slate-200"
                     : ""
                 }`}
@@ -143,7 +164,6 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
                   </div>
                 </div>
               </div>
-            </Link>
             ))
           )}
         </div>

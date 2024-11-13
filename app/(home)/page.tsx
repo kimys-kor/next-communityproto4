@@ -6,7 +6,6 @@ import { Suspense } from "react";
 import HomeBannerSk from "../components/skeleton/HomeBannerSk";
 import HomeBoard from "./(components)/HomeBoard";
 
-// 추가
 export default function Home() {
   return (
     <div>

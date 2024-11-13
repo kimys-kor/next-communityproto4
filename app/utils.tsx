@@ -418,27 +418,27 @@ export const getPostUrl = (postType: number, id: number): string => {
 export const tabsCommunity = [
   {
     label: "안구정화",
-    typ: 2,
+    typ: 9,
     icon: <Image src={photoIcon} width={20} height={20} alt="menuIcon" />,
   },
   {
     label: "유머 & 이슈",
-    typ: 3,
+    typ: 10,
     icon: <Image src={event} width={20} height={20} alt="menuIcon" />,
   },
   {
     label: "나는분석왕",
-    typ: 4,
+    typ: 11,
     icon: <Image src={gameIcon} width={20} height={20} alt="menuIcon" />,
   },
   {
     label: "자유게시판",
-    typ: 5,
+    typ: 12,
     icon: <Image src={freeBoardIcon} width={20} height={20} alt="freeBoardIcon" />,
   },
   {
     label: "피해사례",
-    typ: 6,
+    typ: 13,
     icon: <Image src={analyze} width={20} height={20} alt="menuIcon" />,
   },
 ];
