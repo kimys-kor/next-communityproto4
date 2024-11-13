@@ -22,6 +22,7 @@ export interface BoardItem {
   replyNum: number;
   createdDt: Date;
   changedcreatedDt: string;
+  isNew: boolean;
 }
 
 export interface BoardItem2 {

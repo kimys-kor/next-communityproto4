@@ -29,7 +29,6 @@ const BoardClient: React.FC<BoardClientProps> = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   const { userInfo } = useUserStore();
   const [boardList, setBoardList] = useState<BoardItem[]>(initialItems);
@@ -75,12 +74,6 @@ const BoardClient: React.FC<BoardClientProps> = ({
     fetchData(newPage, keyword);
   };
 
-  const isNew = (dateString: string) => {
-    const itemDate = new Date(dateString);
-    const now = new Date();
-    const diffInHours = (now.getTime() - itemDate.getTime()) / (1000 * 60 * 60);
-    return diffInHours <= 24;
-  };
 
   const handleSelectItem = (id: number) => {
     setSelectedItems((prevSelected) =>
@@ -286,7 +279,9 @@ const BoardClient: React.FC<BoardClientProps> = ({
               )}
               <td className="grow py-4 px-2 text-left font-medium truncate">
                 <div className="flex items-center gap-1 leading-5">
-                  {isNew(boardItem.createdDt.toString()) && <NewIcon />}
+                  <div>
+                      {boardItem.isNew && <NewIcon />}
+                  </div>
                   <Link
                     href={`${pathname}/${boardItem.id}`}
                     className="truncate max-w-full"
@@ -322,7 +317,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
             key={boardItem.id}
             className="w-full border border-gray-200 border-solid rounded-md p-3 shadow-sm hover:bg-[#f1f3fa]"
           >
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center gap-1">
               {userInfo?.sck && (
                 <input
                   type="checkbox"
@@ -331,6 +326,9 @@ const BoardClient: React.FC<BoardClientProps> = ({
                   className="h-4 w-4 mr-2"
                 />
               )}
+              <div>
+                {boardItem.isNew && <NewIcon />}
+              </div>
               <Link
                 href={`${pathname}/${boardItem.id}`}
                 className="font-medium truncate flex-1"

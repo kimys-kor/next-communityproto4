@@ -54,6 +54,14 @@ export const formatDate = (dateString: string): string => {
   }
 };
 
+export const formatNew = (createdDt: string): boolean => {
+  const itemDate = new Date(createdDt);
+  const now = new Date();
+  const diffInHours = (now.getTime() - itemDate.getTime()) / (1000 * 60 * 60);
+
+  return diffInHours <= 24;
+};
+
 export const fetchInitialBoardListData = async (
   typ: number,
   page: number,
@@ -74,6 +82,7 @@ export const fetchInitialBoardListData = async (
 
     const formattedContent = content.map((item:any) => ({
       ...item,
+      isNew: formatNew(item.createdDt.toString()) || false,
       changedcreatedDt: formatDate(item.createdDt.toString()),
     }));
 

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { formatDate } from "@/app/utils";
+import { formatDate, formatNew } from "@/app/utils";
+import { BoardItem } from "@/app/types";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -24,9 +25,10 @@ export async function GET(request: Request) {
 
     const data = await response.json();
 
-    const formattedContent = data.data.content.map((item: any) => ({
+    const formattedContent = data.data.content.map((item: BoardItem) => ({
       ...item,
-      changedcreatedDt: formatDate(item.createdDt),
+      isNew: formatNew(item.createdDt.toString()) || false,
+      changedcreatedDt: formatDate(item.createdDt.toString()),
     }));
 
     return NextResponse.json({
