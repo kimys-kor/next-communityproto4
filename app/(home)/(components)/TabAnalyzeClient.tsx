@@ -52,7 +52,7 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
   }, [activeTab]);
 
   return (
-    <article className="min-h-[266px] w-full truncate bg-white rounded-2xl flex flex-col gap-5 border border-solid border-gray-200">
+    <article className="h-[300px] sm:h-[266px] w-full truncate bg-white rounded-2xl flex flex-col gap-5 border border-solid border-gray-200">
       <div className="w-full flex flex-col">
         {/* Tab buttons using flex layout */}
         <div className="flex flex-wrap gap-1 p-2 bg-[#FAFAFA] rounded-t">
@@ -74,44 +74,50 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
           ))}
         </div>
 
-        {/* Tab content */}
-        <div className="text-sm w-full min-h-[18px]">
-          {boardList.map((item) => (
-            <Link key={item.id} href={getPostUrl(item.postType, item.id)}>
-              <div
-                className={`px-3 flex justify-between items-center hover:bg-slate-200 hover:cursor-pointer ${
-                  item.id !== boardList[boardList.length - 1]?.id
-                    ? "border-b border-dashed border-slate-200"
-                    : ""
-                }`}
-              >
-                <div className="flex gap-2 items-center py-2 w-full">
-                  <div className="flex items-center gap-1 text-sm font-medium w-[80%] truncate">
-                    <NewIcon />
-                    <span className="truncate">{item.title}</span>
-                  </div>
-                  <span className="text-[10px] flex items-center gap-1">
-                    <svg
-                      width="10"
-                      height="10"
-                      viewBox="0 0 100 100"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="fill-current text-blue"
-                    >
-                      <rect x="45" y="10" width="10" height="80" />
-                      <rect x="10" y="45" width="80" height="10" />
-                    </svg>
-                    <span className="text-blue font-bold text-xs">
-                      {item.replyNum}
+        {/* Tab content with a fixed minimum height */}
+        <div className="text-sm w-full flex flex-col">
+          {boardList.length === 0 ? (
+            <div className="flex justify-center items-center h-full text-gray-500">
+              No content available
+            </div>
+          ) : (
+            boardList.map((item) => (
+              <Link key={item.id} href={getPostUrl(item.postType, item.id)}>
+                <div
+                  className={`px-3 flex justify-between items-center hover:bg-slate-200 hover:cursor-pointer ${
+                    item.id !== boardList[boardList.length - 1]?.id
+                      ? "border-b border-dashed border-slate-200"
+                      : ""
+                  }`}
+                >
+                  <div className="flex gap-2 items-center py-2 w-full">
+                    <div className="flex items-center gap-1 text-sm font-medium w-[80%] truncate">
+                      <NewIcon />
+                      <span className="truncate">{item.title}</span>
+                    </div>
+                    <span className="text-[10px] flex items-center gap-1">
+                      <svg
+                        width="10"
+                        height="10"
+                        viewBox="0 0 100 100"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="fill-current text-blue"
+                      >
+                        <rect x="45" y="10" width="10" height="80" />
+                        <rect x="10" y="45" width="80" height="10" />
+                      </svg>
+                      <span className="text-blue font-bold text-xs">
+                        {item.replyNum}
+                      </span>
                     </span>
-                  </span>
-                  <div className="w-[20%] truncate text-sm text-gray-600 flex justify-end">
-                    <p>{item.nickname}</p>
+                    <div className="w-[20%] truncate text-sm text-gray-600 flex justify-end">
+                      <p>{item.nickname}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))
+          )}
         </div>
       </div>
     </article>

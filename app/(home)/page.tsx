@@ -1,5 +1,5 @@
-import TabAnalyzePage from "./(components)/TabAnalyzePage";
-import TabACommunityPage from "./(components)/TabACommunityPage";
+import TabAnalyzePage from "@/app/(home)/(components)/TabAnalyzePage";
+import TabACommunityPage from "@/app/(home)/(components)/TabACommunityPage";
 import ProgressSliderPage from "../components/ProgressSliderPage";
 import HomeBanner from "./(components)/HomeBanner";
 import { Suspense } from "react";
