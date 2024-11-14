@@ -50,7 +50,7 @@ function AdminMemberListClient() {
       setSelectedMembers([]);
       setSelectAll(false);
     } catch (error) {
-      toast.error("서버에 문제가 발생했습니다");
+      toast.error("관리자 계정 리스트에 문제가 발생했습니다");
     }
   };
 
@@ -115,7 +115,7 @@ function AdminMemberListClient() {
       toast.success("선택한 회원이 차단되었습니다.");
       fetchData(currentPage, keyword);
     } catch (error) {
-      toast.error("서버에 문제가 발생했습니다");
+      toast.error("회원 리스트 차단에 문제가 발생했습니다");
     }
   };
 
@@ -168,7 +168,9 @@ function AdminMemberListClient() {
           </div>
           <div className="text-[#555555] text-sm">
             {"("}
-            <span className="text-[#2C4AB6] font-semibold">{currentPage}</span>{" "}
+            <span className="text-[#2C4AB6] font-semibold">
+              {currentPage}
+            </span>{" "}
             / <span>{totalPages}</span> 페이지{")"}
           </div>
         </div>
@@ -217,15 +219,29 @@ function AdminMemberListClient() {
             <tr className="bg-gray-100 text-gray-700 text-xs sm:text-sm">
               <th className="py-2 px-2 sm:px-4 border-b border-solid">선택</th>
               <th className="py-2 px-2 sm:px-4 border-b border-solid">ID</th>
-              <th className="py-2 px-2 sm:px-4 border-b border-solid">아이디</th>
-              <th className="py-2 px-2 sm:px-4 border-b border-solid">전화번호</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">
+                아이디
+              </th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">
+                전화번호
+              </th>
               <th className="py-2 px-2 sm:px-4 border-b border-solid">이름</th>
-              <th className="py-2 px-2 sm:px-4 border-b border-solid">닉네임</th>
-              <th className="py-2 px-2 sm:px-4 border-b border-solid">포인트</th>
-              <th className="py-2 px-2 sm:px-4 border-b border-solid">경험치</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">
+                닉네임
+              </th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">
+                포인트
+              </th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">
+                경험치
+              </th>
               <th className="py-2 px-2 sm:px-4 border-b border-solid">상태</th>
-              <th className="py-2 px-2 sm:px-4 border-b border-solid">생성 날짜</th>
-              <th className="py-2 px-2 sm:px-4 border-b border-solid">마지막 로그인</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">
+                생성 날짜
+              </th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">
+                마지막 로그인
+              </th>
               <th className="py-2 px-2 sm:px-4 border-b border-solid">수정</th>
             </tr>
           </thead>
@@ -243,15 +259,33 @@ function AdminMemberListClient() {
                     className="h-4 w-4"
                   />
                 </td>
-                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">{member.id}</td>
-                <td className="py-2 px-2 sm:px-4 border-b border-solid">{member.username}</td>
-                <td className="py-2 px-2 sm:px-4 border-b border-solid">{member.phoneNum}</td>
-                <td className="py-2 px-2 sm:px-4 border-b border-solid">{member.fullName}</td>
-                <td className="py-2 px-2 sm:px-4 border-b border-solid">{member.nickname}</td>
-                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">{member.point}</td>
-                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">{member.exp}</td>
-                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">{member.status}</td>
-                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">{member.createdDt}</td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
+                  {member.id}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid">
+                  {member.username}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid">
+                  {member.phoneNum}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid">
+                  {member.fullName}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid">
+                  {member.nickname}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
+                  {member.point}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
+                  {member.exp}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
+                  {member.status}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
+                  {member.createdDt}
+                </td>
                 <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
                   {member.lastLogin ? member.lastLogin : "모름"}
                 </td>

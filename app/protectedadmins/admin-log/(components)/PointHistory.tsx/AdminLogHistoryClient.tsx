@@ -34,7 +34,7 @@ function AdminLogHistoryClient() {
       setTotalElements(data.data.totalElements);
       setTotalPages(data.data.totalPages);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("관리자 액션로그 리스트에 문제가 발생했습니다");
     }
   };
 
@@ -103,10 +103,16 @@ function AdminLogHistoryClient() {
           <thead>
             <tr className="bg-gray-100 text-gray-700 text-xs sm:text-sm">
               <th className="py-2 px-2 sm:px-4 border-b border-solid">ID</th>
-              <th className="py-2 px-2 sm:px-4 border-b border-solid">행동 유형</th>
-              <th className="py-2 px-2 sm:px-4 border-b border-solid">유저 이름</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">
+                행동 유형
+              </th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">
+                유저 이름
+              </th>
               <th className="py-2 px-2 sm:px-4 border-b border-solid">내용</th>
-              <th className="py-2 px-2 sm:px-4 border-b border-solid">생성 날짜</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">
+                생성 날짜
+              </th>
             </tr>
           </thead>
           <tbody>

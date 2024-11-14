@@ -53,7 +53,7 @@ function PasswordChange() {
       setErrors({});
       window.location.href = `/`;
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("비밀번호 변경에 문제가 발생했습니다");
     }
   };
 

@@ -34,7 +34,6 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showTransferPopup, setShowTransferPopup] = useState(false);
 
-
   const size = 12;
   const typ = searchParams.get("typ") || "9";
   const keyword = searchParams.get("keyword") || "";
@@ -59,7 +58,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
       setTotalElements(data.data.totalElements);
       setTotalPages(data.data.totalPages);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다');
+      toast.error("포토 게시글 리스트에 문제가 발생했습니다");
     }
   };
 
@@ -116,7 +115,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
       setSelectAll(false);
       setShowTransferPopup(false);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다');
+      toast.error("게시글 이동에 문제가 발생했습니다");
     }
   };
 
@@ -150,7 +149,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
       setSelectedItems([]);
       setSelectAll(false);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다');
+      toast.error("게시글 삭제에 문제가 발생했습니다");
     }
   };
 

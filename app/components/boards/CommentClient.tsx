@@ -61,7 +61,7 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
         setTotalPages(Math.ceil(data.data.total / size));
       }
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("댓글 리스트 데이터 문제가 발생했습니다");
     }
   };
 
@@ -87,7 +87,7 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
       setCurrentPage(1);
       setNewComment("");
     } else {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("댓글 작성에 문제가 발생했습니다");
     }
   };
 
@@ -111,7 +111,7 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
         throw new Error("Failed to edit comment");
       }
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("댓글 수정에 문제가 발생했습니다");
     }
   };
 
@@ -135,7 +135,7 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
         throw new Error("댓글 삭제 실패");
       }
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("댓글삭제에 문제가 발생했습니다");
     }
   };
 
@@ -184,7 +184,7 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
       setSelectedComments([]);
       setSelectAll(false);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("내 게시글 삭제에 문제가 발생했습니다");
     }
   };
 

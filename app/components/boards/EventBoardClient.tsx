@@ -59,7 +59,7 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
       setTotalElements(data.data.totalElements);
       setTotalPages(data.data.totalPages);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("포토 게시글 리스트에 문제가 발생했습니다");
     }
   };
 
@@ -116,7 +116,7 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
       setSelectAll(false);
       setShowTransferPopup(false);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("게시글 이동에 문제가 발생했습니다");
     }
   };
 
@@ -150,7 +150,7 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
       setSelectedItems([]);
       setSelectAll(false);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("게시글 삭제에 문제가 발생했습니다");
     }
   };
 

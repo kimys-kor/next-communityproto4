@@ -58,7 +58,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
         throw new Error("게시물 삭제 실패");
       }
     } catch (error) {
-      toast.error("서버에 문제가 발생했습니다");
+      toast.error("게시글 삭제에 문제가 발생했습니다");
     }
   };
 

@@ -41,7 +41,7 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
         const data = await response.json();
         setBoardList(data.data.content);
       } catch (error) {
-        toast.error("서버에 문제가 발생했습니다");
+        toast.error("게시글리스트 데이터 문제가 발생했습니다");
       }
     };
 

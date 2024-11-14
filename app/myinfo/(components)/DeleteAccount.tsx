@@ -42,7 +42,7 @@ function DeleteAccount() {
 
       window.location.href = "/";
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("관리자 유저 삭제에 문제가 발생했습니다");
     } finally {
       setIsSubmitting(false);
     }

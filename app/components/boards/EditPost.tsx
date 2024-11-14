@@ -55,7 +55,7 @@ const EditPost: React.FC<EditPostProps> = ({
       toast.error("제목과 내용을 입력해주세요.");
       return;
     }
-  
+
     const postData: EditPostRequest = {
       postId,
       title,
@@ -63,14 +63,14 @@ const EditPost: React.FC<EditPostProps> = ({
       notification,
       thumbNail,
     };
-  
+
     try {
       const response = await fetch("/api/board/changePost", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(postData),
       });
-  
+
       if (response.ok) {
         toast.success("게시물이 성공적으로 수정되었습니다!");
         window.location.href = window.location.pathname;
@@ -79,7 +79,7 @@ const EditPost: React.FC<EditPostProps> = ({
         toast.error(result.error || "게시물 수정에 실패했습니다.");
       }
     } catch (error) {
-      toast.error("서버에 문제가 발생했습니다");
+      toast.error("게시글 수정에 문제가 발생했습니다");
     }
   };
 

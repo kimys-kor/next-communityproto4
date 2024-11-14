@@ -65,7 +65,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
         setTotalElements(data.data.totalElements);
         setTotalPages(data.data.totalPages);
       } catch (error) {
-        toast.error("서버에 문제가 발생했습니다");
+        toast.error("파트너 리스트에 문제가 발생했습니다");
       }
     };
 
@@ -131,7 +131,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
 
       router.refresh();
     } catch (error) {
-      toast.error("서버에 문제가 발생했습니다");
+      toast.error("게시글 이동에 문제가 발생했습니다");
     }
   };
 
@@ -169,7 +169,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
       setSelectedItems([]);
       setSelectAll(false);
     } catch (error) {
-      toast.error("서버에 문제가 발생했습니다");
+      toast.error("게시글 리스트 삭제에 문제가 발생했습니다");
     }
   };
 

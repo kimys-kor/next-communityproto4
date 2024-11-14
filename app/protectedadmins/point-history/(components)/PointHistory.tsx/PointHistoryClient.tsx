@@ -35,7 +35,7 @@ function PointHistoryClient() {
       setTotalElements(data.data.totalElements);
       setTotalPages(data.data.totalPages);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("포인트 로그 리스트에 문제가 발생했습니다");
     }
   };
 
@@ -77,7 +77,7 @@ function PointHistoryClient() {
         >
           <option value="all">전체</option>
         </select>
-        
+
         <input
           type="text"
           placeholder="검색어 입력"
@@ -85,7 +85,7 @@ function PointHistoryClient() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        
+
         <button
           onClick={handleSearch}
           className="w-full sm:w-auto px-4 py-2 bg-gray-600 text-white text-xs sm:text-sm rounded-md font-medium"

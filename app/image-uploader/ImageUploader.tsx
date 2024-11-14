@@ -64,7 +64,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = () => {
 
       window.close();
     } catch (error) {
-      toast.error("서버에 문제가 발생했습니다");
+      toast.error("이미지 업로드에 문제가 발생했습니다");
     } finally {
       setUploading(false);
     }

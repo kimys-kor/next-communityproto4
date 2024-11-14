@@ -31,7 +31,7 @@ function BlockedIpList() {
       }
       setSelectedIps([]);
     } catch (error) {
-      toast.error("서버에 문제가 발생했습니다");
+      toast.error("ip리스트에 문제가 발생했습니다");
     }
   };
 
@@ -76,7 +76,7 @@ function BlockedIpList() {
       toast.success("선택한 IP가 삭제되었습니다.");
       fetchData();
     } catch (error) {
-      toast.error("서버에 문제가 발생했습니다");
+      toast.error("ip 리스트 삭제에 문제가 발생했습니다");
     }
   };
 
@@ -94,7 +94,7 @@ function BlockedIpList() {
         throw new Error("IP 삭제 실패");
       }
     } catch (error) {
-      toast.error("서버에 문제가 발생했습니다");
+      toast.error("ip삭제에 문제가 발생했습니다");
     }
   }
 
@@ -119,7 +119,7 @@ function BlockedIpList() {
       toast.success("IP가 성공적으로 추가되었습니다.");
       fetchData();
     } catch (error) {
-      toast.error("서버에 문제가 발생했습니다");
+      toast.error("ip 추가에 문제가 발생했습니다");
     }
   };
 
@@ -129,13 +129,17 @@ function BlockedIpList() {
         <div className="flex gap-2">
           <div className="text-[#555555] text-sm flex items-center gap-2">
             총
-            <span className="text-[#2C4AB6] font-semibold">{totalElements}</span>
+            <span className="text-[#2C4AB6] font-semibold">
+              {totalElements}
+            </span>
             건
           </div>
           <div className="text-[#555555] text-sm">
             {"("}
-            <span className="text-[#2C4AB6] font-semibold">{currentPage}</span> /{" "}
-            <span>{totalPages}</span> 페이지{")"}
+            <span className="text-[#2C4AB6] font-semibold">
+              {currentPage}
+            </span>{" "}
+            / <span>{totalPages}</span> 페이지{")"}
           </div>
         </div>
         <div className="flex items-center gap-5">
@@ -192,7 +196,9 @@ function BlockedIpList() {
                 <td className="py-2 px-4 border-b border-solid text-center">
                   {ip.id}
                 </td>
-                <td className="py-2 px-4 border-b border-solid">{ip.ipAddress}</td>
+                <td className="py-2 px-4 border-b border-solid">
+                  {ip.ipAddress}
+                </td>
               </tr>
             ))}
           </tbody>

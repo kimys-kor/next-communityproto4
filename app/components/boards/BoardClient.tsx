@@ -74,7 +74,6 @@ const BoardClient: React.FC<BoardClientProps> = ({
     fetchData(newPage, keyword);
   };
 
-
   const handleSelectItem = (id: number) => {
     setSelectedItems((prevSelected) =>
       prevSelected.includes(id)
@@ -122,7 +121,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
       setShowTransferPopup(false);
       router.refresh();
     } catch (error) {
-      toast.error("서버에 문제가 발생했습니다");
+      toast.error("게시글리스트 전송에 문제가 발생했습니다");
     }
   };
 
@@ -156,7 +155,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
       setSelectAll(false);
       toast.success("선택한 게시물이 성공적으로 삭제되었습니다.");
     } catch (error) {
-      toast.error("서버에 문제가 발생했습니다");
+      toast.error("게시글 리스트 삭제에 문제가 발생했습니다");
     }
   };
 
@@ -279,9 +278,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
               )}
               <td className="grow py-4 px-2 text-left font-medium truncate">
                 <div className="flex items-center gap-1 leading-5">
-                  <div>
-                      {boardItem.isNew && <NewIcon />}
-                  </div>
+                  <div>{boardItem.isNew && <NewIcon />}</div>
                   <Link
                     href={`${pathname}/${boardItem.id}`}
                     className="truncate max-w-full"
@@ -295,7 +292,9 @@ const BoardClient: React.FC<BoardClientProps> = ({
                   </Link>
                 </div>
               </td>
-              <td className="w-20 py-4 px-2 text-center">{boardItem.nickname}</td>
+              <td className="w-20 py-4 px-2 text-center">
+                {boardItem.nickname}
+              </td>
               <td className="hidden md:table-cell w-32 py-4 px-2 text-center">
                 <p>{boardItem.changedcreatedDt}</p>
               </td>
@@ -326,9 +325,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
                   className="h-4 w-4 mr-2"
                 />
               )}
-              <div>
-                {boardItem.isNew && <NewIcon />}
-              </div>
+              <div>{boardItem.isNew && <NewIcon />}</div>
               <Link
                 href={`${pathname}/${boardItem.id}`}
                 className="font-medium truncate flex-1"

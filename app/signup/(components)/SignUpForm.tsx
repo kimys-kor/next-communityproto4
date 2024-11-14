@@ -69,7 +69,7 @@ const SignUpForm: React.FC = () => {
       toast.success("회원가입이 완료되었습니다!");
       router.push(`/`);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("회원 가입에 문제가 발생했습니다");
     }
   };
 

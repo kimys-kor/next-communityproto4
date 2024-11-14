@@ -82,7 +82,7 @@ function MemberListClient({
       setSelectedMembers([]);
       setSelectAll(false);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("관리자 계정 리스트에 문제가 발생했습니다");
     }
   };
 
@@ -132,7 +132,7 @@ function MemberListClient({
       toast.success("선택한 회원이 차단되었습니다.");
       window.location.reload();
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("회원 리스트 차단에 문제가 발생했습니다");
     }
   };
 
@@ -159,7 +159,7 @@ function MemberListClient({
           <option value="content">내용</option>
           <option value="nickname">닉네임</option>
         </select>
-        
+
         <input
           type="text"
           placeholder="검색어 입력"
@@ -167,7 +167,7 @@ function MemberListClient({
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        
+
         <button
           onClick={handleSearch}
           className="w-full sm:w-auto px-4 py-2 bg-gray-600 text-white text-xs sm:text-sm rounded-md font-medium"

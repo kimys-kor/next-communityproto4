@@ -75,7 +75,7 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
 
         setTabContent(content);
       } catch (error) {
-        toast.error("서버에 문제가 발생했습니다");
+        toast.error("게시글리스트 데이터 문제가 발생했습니다");
       }
     };
 
@@ -108,42 +108,40 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
           ))}
         </div>
         <div className="text-sm w-full">
-        {activeTab === 0 ? (
+          {activeTab === 0 ? (
             <div className="grid grid-cols-4 gap-4 py-3">
-              {(tabContent as TabContent)
-                .slice(0, 8)
-                .map((item) => (
-                  <Link
-                    key={item.id}
-                    href={`/community/${item.id}`}
-                    className="flex flex-col justify-center items-center gap-2 px-2 hover:cursor-pointer"
-                  >
-                    {item.thumbNail ? (
-                      <Image
-                        className="rounded-md h-28 w-full object-cover"
-                        src={item.thumbNail}
-                        width={100}
-                        height={130}
-                        alt={`photo content ${item.title}`}
-                      />
-                    ) : (
-                      <div className="rounded-md h-28 w-full bg-gray-200 flex items-center justify-center">
-                        <span className="text-xs text-gray-500">No Image</span>
-                      </div>
-                    )}
-                    <div className="text-center w-full flex flex-col justify-center">
-                      <div className="text-sm truncate">{item.title}</div>
-                      <div className="flex justify-center">
-                        <span className="w-1/2 truncate text-xs text-gray-500">
-                          {item.changedcreatedDt}
-                        </span>
-                        <span className="w-1/2 truncate text-xs text-gray-500">
-                          {item.nickname}
-                        </span>
-                      </div>
+              {(tabContent as TabContent).slice(0, 8).map((item) => (
+                <Link
+                  key={item.id}
+                  href={`/community/${item.id}`}
+                  className="flex flex-col justify-center items-center gap-2 px-2 hover:cursor-pointer"
+                >
+                  {item.thumbNail ? (
+                    <Image
+                      className="rounded-md h-28 w-full object-cover"
+                      src={item.thumbNail}
+                      width={100}
+                      height={130}
+                      alt={`photo content ${item.title}`}
+                    />
+                  ) : (
+                    <div className="rounded-md h-28 w-full bg-gray-200 flex items-center justify-center">
+                      <span className="text-xs text-gray-500">No Image</span>
                     </div>
-                  </Link>
-                ))}
+                  )}
+                  <div className="text-center w-full flex flex-col justify-center">
+                    <div className="text-sm truncate">{item.title}</div>
+                    <div className="flex justify-center">
+                      <span className="w-1/2 truncate text-xs text-gray-500">
+                        {item.changedcreatedDt}
+                      </span>
+                      <span className="w-1/2 truncate text-xs text-gray-500">
+                        {item.nickname}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
             </div>
           ) : (
             (tabContent as TabContent).map((item, index) => (
