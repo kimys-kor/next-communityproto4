@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Paging from "@/app/components/Paging";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,7 +7,7 @@ import { PhotoItem } from "@/app/types";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
 import { FaTrash, FaArrowRight } from "react-icons/fa";
 import TransferPopup from "@/app/components/boards/TransferPopup";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
 interface PhotoBoardClientProps {
@@ -19,13 +19,16 @@ interface PhotoBoardClientProps {
 }
 
 const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
+  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { userInfo } = useUserStore();
 
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
-  const [boardList, setBoardList] = useState<PhotoItem[]>(initialData.boardList);
+  const [boardList, setBoardList] = useState<PhotoItem[]>(
+    initialData.boardList
+  );
   const [totalElements, setTotalElements] = useState(initialData.totalElements);
   const [totalPages, setTotalPages] = useState(initialData.totalPages);
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,9 +63,13 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
     }
   };
 
+  useEffect(() => {
+    fetchData(currentPage);
+  }, [currentPage, typ, keyword]);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
+    router.replace(`${pathname}?page=${newPage}`);
   };
 
   const handleSelectAll = () => {

@@ -147,9 +147,9 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
           ​#스포츠중계 #꽁머니팡 #중계 #축구중계 #중계사이트 #스포츠분석
           #축구분석 #분석 #무료분석 #스포츠티비 #스포츠방송 #무료스포츠티비
           #스포츠실시간 #토토추천 #토토사이트추천 #먹튀사이트 #먹튀없는사이트
-          #스포츠실시간중계 #꽁머니팡분석 #구글검색꽁머니팡7 #아시아스포츠중계
+          #스포츠실시간중계 #꽁머니팡분석 #구글검색꽁머니팡 #아시아스포츠중계
           #아시아축구 #해외축구중계 #A리그 #J리그 #K리그 #국내축구 #일본축구
-          #호주축구{" "}
+          #호주축구
         </h2>
       </section>
       {/* Conditionally render CommentPageClient only when not editing */}
