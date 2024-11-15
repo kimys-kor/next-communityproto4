@@ -64,23 +64,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <Head>
-        {/* Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Website",
-              name: "꽁머니팡",
-              url: "https://ggongpang.com",
-              description:
-                "안전한 토토사이트 추천과 스포츠 분석 커뮤니티를 제공합니다.",
-              inLanguage: "ko",
-            }),
-          }}
-        />
-      </Head>
       <body className={`${pretendard.variable} font-pretendard`}>
         <main className="pb-[10px]">
           <ToasterProvider />
