@@ -124,7 +124,7 @@ const LoginSide: React.FC = () => {
               </button>
             </div>
             <div className="flex flex-col gap-2 items-center justify-between">
-              <Link className="w-full" href={"/signup"}>
+              <Link className="w-full" href={"/ggongpang-signup"}>
                 <button
                   type="button"
                   className="py-3 px-4 bg-[#6870e9] hover:bg-[#525dee] text-white font-bold w-full rounded focus:outline-none"

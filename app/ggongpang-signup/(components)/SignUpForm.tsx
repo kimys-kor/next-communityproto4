@@ -6,6 +6,7 @@ import logo from "/public/images/logo.png";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import SignUpInfo from "./SignUpInfo";
 
 interface FormData {
   id: string;
@@ -82,7 +83,8 @@ const SignUpForm: React.FC = () => {
           </Link>
         </div>
         <div className="w-80 pt-5 text-lg font-medium text-blue flex justify-center items-center">
-          <p className="text-3xl">회원가입</p>
+          <h1 className="text-3xl">ggongpang 회원가입하기</h1>
+          <h2 className="text-xl">ggongpang 회원가입 안내 및 혜택</h2>
         </div>
       </article>
       <form
@@ -279,6 +281,8 @@ const SignUpForm: React.FC = () => {
           </button>
         </div>
       </form>
+
+      <SignUpInfo />
     </div>
   );
 };
