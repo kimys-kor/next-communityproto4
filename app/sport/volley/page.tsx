@@ -1,64 +1,31 @@
-import { Metadata } from "next";
-import BoardDetail from "@/app/components/boards/BoardDetail";
-import ProgressSliderPage from "@/app/components/ProgressSliderPage";
 import ThreeBanner from "@/app/components/ThreeBanner";
-import SubMenu from "@/app/sport/(component)/SubMenu";
-import { fetchInitialBoardContent } from "@/app/utils";
+import sportMain from "/public/images/sportMain.png";
+import Image from "next/image";
+import Breadcrumb from "@/app/components/BreadCrumb";
+import SubMenu from "../(component)/SubMenu";
+import BoardContainer from "@/app/components/boards/BoardContainer";
 
-interface boardDetailPageProps {
-  params: { boardId: string };
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: { boardId: string };
-}): Promise<Metadata> {
-  const { boardId } = params;
-
-  if (!boardId) {
-    return {
-      title: "게시글을 찾을 수 없습니다",
-      description: "유효하지 않은 게시글 ID입니다.",
-    };
-  }
-
-  try {
-    const boardContent = await fetchInitialBoardContent(boardId);
-
-    if (!boardContent) {
-      return {
-        title: "게시글을 찾을 수 없습니다",
-        description: "유효하지 않은 게시글 ID입니다.",
-      };
-    }
-
-    return {
-      title: boardContent.title || "꽁머니팡: 스포츠 분석",
-      description:
-        "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
-    };
-  } catch (error) {
-    console.error("Failed to generate metadata:", error);
-    return {
-      title: "에러가 발생했습니다",
-      description: "메타데이터를 생성하는 중 오류가 발생했습니다.",
-    };
-  }
-}
-
-// 페이지 컴포넌트
-const page: React.FC<boardDetailPageProps> = ({ params }) => {
-  const { boardId } = params;
+export default function Page() {
+  const breadcrumbItems = {
+    title: "스포츠분석",
+    subMenu: "배구분석",
+  };
 
   return (
-    <div className="flex flex-col max-w-[1300px]">
+    <div className="flex flex-col gap-3 max-w-[1300px]">
       <SubMenu />
       <ThreeBanner />
-      <ProgressSliderPage />
-      <BoardDetail boardId={boardId} />
+      <div>
+        <Image
+          className=""
+          src={sportMain}
+          width={1024}
+          height={177}
+          alt={"스포츠분석"}
+        />
+      </div>
+      <Breadcrumb breadcrumbData={breadcrumbItems}></Breadcrumb>
+      <BoardContainer typ={8} page={1} size={15} />
     </div>
   );
-};
-
-export default page;
+}
