@@ -84,7 +84,6 @@ const SignUpForm: React.FC = () => {
         </div>
         <div className="w-80 pt-5 text-lg font-medium text-blue flex justify-center items-center">
           <h1 className="text-3xl">ggongpang 회원가입하기</h1>
-          <h2 className="text-xl">ggongpang 회원가입 안내 및 혜택</h2>
         </div>
       </article>
       <form
