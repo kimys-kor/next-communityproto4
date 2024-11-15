@@ -1,16 +1,14 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 import BoardDetail from "@/app/components/boards/BoardDetail";
 import ProgressSliderPage from "@/app/components/ProgressSliderPage";
 import ThreeBanner from "@/app/components/ThreeBanner";
-import SubMenu from "../(component)/SubMenu";
+import SubMenu from "@/app/community/(component)/SubMenu";
 import { fetchInitialBoardContent } from "@/app/utils";
 
 interface boardDetailPageProps {
   params: { boardId: string };
 }
 
-// generateMetadata는 페이지에서만 작성 가능
 export async function generateMetadata({
   params,
 }: {
