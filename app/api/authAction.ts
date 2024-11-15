@@ -105,14 +105,24 @@ export const postSaveServerAction = async (data: savePostRequest) => {
       const errorText = await response.text();
       console.error("Failed to save Post. Status:", response.status);
       console.error("Response body:", errorText);
+
+      // 406 상태 코드 처리
+      if (response.status === 406) {
+        const errorResponse = JSON.parse(errorText);
+        return {
+          status: "406",
+          message: errorResponse.message || "포인트가 부족합니다.",
+        };
+      }
+
       throw new Error("Failed to save Post");
     }
 
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error("Error in commentSaveServerAction:", error);
-    return { status: "ERROR", message: "Failed to submit comment" };
+    console.error("Error in postSaveServerAction:", error);
+    return { status: "ERROR", message: "Failed to save Post" };
   }
 };
 

@@ -47,9 +47,9 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
       toast.error("제목과 내용을 입력해주세요.");
       return;
     }
-
+  
     const thumbNail = extractThumbnail(content);
-
+  
     const postData: savePostRequest = {
       postType,
       notification: notification || false,
@@ -57,20 +57,21 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
       content: content,
       thumbNail: thumbNail,
     };
-
+  
     try {
       const result = await postSaveServerAction(postData);
-
+  
       if (result.status === "OK") {
         toast.success("게시물이 성공적으로 저장되었습니다!");
         router.push(`${basePath}`);
       } else if (result.status === "406") {
-        toast.error("포인트가 부족합니다.");
+        toast.error(result.message || "포인트가 부족합니다.");
       } else {
         toast.error("로그인을 해주세요.");
-        window.location.href = "/";
+        // window.location.href = "/";
       }
     } catch (error) {
+      console.error(error);
       toast.error("홍보 작성에 문제가 발생했습니다.");
     }
   };
