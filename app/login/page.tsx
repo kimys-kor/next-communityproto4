@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import HomeBannerSk from "../components/skeleton/HomeBannerSk";
 import Login from "../components/login/Login";
 import ThreeBanner from "../components/ThreeBanner";
+import Direction from "./(components)/Direction";
 
 function page() {
   return (
@@ -14,7 +15,7 @@ function page() {
         <div className="w-full flex justify-center items-center">
           <Login />
         </div>
-
+        <Direction />
         {/* <MultiResponsiveSlider></MultiResponsiveSlider> */}
       </article>
     </div>
