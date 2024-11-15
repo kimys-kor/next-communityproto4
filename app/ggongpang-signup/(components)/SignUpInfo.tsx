@@ -4,12 +4,10 @@ const SignUpInfo: React.FC = () => {
   return (
     <div className="w-full px-4 py-6 bg-gray-100 rounded-lg mt-6">
       <h2 className="text-2xl font-semibold text-center text-blue-600 mb-4">
-        ggongpang 회원가입 혜택 및 안내
+        ggongpang 회원가입
       </h2>
-      <p className="text-gray-700 leading-relaxed mb-4">
-        ggongpang은 다양한 서비스를 제공하는 플랫폼으로, 회원가입을 통해 더 많은
-        혜택을 누릴 수 있습니다. 이번 안내에서는 회원가입의 중요성과 간편한 가입
-        방법에 대해 알아보겠습니다.
+      <p className="mt-4 text-gray-600 text-sm md:text-base leading-relaxed">
+        꽁팡은 모든 사용자의 데이터를 암호화처리 하고 있습니다.
       </p>
 
       <div className="space-y-4">
@@ -44,19 +42,7 @@ const SignUpInfo: React.FC = () => {
           ggongpang 앱을 다운로드하여 모바일에서도 간편하게 가입 절차를 진행할
           수 있습니다. 언제 어디서나 가입이 가능합니다.
         </p>
-
-        <h3 className="text-lg font-medium text-blue-600 mt-6">
-          5. 정기 뉴스레터
-        </h3>
-        <p className="text-gray-700">
-          회원가입 후 정기적으로 제공되는 뉴스레터를 통해 최신 소식과 이벤트
-          정보를 받아보세요.
-        </p>
       </div>
-
-      <p className="text-center font-semibold text-gray-800 mt-6">
-        지금 ggongpang에 가입하여 다양한 혜택을 경험해 보세요!
-      </p>
     </div>
   );
 };
