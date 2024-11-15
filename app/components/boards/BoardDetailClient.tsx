@@ -159,6 +159,33 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
           boardId={boardId}
         />
       )}
+      <div className="w-full flex justify-end my-5">
+        <section className="flex items-center gap-3 text-md">
+          {canEditOrDelete && (
+            <>
+              <button
+                onClick={handleEditClick}
+                className="text-blue hover:text-deepblue"
+              >
+                수정
+              </button>
+              <button
+                onClick={handleDelete}
+                className="text-red-700 hover:text-red-700"
+              >
+                삭제
+              </button>
+            </>
+          )}
+
+          <Link href={basePath}>
+            <div className="flex items-center gap-1 cursor-pointer text-[#6c757d] hover:text-gray-600">
+              <HiBars3 size={20} />
+              <span>목록</span>
+            </div>
+          </Link>
+        </section>
+      </div>
     </div>
   );
 };

@@ -9,6 +9,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: 'https://ggongpang.com/partner',
     },
     {
+      url: 'https://ggongpang.com/sport/123',
+    },
+    {
+      url: 'https://ggongpang.com/sport/111',
+    },
+    {
+      url: 'https://ggongpang.com/sport/116',
+    },
+    {
+      url: 'https://ggongpang.com/sport/115',
+    },
+
+    {
         url: 'https://ggongpang.com/sport',
       },
       {
