@@ -55,6 +55,9 @@ export const metadata = {
   verification: {
     google: "zUrRPXRwKAbdVJVGGRQDBa7UPmpatqnQiTDF2rbypJc",
   },
+  icons: {
+		icon: "/icon.ico",
+	},
 };
 
 export default function RootLayout({
