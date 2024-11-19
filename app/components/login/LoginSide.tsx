@@ -20,10 +20,8 @@ const LoginSide: React.FC = () => {
   const { loggedIn, setLoggedIn } = useAuthStore();
   const { setUserInfo, clearUserInfo } = useUserStore();
   useEffect(() => {
-    console.log("로그인 유즈이펙트실행");
     const initializeUser = async () => {
       const data = await refreshUserInfo();
-      console.log(data + "데이타입니다");
 
       if (data != null) {
         setLoggedIn(true);

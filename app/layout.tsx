@@ -36,7 +36,7 @@ export const metadata = {
     url: "https://ggongpang.com",
     images: [
       {
-        url: "/logo.png",
+        url: "/icon.ico",
       },
     ],
   },
@@ -48,7 +48,7 @@ export const metadata = {
     creator: "꽁머니팡",
     images: [
       {
-        url: "/logo.png",
+        url: "/icon.ico",
       },
     ],
   },
