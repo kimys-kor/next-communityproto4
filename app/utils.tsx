@@ -480,11 +480,11 @@ export const tabsAnalyze = [
   },
   {
     label: "KBO/NPB분석",
-    icon: <Image src={SocIcon} width={14} height={14} alt="menuIcon" />,
+    icon: <Image src={BaseIcon} width={14} height={14} alt="menuIcon" />,
   },
   {
     label: "NBA분석",
-    icon: <Image src={SocIcon} width={14} height={14} alt="menuIcon" />,
+    icon: <Image src={BaskIcon} width={14} height={14} alt="menuIcon" />,
   },
   {
     label: "국내외농구분석",
