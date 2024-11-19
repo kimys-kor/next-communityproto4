@@ -10,6 +10,9 @@ export default function Home() {
   return (
     <div>
       <article className="w-full h-full flex flex-col gap-5 lg:gap-10">
+        <Suspense fallback={<HomeBannerSk></HomeBannerSk>}>
+          <HomeBanner></HomeBanner>
+        </Suspense>
         <ProgressSliderPage></ProgressSliderPage>
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-5">
@@ -18,11 +21,6 @@ export default function Home() {
         </section>
 
         <HomeBoard></HomeBoard>
-
-        <Suspense fallback={<HomeBannerSk></HomeBannerSk>}>
-          <HomeBanner></HomeBanner>
-        </Suspense>
-
         {/* <MultiResponsiveSlider></MultiResponsiveSlider> */}
       </article>
     </div>
