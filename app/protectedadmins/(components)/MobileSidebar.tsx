@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import Link from "next/link";
-import { FaArrowRight } from "react-icons/fa";
+import { MdAddToHomeScreen } from "react-icons/md";
 import { menuItems } from "@/app/utils";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
 
@@ -32,7 +32,7 @@ export default function MobileSidebar() {
 
   return (
     <>
-      <header className="flex md:hidden items-center p-4 bg-gray-800 text-white">
+      <header className="flex md:hidden items-center p-4 bg-gray-800 text-white fixed top-0 left-0 right-0 z-50">
         <button onClick={toggleSidebar} className="p-2">
           <FiMenu size={24} />
         </button>
@@ -41,31 +41,24 @@ export default function MobileSidebar() {
 
       <aside
         ref={sidebarRef}
-        className={`fixed left-0 z-40 transform ${
+        className={`fixed pt-[100px] top-0 left-0 h-full z-40 transform over ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 bg-gray-100 w-64 md:hidden h-full p-3`}
+        } transition-transform duration-300 bg-gray-100 w-54 p-3`}
       >
-        <button
-          onClick={toggleSidebar}
-          className="absolute top-4 right-4 text-gray-800"
-        >
-          ✕
-        </button>
-
         <div className="flex flex-col gap-4">
-          <div className="bg-gray-100 rounded-lg p-4 h-screen w-full max-w-full lg:max-w-xs overflow-y-auto">
-            <Link
-              className="hover:text-blue text-lg font-semibold flex items-center mb-4 lg:mb-6"
-              href="/"
-              onClick={toggleSidebar} // Close sidebar on link click
-            >
-              유저페이지
-              <FaArrowRight className="w-5 h-5 ml-2" />
-            </Link>
+          <div className="bg-gray-100 rounded-lg p-4 h-full w-full max-w-full lg:max-w-xs overflow-y-auto">
             <ul className="text-lg font-medium space-y-4">
+              <Link
+                className="hover:text-blue px-2 text-base md:text-lg font-semibold flex items-center mb-4 lg:mb-6"
+                href="/"
+                onClick={toggleSidebar}
+              >
+                유저페이지
+                <MdAddToHomeScreen className="w-5 h-5 ml-2" />
+              </Link>
               {menuItems.map((item, index) => (
                 <div key={index} className="mb-4">
-                  <li className="truncate px-4 py-3 rounded-md bg-blue-500 text-black transition-colors text-base md:text-lg">
+                  <li className="truncate px-2 py-3 rounded-md bg-blue-500 text-black transition-colors text-base md:text-lg">
                     {item.name}
                   </li>
                   <ul className="mt-2 pl-4 space-y-1">
@@ -74,7 +67,7 @@ export default function MobileSidebar() {
                         href={subItem.link}
                         key={subIndex}
                         className="block w-full"
-                        onClick={toggleSidebar} // Close sidebar on link click
+                        onClick={toggleSidebar}
                       >
                         <li className="truncate px-3 py-2 text-gray-700 rounded-md hover:bg-gray-200 hover:text-gray-800 transition-colors text-sm md:text-base">
                           {subItem.name}
@@ -95,7 +88,7 @@ export default function MobileSidebar() {
                     <Link
                       href="/protectedadmins/admin-members"
                       className="block w-full"
-                      onClick={toggleSidebar} // Close sidebar on link click
+                      onClick={toggleSidebar}
                     >
                       <li className="truncate px-3 py-2 text-gray-700 rounded-md hover:bg-gray-200 hover:text-gray-800 transition-colors text-sm md:text-base">
                         관리자아이디관리
@@ -104,7 +97,7 @@ export default function MobileSidebar() {
                     <Link
                       href="/protectedadmins/admin-log"
                       className="block w-full"
-                      onClick={toggleSidebar} // Close sidebar on link click
+                      onClick={toggleSidebar}
                     >
                       <li className="truncate px-3 py-2 text-gray-700 rounded-md hover:bg-gray-200 hover:text-gray-800 transition-colors text-sm md:text-base">
                         관리자활동히스토리

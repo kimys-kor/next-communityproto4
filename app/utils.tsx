@@ -23,7 +23,6 @@ import {
 import { Banner, BoardItem, Member, MemberDataResponse } from "./types";
 import { BoardItem2 } from "./types";
 
-
 export const categoryMap: { [key: number]: string } = {
   2: "축구분석",
   3: "축구분석",
@@ -49,9 +48,9 @@ export const formatDate = (dateString: string): string => {
     date.getDate() === today.getDate();
 
   if (isToday) {
-    return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+    return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
   } else {
-    return `${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+    return `${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
   }
 };
 
@@ -81,7 +80,7 @@ export const fetchInitialBoardListData = async (
     const data = await response.json();
     const { content, totalElements } = data.data;
 
-    const formattedContent = content.map((item:any) => ({
+    const formattedContent = content.map((item: any) => ({
       ...item,
       isNew: formatNew(item.createdDt.toString()) || false,
       changedcreatedDt: formatDate(item.createdDt.toString()),
@@ -148,7 +147,7 @@ export const fetchInitialCommunityTabData = async () => {
     { method: "GET" }
   );
   const data = await response.json();
-  return data.data.content
+  return data.data.content;
 };
 
 export async function fetchInitialAnalyzeData(typ: number) {
@@ -172,9 +171,12 @@ export async function fetchInitialAnalyzeData(typ: number) {
 
 export async function fetchHomeBanner(): Promise<Banner[]> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guest/bannerlist`, {
-      method: "GET",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/guest/bannerlist`,
+      {
+        method: "GET",
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to fetch banner list");
@@ -288,8 +290,6 @@ export async function fetchInitialPartnerData() {
     totalPages: data.data.totalPages,
   };
 }
-
-
 
 export const fetchInitialBoardContent = async (id: string) => {
   try {
@@ -426,16 +426,15 @@ export const getPostUrl = (postType: number, id: number): string => {
     case 17:
       return `/promotion/ggong/${id}`;
     case 18:
-      return `/promotion/hunting/${id}`
+      return `/promotion/hunting/${id}`;
     case 19:
-      return `/customer/${id}`
+      return `/customer/${id}`;
     case 20:
-      return `/customer/qalist/${id}`
+      return `/customer/qalist/${id}`;
     default:
       return `/unknown/${id}`;
   }
 };
-
 
 export const tabsCommunity = [
   {
@@ -456,7 +455,9 @@ export const tabsCommunity = [
   {
     label: "자유게시판",
     typ: 12,
-    icon: <Image src={freeBoardIcon} width={20} height={20} alt="freeBoardIcon" />,
+    icon: (
+      <Image src={freeBoardIcon} width={20} height={20} alt="freeBoardIcon" />
+    ),
   },
   {
     label: "피해사례",
@@ -508,8 +509,6 @@ export const categoryIcons: { [key: number]: JSX.Element } = {
   10: <FaExclamationTriangle />,
 };
 
-
-
 export interface MenuItem {
   name: string;
   subMenu: { name: string; link: string }[];
@@ -529,6 +528,10 @@ export const menuItems: MenuItem[] = [
   {
     name: "IP관리",
     subMenu: [{ name: "차단IP 관리", link: "/protectedadmins/iplist" }],
+  },
+  {
+    name: "배너관리",
+    subMenu: [{ name: "배너 관리", link: "/protectedadmins/bannerlist" }],
   },
 ];
 
