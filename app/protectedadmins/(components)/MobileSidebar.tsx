@@ -41,13 +41,13 @@ export default function MobileSidebar() {
 
       <aside
         ref={sidebarRef}
-        className={`fixed pt-[100px] top-0 left-0 h-full z-40 transform over ${
+        className={`fixed pt-[100px] top-0 left-0 h-full z-40 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 bg-gray-100 w-54 p-3`}
+        } transition-transform duration-300 bg-gray-100 w-54 p-3 overflow-y-auto max-h-full`}
       >
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <div className="bg-gray-100 rounded-lg p-4 h-full w-full max-w-full lg:max-w-xs overflow-y-auto">
-            <ul className="text-lg font-medium space-y-4">
+            <ul className="text-lg font-medium space-y-2">
               <Link
                 className="hover:text-blue px-2 text-base md:text-lg font-semibold flex items-center mb-4 lg:mb-6"
                 href="/"
