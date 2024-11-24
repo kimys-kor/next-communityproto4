@@ -252,7 +252,6 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
               <h1 className="font-semibold text-md text-gray-800">
                 {item.title}
               </h1>
-              <p className="text-gray-500 mt-1 text-sm">Code: {item.code}</p>
               {item.replyNum > 0 && (
                 <p className="text-xs mt-1 text-blue-700 font-bold">
                   +{item.replyNum} Replies
