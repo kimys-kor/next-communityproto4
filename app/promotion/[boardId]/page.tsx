@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import BoardDetail from "@/app/components/boards/BoardDetail";
 import ProgressSliderPage from "@/app/components/ProgressSliderPage";
 import ThreeBanner from "@/app/components/ThreeBanner";
-import SubMenu from "@/app/community/(component)/SubMenu";
+import SubMenu from "@/app/promotion/(component)/SubMenu";
 import { fetchInitialBoardContent } from "@/app/utils";
 
 interface boardDetailPageProps {
@@ -35,8 +35,7 @@ export async function generateMetadata({
 
     return {
       title: boardContent.title || "꽁머니팡: 일반홍보 게시판",
-      description:
-        "꽁머니팡에서 홍보 게시판에서 다양한 정보를 확인해보세요.",
+      description: "꽁머니팡에서 홍보 게시판에서 다양한 정보를 확인해보세요.",
     };
   } catch (error) {
     console.error("Failed to generate metadata:", error);

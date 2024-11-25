@@ -1,7 +1,7 @@
 import BoardDetail from "@/app/components/boards/BoardDetail";
 import ProgressSliderPage from "@/app/components/ProgressSliderPage";
 import ThreeBanner from "@/app/components/ThreeBanner";
-import SubMenu from "../../(component)/SubMenu";
+import SubMenu from "@/app/promotion/(component)/SubMenu";
 import { Metadata } from "next";
 import { fetchInitialBoardContent } from "@/app/utils";
 
@@ -35,8 +35,7 @@ export async function generateMetadata({
 
     return {
       title: boardContent.title || "꽁머니팡: 구인구직 게시판",
-      description:
-        "구인구직",
+      description: "구인구직",
     };
   } catch (error) {
     console.error("Failed to generate metadata:", error);

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import BoardDetail from "@/app/components/boards/BoardDetail";
 import ProgressSliderPage from "@/app/components/ProgressSliderPage";
 import ThreeBanner from "@/app/components/ThreeBanner";
-import SubMenu from "@/app/community/(component)/SubMenu";
+import SubMenu from "@/app/sport/(component)/SubMenu";
 import { fetchInitialBoardContent } from "@/app/utils";
 
 interface boardDetailPageProps {
