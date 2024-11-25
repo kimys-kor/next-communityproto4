@@ -50,7 +50,7 @@ const config: Config = {
         bgblue: "#E7EBFF",
         sideblue: "#3767FB",
         lightcyan: "#E0FFFF",
-        lightskyblue: "##87CEFA",
+        lightskyblue: "#87CEFA",
         deepsky: "#808BAB",
         description: "#888888",
         cpurple: "#8800FF",
@@ -66,21 +66,20 @@ const config: Config = {
         bordercolor3: "#dee2e6",
         buttoncolor: "#FAFAFA",
         subgray: "#F8F9FA",
-        // pink: "#ff49db",
-        // orange: "#ff7849",
-        // green: "#13ce66",
-        // yellow: "#ffc82c",
-        // "gray-dark": "#273444",
-        // gray: "#8492a6",
-        // "gray-light": "#d3dce6",
         "gradient-start": "#00daef",
         "gradient-end": "#bc67ff",
       },
       animation: {
         moveGrad: "MoveGrad 5s ease infinite",
+        gradientText: "gradientText 5s ease infinite",
       },
       keyframes: {
         MoveGrad: {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
+        gradientText: {
           "0%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
           "100%": { backgroundPosition: "0% 50%" },
@@ -97,4 +96,5 @@ const config: Config = {
   },
   plugins: [require("@tailwindcss/typography")],
 };
+
 export default config;

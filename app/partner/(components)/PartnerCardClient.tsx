@@ -223,7 +223,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
         </div>
       </header>
 
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {boardList.map((item) => (
           <article
             key={item.id}
@@ -235,7 +235,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
                   type="checkbox"
                   checked={selectedItems.includes(item.id)}
                   onChange={() => handleSelectItem(item.id)}
-                  className="absolute top-2 left-2 z-10 h-4 w-4 accent-blue-600 cursor-pointer"
+                  className="absolute top-2 left-2 z-10 h-4 w-4 accent-sky-600 cursor-pointer"
                 />
               )}
               <Link href={`/partner/${item.id}`}>
@@ -249,7 +249,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
               </Link>
             </div>
             <div className="p-2 flex flex-col items-center">
-              <h1 className="font-semibold text-md text-gray-800">
+              <h1 className="font-semibold text-md text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-gradientText">
                 {item.title}
               </h1>
               {item.replyNum > 0 && (
