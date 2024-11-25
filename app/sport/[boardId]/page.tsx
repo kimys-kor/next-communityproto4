@@ -29,7 +29,7 @@ export async function generateMetadata({
       openGraph: {
         title: "게시글을 찾을 수 없습니다",
         description: "유효하지 않은 게시글 ID입니다.",
-        url: `https://ggongpang.com/boards/${boardId}`,
+        url: `https://ggongpang.com/sport/${boardId}`,
       },
       twitter: {
         card: "summary_large_image",
@@ -49,7 +49,7 @@ export async function generateMetadata({
         openGraph: {
           title: "게시글을 찾을 수 없습니다",
           description: "유효하지 않은 게시글 ID입니다.",
-          url: `https://ggongpang.com/boards/${boardId}`,
+          url: `https://ggongpang.com/sport/${boardId}`,
         },
         twitter: {
           card: "summary_large_image",
@@ -78,7 +78,7 @@ export async function generateMetadata({
           description.length > 0
             ? `${description}...`
             : "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
-        url: `https://ggongpang.com/boards/${boardId}`,
+        url: `https://ggongpang.com/sport/${boardId}`,
         images: [
           {
             url: "/icon.ico",
@@ -107,7 +107,7 @@ export async function generateMetadata({
       openGraph: {
         title: "에러가 발생했습니다",
         description: "메타데이터를 생성하는 중 오류가 발생했습니다.",
-        url: `https://ggongpang.com/boards/${boardId}`,
+        url: `https://ggongpang.com/sport/${boardId}`,
       },
       twitter: {
         card: "summary_large_image",
