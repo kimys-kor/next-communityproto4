@@ -33,25 +33,22 @@ const HomeBannerClient: React.FC<BannerListProps> = ({ banners }) => {
       });
 
       if (response.ok) {
-        const result = await response.json();
         const formattedUrl =
           partnerUrl.startsWith("http://") || partnerUrl.startsWith("https://")
             ? partnerUrl
             : `https://${partnerUrl}`;
 
-        window.open(formattedUrl, "_blank");
+        window.location.href = formattedUrl;
       } else {
-
+        toast.error("Failed to register banner click.");
       }
     } catch (error) {
-
+      toast.error("Error occurred while opening the banner.");
     }
   };
 
   if (bannerList.length === 0) {
-    return (
-      null
-    );
+    return null;
   }
 
   return (

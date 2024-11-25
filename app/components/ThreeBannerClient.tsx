@@ -17,20 +17,17 @@ const ThreeBannerClient: React.FC<ThreeBannerClientProps> = ({ banners }) => {
       });
 
       if (response.ok) {
-
-
-        // Ensure the URL is absolute
         const formattedUrl =
           partnerUrl.startsWith("http://") || partnerUrl.startsWith("https://")
             ? partnerUrl
             : `https://${partnerUrl}`;
 
-        // Open the URL in a new tab
-        window.open(formattedUrl, "_blank");
+        window.location.href = formattedUrl;
       } else {
+        toast.error("Failed to register banner click.");
       }
     } catch (error) {
-
+      toast.error("Error occurred while opening the banner.");
     }
   };
 
