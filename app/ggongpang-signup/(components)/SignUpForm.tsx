@@ -44,7 +44,6 @@ const SignUpForm: React.FC = () => {
     password.length >= 8 && /[A-Za-z]/.test(password) && /\d/.test(password);
 
   const onSubmit = async (data: FormData) => {
-    // Prepare the data to match the API's required format
     const apiData = {
       username: data.id,
       password: data.password,
@@ -62,13 +61,18 @@ const SignUpForm: React.FC = () => {
         body: JSON.stringify(apiData),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to sign up");
+      if (response.ok) {
+        const result = await response.json();
+        toast.success("회원가입이 완료되었습니다!");
+        router.push(`/`);
+      } else {
+        const result = await response.json();
+        if (result.error) {
+          toast.error(result.error);
+        } else {
+          toast.error("회원 가입에 문제가 발생했습니다");
+        }
       }
-
-      const result = await response.json();
-      toast.success("회원가입이 완료되었습니다!");
-      router.push(`/`);
     } catch (error) {
       toast.error("회원 가입에 문제가 발생했습니다");
     }
