@@ -1,46 +1,77 @@
-import { MetadataRoute } from 'next'
- 
+import { MetadataRoute } from "next";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://ggongpang.com',
+      url: "https://ggongpang.com",
     },
     {
-      url: 'https://ggongpang.com/partner',
+      url: "https://ggongpang.com/partner",
     },
     {
-      url: 'https://ggongpang.com/sport/123',
+      url: "https://ggongpang.com/sport",
     },
     {
-      url: 'https://ggongpang.com/sport/111',
+      url: "https://ggongpang.com/sport/asia",
     },
     {
-      url: 'https://ggongpang.com/sport/116',
+      url: "https://ggongpang.com/sport/mlb",
     },
     {
-      url: 'https://ggongpang.com/sport/115',
+      url: "https://ggongpang.com/sport/baseball",
     },
-
     {
-        url: 'https://ggongpang.com/sport',
-      },
-      {
-        url: 'https://ggongpang.com/community',
-      },
-      {
-        url: 'https://ggongpang.com/event',
-      },
-      {
-        url: 'https://ggongpang.com/promotion',
-      },
-      {
-        url: 'https://ggongpang.com/guide',
-      },
-      {
-        url: 'https://ggongpang.com/customer',
-      },
-
-  ]
+      url: "https://ggongpang.com/sport/nba",
+    },
+    {
+      url: "https://ggongpang.com/sport/basket",
+    },
+    {
+      url: "https://ggongpang.com/sport/volley",
+    },
+    {
+      url: "https://ggongpang.com/community",
+    },
+    {
+      url: "https://ggongpang.com/community/humor",
+    },
+    {
+      url: "https://ggongpang.com/community/pickster",
+    },
+    {
+      url: "https://ggongpang.com/community/free",
+    },
+    {
+      url: "https://ggongpang.com/community/case",
+    },
+    {
+      url: "https://ggongpang.com/event",
+    },
+    {
+      url: "https://ggongpang.com/promotion",
+    },
+    {
+      url: "https://ggongpang.com/promotion/ggong",
+    },
+    {
+      url: "https://ggongpang.com/promotion/hunting",
+    },
+    {
+      url: "https://ggongpang.com/guide",
+    },
+    {
+      url: "https://ggongpang.com/guide/ggong",
+    },
+    {
+      url: "https://ggongpang.com/guide/major",
+    },
+    {
+      url: "https://ggongpang.com/customer",
+    },
+    {
+      url: "https://ggongpang.com/customer/qalist",
+    },
+  ];
 }
 
 /*
