@@ -71,6 +71,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: "https://ggongpang.com/customer/qalist",
     },
+    {
+      url: "https://ggongpang.com/ggongpang-signup",
+    },
   ];
 }
 
