@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "꽁머니팡: 먹튀 피해 게시판",
-  description: "먹튀 피해",
+  title: "꽁머니팡: 먹튀피해제보",
+  description: "먹튀피해제보",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

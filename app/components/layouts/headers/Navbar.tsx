@@ -53,7 +53,7 @@ const Navbar = () => {
         { href: "/community/humor", label: "유머 & 이슈" },
         { href: "/community/pickster", label: "나는분석왕" },
         { href: "/community/free", label: "자유게시판" },
-        { href: "/community/case", label: "피해사례" },
+        { href: "/community/case", label: "먹튀피해제보" },
       ],
       icon: <Image src={commuIcon} width={33} height={33} alt="commuIcon" />,
       // width: "w-14 md:w-24 lg:w-32",
@@ -177,32 +177,32 @@ const Navbar = () => {
       </nav>
 
       <nav className="md:hidden w-full bg-blue font-medium text-sm text-white overflow-hidden">
-  <div className="flex flex-wrap">
-    <div className="flex flex-wrap items-center pl-3 divide-x divide-gray-300 w-full">
-      <div
-        className="cursor-pointer px-2 h-[48px] py-2 flex items-center justify-center transition-colors duration-200 hover:bg-indigo-600 hover:text-white"
-        onClick={toggleSidebar}
-      >
-        <AiOutlineMenu size={15} />
-      </div>
-      {links.map((link, index) => (
-        <Link
-          key={index}
-          href={link.href}
-          className={`flex-1 h-[48px] py-2 flex items-center justify-center transition-colors duration-200 hover:bg-indigo-600 hover:text-white`}
-          style={{
-            minWidth: link.icon ? "100px" : "70px",
-            maxWidth: "25%",
-          }}
-          onClick={() => handleLinkClick(link.href)}
-        >
-          {link.label}
-          <div>{link.icon ? link.icon : null}</div>
-        </Link>
-      ))}
-    </div>
-  </div>
-</nav>
+        <div className="flex flex-wrap">
+          <div className="flex flex-wrap items-center pl-3 divide-x divide-gray-300 w-full">
+            <div
+              className="cursor-pointer px-2 h-[48px] py-2 flex items-center justify-center transition-colors duration-200 hover:bg-indigo-600 hover:text-white"
+              onClick={toggleSidebar}
+            >
+              <AiOutlineMenu size={15} />
+            </div>
+            {links.map((link, index) => (
+              <Link
+                key={index}
+                href={link.href}
+                className={`flex-1 h-[48px] py-2 flex items-center justify-center transition-colors duration-200 hover:bg-indigo-600 hover:text-white`}
+                style={{
+                  minWidth: link.icon ? "100px" : "70px",
+                  maxWidth: "25%",
+                }}
+                onClick={() => handleLinkClick(link.href)}
+              >
+                {link.label}
+                <div>{link.icon ? link.icon : null}</div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </nav>
 
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
     </div>

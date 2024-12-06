@@ -9,7 +9,7 @@ import BoardContainer from "@/app/components/boards/BoardContainer";
 function page() {
   const breadcrumbItems = {
     title: "커뮤니티",
-    subMenu: "피해사례",
+    subMenu: "먹튀피해제보",
   };
 
   return (
