@@ -59,9 +59,9 @@ export async function generateMetadata({
       };
     }
 
-    // boardContent.content에서 HTML 태그를 제거하고 첫 200글자만 추출
+    // boardContent.content에서 HTML 태그를 제거하고 첫 500글자만 추출
     const contentText = stripHtmlTags(boardContent.content);
-    const description = contentText.slice(0, 200);
+    const description = contentText.slice(0, 500);
 
     return {
       title: boardContent.title || "꽁머니팡: 배구 분석",
