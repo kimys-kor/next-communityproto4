@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="min-h-[100vh] flex-col relative">
         {/* Header */}
         <header className="h-[72px] hidden md:flex items-center p-4 bg-gray-800 text-white">
-          <p className="ml-4 text-lg font-semibold">꽁머니팡 관리자</p>
+          <p className="ml-4 text-lg font-semibold">토이소 관리자</p>
         </header>
 
         {/* Main Container */}

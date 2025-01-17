@@ -14,13 +14,13 @@ function page() {
         <Ggmp />
         <section className="flex flex-col justify-center items-center py-20">
           <Image
-            alt="꽁머니팡소개"
+            alt="토이소소개"
             width={248}
             height={255}
             src={question}
           ></Image>
           <div className="text-4xl font-semibold">
-            왜<span className="text-blue"> 꽁머니팡</span> 인가요?
+            왜<span className="text-blue"> 토이소</span> 인가요?
           </div>
           <div className="flex flex-col items-center px-3">
             <div className="w-full flex flex-col lg:flex-row pt-10 gap-5">
@@ -124,8 +124,8 @@ function page() {
               <p>
                 더이상 넘쳐나는 광고성 글과 매크로에 현혹되지 마시기 바랍니다.
                 많은 스포츠 관련 사이트에서 누가 썼는지 믿을 수 없는 먹튀사이트
-                글에 피해를 입지 않도록 꽁머니팡에서는 안전한 정보를 제공해
-                드리겠습니다. 먹튀검증과 꽁머니 정보는 꽁머니팡에서!
+                글에 피해를 입지 않도록 토이소에서는 안전한 정보를 제공해
+                드리겠습니다. 먹튀검증과 꽁머니 정보는 토이소에서!
               </p>
             </div>
           </article>

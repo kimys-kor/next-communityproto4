@@ -7,7 +7,7 @@ import SubMenu from "./(component)/SubMenu";
 
 function page() {
   const breadcrumbItems = {
-    title: "꽁머니팡",
+    title: "토이소",
     subMenu: "이벤트",
   };
 

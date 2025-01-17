@@ -8,14 +8,17 @@ function Direction() {
   return (
     <article>
       <section className="flex flex-col justify-center items-center py-8 md:py-10">
-        <Image alt="꽁머니팡 소개" width={248} height={255} src={major} />
-        
+        <Image alt="토이소 소개" width={248} height={255} src={major} />
+
         <div className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mt-4">
           <span className="text-blue">일반 홍보 게시판</span> 이용 방법
         </div>
-        
+
         <p className="w-full max-w-[900px] px-4 sm:px-5 pt-4 text-xs sm:text-sm md:text-base text-description leading-6 text-center">
-          일반 홍보 게시판은 누구나 이용이 가능합니다. 홍보를 원하는 토토 사이트는 물론이고 일반 유저들도 정보를 공유하기 위해 이용할 수 있습니다. 여러 종류의 홍보글, 여러 주제의 게시글이 올라오는 만큼 게시판을 이용할 때는 건전한 소통이 가능하도록 협조해 주시기 바랍니다.
+          일반 홍보 게시판은 누구나 이용이 가능합니다. 홍보를 원하는 토토
+          사이트는 물론이고 일반 유저들도 정보를 공유하기 위해 이용할 수
+          있습니다. 여러 종류의 홍보글, 여러 주제의 게시글이 올라오는 만큼
+          게시판을 이용할 때는 건전한 소통이 가능하도록 협조해 주시기 바랍니다.
         </p>
 
         <div className="w-full max-w-[1000px] pt-16 md:pt-20 px-4 sm:px-5 flex flex-col lg:flex-row items-center justify-between">
@@ -24,7 +27,7 @@ function Direction() {
               <p className="text-lg md:text-2xl">일반 홍보 게시판</p>
               <p className="text-lg md:text-2xl">이용 주의사항</p>
             </div>
-            <Image alt="꽁머니팡 소개" width={248} height={255} src={search} />
+            <Image alt="토이소 소개" width={248} height={255} src={search} />
           </section>
 
           <section className="w-full flex flex-col items-center gap-4 sm:gap-5">
@@ -50,7 +53,11 @@ function Direction() {
           <Image src={talkball} width={100} height={100} alt="부가 설명" />
           <div className="w-full max-w-[900px] text-description leading-6 text-center">
             <p>
-              일반 홍보 게시판은 누구나 이용이 가능합니다. 사이트 홍보는 물론이고 이벤트, 혜택 등 다양한 홍보가 가능하고 누구나 댓글을 통해 소통할 수 있습니다. 다만, 일반 홍보 게시판의 주제가 다양하고 많은 사람들이 이용하므로 건전한 게시판 이용을 위한 모두의 노력이 필요합니다.
+              일반 홍보 게시판은 누구나 이용이 가능합니다. 사이트 홍보는
+              물론이고 이벤트, 혜택 등 다양한 홍보가 가능하고 누구나 댓글을 통해
+              소통할 수 있습니다. 다만, 일반 홍보 게시판의 주제가 다양하고 많은
+              사람들이 이용하므로 건전한 게시판 이용을 위한 모두의 노력이
+              필요합니다.
             </p>
           </div>
         </article>

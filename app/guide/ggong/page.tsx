@@ -12,12 +12,7 @@ function page() {
       <main>
         <Ggmp />
         <section className="flex flex-col justify-center items-center py-20">
-          <Image
-            alt="꽁머니팡소개"
-            width={248}
-            height={255}
-            src={money}
-          ></Image>
+          <Image alt="토이소소개" width={248} height={255} src={money}></Image>
           <div className="text-4xl font-semibold">
             <span className="text-blue">꽁머니 </span>바로알기
           </div>
@@ -29,7 +24,7 @@ function page() {
             사이트에서 주어지는 것이 일반적입니다. 하지만 꽁머니를 통해 안전하게
             이용을 마쳤더라도 안전한 업체라고 안심할 수는 없습니다. 마케팅
             목적으로 이용자를 끌어들인 후 먹튀를 하는 업체도 심심치 않게
-            존재하기 때문입니다. 꽁머니팡에서 활발한 소통을 통하여 피해 사례를
+            존재하기 때문입니다. 토이소에서 활발한 소통을 통하여 피해 사례를
             공유하고 안전한 업체를 찾아보세요.
           </p>
           <div className="w-full max-w-[1000px] pt-20 px-5 flex items-center justify-between">
@@ -39,7 +34,7 @@ function page() {
                 <p className="text-2xl ">이용 주의사항</p>
               </div>
               <Image
-                alt="꽁머니팡소개"
+                alt="토이소 소개"
                 width={248}
                 height={255}
                 src={search}
@@ -120,11 +115,11 @@ function page() {
             <div className="w-full max-w-[900px] text-description leading-6">
               <p>
                 꽁머니를 안전히 사용하기 위해서는 이러한 여러가지 주의 사항이
-                필요합니다. 꽁머니팡은 꽁머니를 지급하는 사이트를 여러 유저들의
+                필요합니다. 토이소은 꽁머니를 지급하는 사이트를 여러 유저들의
                 사용경험, 피해사례를 통하여 검증합니다. 또 한번 안전한 업체라고
                 판단이 되어도 언제나 안전한 업체일수는 없으므로 일정 기간마다
-                검증을 반복합니다. 그렇기에 꽁머니팡에서 추천드리는 업체는
-                안전한 업체임을 신뢰할 수 있습니다.
+                검증을 반복합니다. 그렇기에 토이소에서 추천드리는 업체는 안전한
+                업체임을 신뢰할 수 있습니다.
               </p>
             </div>
           </article>

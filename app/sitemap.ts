@@ -3,76 +3,76 @@ import { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://ggongpang.com",
+      url: "https://toiso777.com",
     },
     {
-      url: "https://ggongpang.com/partner",
+      url: "https://toiso777.com/partner",
     },
     {
-      url: "https://ggongpang.com/sport",
+      url: "https://toiso777.com/sport",
     },
     {
-      url: "https://ggongpang.com/sport/asia",
+      url: "https://toiso777.com/sport/asia",
     },
     {
-      url: "https://ggongpang.com/sport/mlb",
+      url: "https://toiso777.com/sport/mlb",
     },
     {
-      url: "https://ggongpang.com/sport/baseball",
+      url: "https://toiso777.com/sport/baseball",
     },
     {
-      url: "https://ggongpang.com/sport/nba",
+      url: "https://toiso777.com/sport/nba",
     },
     {
-      url: "https://ggongpang.com/sport/basket",
+      url: "https://toiso777.com/sport/basket",
     },
     {
-      url: "https://ggongpang.com/sport/volley",
+      url: "https://toiso777.com/sport/volley",
     },
     {
-      url: "https://ggongpang.com/community",
+      url: "https://toiso777.com/community",
     },
     {
-      url: "https://ggongpang.com/community/humor",
+      url: "https://toiso777.com/community/humor",
     },
     {
-      url: "https://ggongpang.com/community/pickster",
+      url: "https://toiso777.com/community/pickster",
     },
     {
-      url: "https://ggongpang.com/community/free",
+      url: "https://toiso777.com/community/free",
     },
     {
-      url: "https://ggongpang.com/community/case",
+      url: "https://toiso777.com/community/case",
     },
     {
-      url: "https://ggongpang.com/event",
+      url: "https://toiso777.com/event",
     },
     {
-      url: "https://ggongpang.com/promotion",
+      url: "https://toiso777.com/promotion",
     },
     {
-      url: "https://ggongpang.com/promotion/ggong",
+      url: "https://toiso777.com/promotion/ggong",
     },
     {
-      url: "https://ggongpang.com/promotion/hunting",
+      url: "https://toiso777.com/promotion/hunting",
     },
     {
-      url: "https://ggongpang.com/guide",
+      url: "https://toiso777.com/guide",
     },
     {
-      url: "https://ggongpang.com/guide/ggong",
+      url: "https://toiso777.com/guide/ggong",
     },
     {
-      url: "https://ggongpang.com/guide/major",
+      url: "https://toiso777.com/guide/major",
     },
     {
-      url: "https://ggongpang.com/customer",
+      url: "https://toiso777.com/customer",
     },
     {
-      url: "https://ggongpang.com/customer/qalist",
+      url: "https://toiso777.com/customer/qalist",
     },
     {
-      url: "https://ggongpang.com/ggongpang-signup",
+      url: "https://toiso777.com/signup",
     },
   ];
 }

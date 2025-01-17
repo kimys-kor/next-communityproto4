@@ -17,7 +17,7 @@ const AuthMenu: React.FC<AuthMenuProps> = ({ setActiveTab }) => {
         로그인
       </li>
       <li className="w-1/3 table-cell hover:bg-mediumblue text-white text-lg text-center px-2 py-2 cursor-pointer">
-        <Link href="/ggongpang-signup">회원가입</Link>
+        <Link href="/signup">회원가입</Link>
       </li>
       <li className="w-1/3 table-cell hover:bg-mediumblue text-white text-lg text-center px-2 py-2 cursor-pointer">
         정보찾기

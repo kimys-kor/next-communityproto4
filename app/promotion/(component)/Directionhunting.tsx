@@ -8,12 +8,18 @@ function Direction() {
   return (
     <article>
       <section className="flex flex-col justify-center items-center py-8 md:py-10">
-        <Image alt="꽁머니팡소개" width={248} height={255} src={safe} />
+        <Image alt="토이소 소개" width={248} height={255} src={safe} />
         <div className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mt-4">
           <span className="text-blue">구인구직 게시판 </span>이용 방법
         </div>
         <p className="w-full max-w-[900px] px-4 sm:px-5 pt-4 text-xs sm:text-sm md:text-base text-description leading-6 text-center">
-          꽁머니팡 에서는 구인구직 게시판을 운영하고 있습니다. 구인구직 페이지를 운영하는 이유는 많은 분들이 다양한 방식으로 소통할 수 있도록 돕기 위해서입니다. 특히, 토토사이트를 이용하는 유저들이 갖추고 있는 역량이나 재능이 각기 다르기 때문에 구인구직 사이트를 통하여 역량을 발휘할 수 있도록 돕습니다. 다양한 일자리 소개는 물론이고 토토사이트의 파트너나 팀원 모집 역시 해당 페이지를 통해 정보를 주고받을 수 있습니다.
+          토이소 에서는 구인구직 게시판을 운영하고 있습니다. 구인구직 페이지를
+          운영하는 이유는 많은 분들이 다양한 방식으로 소통할 수 있도록 돕기
+          위해서입니다. 특히, 토토사이트를 이용하는 유저들이 갖추고 있는
+          역량이나 재능이 각기 다르기 때문에 구인구직 사이트를 통하여 역량을
+          발휘할 수 있도록 돕습니다. 다양한 일자리 소개는 물론이고 토토사이트의
+          파트너나 팀원 모집 역시 해당 페이지를 통해 정보를 주고받을 수
+          있습니다.
         </p>
 
         <div className="w-full max-w-[1000px] pt-16 md:pt-20 px-4 sm:px-5 flex flex-col lg:flex-row items-center justify-between">
@@ -22,7 +28,7 @@ function Direction() {
               <p className="text-lg md:text-2xl">구인구직 홍보 게시판</p>
               <p className="text-lg md:text-2xl">이용 주의사항</p>
             </div>
-            <Image alt="꽁머니팡소개" width={248} height={255} src={search} />
+            <Image alt="토이소 소개" width={248} height={255} src={search} />
           </section>
 
           <section className="w-full flex flex-col items-center gap-4 sm:gap-5">
@@ -45,10 +51,18 @@ function Direction() {
         </div>
 
         <article className="w-full flex flex-col sm:flex-row justify-center items-center pt-8 sm:pt-10 gap-3 px-4 sm:px-5 text-xs sm:text-sm">
-          <Image src={talkball} width={100} height={100} alt="sub description" />
+          <Image
+            src={talkball}
+            width={100}
+            height={100}
+            alt="sub description"
+          />
           <div className="w-full max-w-[900px] text-description leading-6 text-center">
             <p>
-              구인구직 게시판은 누구나 이용할 수 있도록 열려 있습니다. 사람을 구하거나 일자리를 구하고 싶은 모든 사람이 이용할 수 있습니다. 다양한 일자리, 다양한 인력들이 함께 하는 공간이기에 건전한 게시판 운영이 중요합니다.
+              구인구직 게시판은 누구나 이용할 수 있도록 열려 있습니다. 사람을
+              구하거나 일자리를 구하고 싶은 모든 사람이 이용할 수 있습니다.
+              다양한 일자리, 다양한 인력들이 함께 하는 공간이기에 건전한 게시판
+              운영이 중요합니다.
             </p>
           </div>
         </article>

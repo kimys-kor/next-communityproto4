@@ -29,7 +29,7 @@ export async function generateMetadata({
       openGraph: {
         title: "게시글을 찾을 수 없습니다",
         description: "유효하지 않은 게시글 ID입니다.",
-        url: `https://ggongpang.com/sport/volley/${boardId}`,
+        url: `https://toiso777.com/sport/volley/${boardId}`,
       },
       twitter: {
         card: "summary_large_image",
@@ -49,7 +49,7 @@ export async function generateMetadata({
         openGraph: {
           title: "게시글을 찾을 수 없습니다",
           description: "유효하지 않은 게시글 ID입니다.",
-          url: `https://ggongpang.com/sport/volley/${boardId}`,
+          url: `https://toiso777.com/sport/volley/${boardId}`,
         },
         twitter: {
           card: "summary_large_image",
@@ -64,21 +64,21 @@ export async function generateMetadata({
     const description = contentText.slice(0, 500);
 
     return {
-      title: boardContent.title || "꽁머니팡: 배구 분석",
+      title: boardContent.title || "토이소: 배구 분석",
       description:
         description.length > 0
           ? `${description}...`
-          : "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+          : "토이소에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
       openGraph: {
         type: "article",
         locale: "ko_KR",
-        siteName: "꽁머니팡: 스포츠 분석 및 커뮤니티",
-        title: boardContent.title || "꽁머니팡: 배구 분석",
+        siteName: "토이소: 스포츠 분석 및 커뮤니티",
+        title: boardContent.title || "토이소: 배구 분석",
         description:
           description.length > 0
             ? `${description}...`
-            : "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
-        url: `https://ggongpang.com/sport/volley/${boardId}`,
+            : "토이소에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+        url: `https://toiso777.com/sport/volley/${boardId}`,
         images: [
           {
             url: "/icon.ico",
@@ -87,12 +87,12 @@ export async function generateMetadata({
       },
       twitter: {
         card: "summary_large_image",
-        title: boardContent.title || "꽁머니팡: 배구 분석",
+        title: boardContent.title || "토이소: 배구 분석",
         description:
           description.length > 0
             ? `${description}...`
-            : "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
-        creator: "꽁머니팡",
+            : "토이소에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+        creator: "토이소",
         images: [
           {
             url: "/icon.ico",
@@ -107,7 +107,7 @@ export async function generateMetadata({
       openGraph: {
         title: "에러가 발생했습니다",
         description: "메타데이터를 생성하는 중 오류가 발생했습니다.",
-        url: `https://ggongpang.com/sport/volley/${boardId}`,
+        url: `https://toiso777.com/sport/volley/${boardId}`,
       },
       twitter: {
         card: "summary_large_image",

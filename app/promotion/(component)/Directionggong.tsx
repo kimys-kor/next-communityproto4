@@ -8,21 +8,25 @@ function Direction() {
   return (
     <article>
       <section className="flex flex-col justify-center items-center py-8 md:py-10">
-        <Image alt="꽁머니팡소개" width={248} height={255} src={money} />
+        <Image alt="토이소 소개" width={248} height={255} src={money} />
         <div className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mt-4">
           <span className="text-blue">꽁머니 홍보 게시판 </span>이용 방법
         </div>
         <p className="w-full max-w-[900px] px-4 sm:px-5 pt-4 text-xs sm:text-sm md:text-base text-description leading-6 text-center">
-          누구나 꽁머니 홍보 게시판을 이용할 수 있습니다. 주로 토토 사이트들이 꽁머니나 이벤트 등을 홍보하기 위해 해당 게시판을 이용합니다. 유저들은 사이트가 주는 혜택이 무엇인지 한 눈에 꽁 머니 홍보 게시판에서 확인할 수 있습니다. 다만, 해당 게시판을 이용하는 모든 사이트가 검증된 사이트는 아니므로 유저들의 주의가 필요합니다.
+          누구나 꽁머니 홍보 게시판을 이용할 수 있습니다. 주로 토토 사이트들이
+          꽁머니나 이벤트 등을 홍보하기 위해 해당 게시판을 이용합니다. 유저들은
+          사이트가 주는 혜택이 무엇인지 한 눈에 꽁 머니 홍보 게시판에서 확인할
+          수 있습니다. 다만, 해당 게시판을 이용하는 모든 사이트가 검증된
+          사이트는 아니므로 유저들의 주의가 필요합니다.
         </p>
-        
+
         <div className="w-full max-w-[1000px] pt-16 md:pt-20 px-4 sm:px-5 flex flex-col lg:flex-row items-center justify-between">
           <section className="hidden lg:flex w-1/2 h-full flex-col justify-center items-center">
             <div className="font-bold text-center">
               <p className="text-lg md:text-2xl">꽁머니 홍보 게시판</p>
               <p className="text-lg md:text-2xl">이용 주의사항</p>
             </div>
-            <Image alt="꽁머니팡소개" width={248} height={255} src={search} />
+            <Image alt="토이소 소개" width={248} height={255} src={search} />
           </section>
 
           <section className="w-full flex flex-col items-center gap-4 sm:gap-5">
@@ -45,10 +49,18 @@ function Direction() {
         </div>
 
         <article className="w-full flex flex-col sm:flex-row justify-center items-center pt-8 sm:pt-10 gap-3 px-4 sm:px-5 text-xs sm:text-sm">
-          <Image src={talkball} width={100} height={100} alt="sub description" />
+          <Image
+            src={talkball}
+            width={100}
+            height={100}
+            alt="sub description"
+          />
           <div className="w-full max-w-[900px] text-description leading-6 text-center">
             <p>
-              해당 게시판은 유저들이 사이트 이용 시, 다양한 혜택을 받아볼 수 있도록 돕는 사이트입니다. 누구나 이용이 가능한 게시판이기 때문에 먹튀 검증이 이루어지지 않은 사이트 홍보가 올라올 수 있으므로 이용자의 주의가 필요합니다.
+              해당 게시판은 유저들이 사이트 이용 시, 다양한 혜택을 받아볼 수
+              있도록 돕는 사이트입니다. 누구나 이용이 가능한 게시판이기 때문에
+              먹튀 검증이 이루어지지 않은 사이트 홍보가 올라올 수 있으므로
+              이용자의 주의가 필요합니다.
             </p>
           </div>
         </article>
