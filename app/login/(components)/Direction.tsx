@@ -19,7 +19,7 @@ function Direction() {
           토이소 로그인
         </h1>
         <p className="mt-4 text-gray-600 text-sm md:text-base leading-relaxed">
-          토이소은 사용자에게 다양한 서비스를 제공하는 플랫폼으로, 로그인 절차는
+          토이소는 사용자에게 다양한 서비스를 제공하는 플랫폼으로, 로그인 절차는
           매우 간단합니다.
         </p>
         <p className="mt-4 text-gray-600 text-sm md:text-base leading-relaxed">

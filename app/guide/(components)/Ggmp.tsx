@@ -11,12 +11,12 @@ function Ggmp() {
             스포츠커뮤니티
             <span className="text-blue"> GOAT</span>
           </div>
-          <div className="w-80 flex justify-center items-center">
+          {/* <div className="w-80 flex justify-center items-center">
             <Image alt="logo" width={260} height={100} src={logo}></Image>
-          </div>
+          </div> */}
           <div className="w-80 pt-5 text-lg font-medium text-blue flex justify-center items-center">
             <p>
-              토이소은 스포츠분석글과 피해사례 및 꽁머니 정보등 다양한 정보를
+              토이소는 스포츠분석글과 피해사례 및 꽁머니 정보등 다양한 정보를
               가지고 있는 스포츠 커뮤니티 입니다.
             </p>
           </div>
