@@ -8,6 +8,10 @@ import NoticeCard from "@/app/components/cards/NoticeCard";
 import NewPostCard from "@/app/components/cards/NewPostCard";
 import NewPartnerCard from "@/app/components/cards/NewPartnerCard";
 import MobBottomNav from "@/app/components/MobBottomNav";
+import GuidePage from "../guide/page";
+import GGongPage from "../guide/ggong/page";
+import MajorPage from "../guide/major/page";
+import SafePage from "../guide/safe/page";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -28,6 +32,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </section>
           <RightSideBanner></RightSideBanner>
         </Container>
+        <GuidePage></GuidePage>
+        <GGongPage></GGongPage>
+        <MajorPage></MajorPage>
+        <SafePage></SafePage>
       </div>
       <Footer />
       <MobBottomNav />

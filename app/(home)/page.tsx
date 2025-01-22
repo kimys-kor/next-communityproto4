@@ -5,6 +5,7 @@ import HomeBanner from "./(components)/HomeBanner";
 import { Suspense } from "react";
 import HomeBannerSk from "../components/skeleton/HomeBannerSk";
 import HomeBoard from "./(components)/HomeBoard";
+import Page from "../guide/page";
 
 export default function Home() {
   return (
