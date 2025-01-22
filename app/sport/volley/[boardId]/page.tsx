@@ -64,7 +64,8 @@ export async function generateMetadata({
     const description = contentText.slice(0, 500);
 
     return {
-      title: boardContent.title || "토이소: 배구 분석",
+      title:
+        "토이소 배구분석글: " + boardContent.title || "토이소 배구분석글: ",
       description:
         description.length > 0
           ? `${description}...`
@@ -73,7 +74,8 @@ export async function generateMetadata({
         type: "article",
         locale: "ko_KR",
         siteName: "토이소: 스포츠 분석 및 커뮤니티",
-        title: boardContent.title || "토이소: 배구 분석",
+        title:
+          "토이소 배구분석글: " + boardContent.title || "토이소 배구분석글: ",
         description:
           description.length > 0
             ? `${description}...`
@@ -87,7 +89,8 @@ export async function generateMetadata({
       },
       twitter: {
         card: "summary_large_image",
-        title: boardContent.title || "토이소: 배구 분석",
+        title:
+          "토이소 배구분석글: " + boardContent.title || "토이소 배구분석글: ",
         description:
           description.length > 0
             ? `${description}...`

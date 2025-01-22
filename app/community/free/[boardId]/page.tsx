@@ -64,7 +64,8 @@ export async function generateMetadata({
     const description = contentText.slice(0, 500);
 
     return {
-      title: boardContent.title || "토이소: 자유게시판",
+      title:
+        "토이소 자유게시판글: " + boardContent.title || "토이소 자유게시판글: ",
       description:
         description.length > 0
           ? `${description}...`
@@ -73,7 +74,9 @@ export async function generateMetadata({
         type: "article",
         locale: "ko_KR",
         siteName: "토이소",
-        title: boardContent.title || "토이소: 자유게시판",
+        title:
+          "토이소 자유게시판글: " + boardContent.title ||
+          "토이소 자유게시판글: ",
         description:
           description.length > 0
             ? `${description}...`
@@ -87,7 +90,9 @@ export async function generateMetadata({
       },
       twitter: {
         card: "summary_large_image",
-        title: boardContent.title || "토이소: 자유게시판",
+        title:
+          "토이소 자유게시판글: " + boardContent.title ||
+          "토이소 자유게시판글: ",
         description:
           description.length > 0
             ? `${description}...`
