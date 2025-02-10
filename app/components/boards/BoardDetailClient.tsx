@@ -54,15 +54,18 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
       );
 
       if (response.ok) {
-        alert("게시물이 성공적으로 삭제되었습니다!");
-        window.location.href = `/${basePath}`;
+        const currentPath = window.location.pathname;
+        const basePath = currentPath.split("/").slice(0, -1).join("/");
+
+        // 삭제 후 게시글 목록 페이지로 리디렉션
+        window.location.href = `${window.location.origin}${basePath}`;
       } else {
         throw new Error("게시물 삭제 실패");
       }
     } catch (error) {
       toast.error("게시글 삭제에 문제가 발생했습니다");
     }
-  }, [content.id, basePath]);
+  }, [content.id]);
 
   const handleEditClick = () => {
     setIsEditing(true);
