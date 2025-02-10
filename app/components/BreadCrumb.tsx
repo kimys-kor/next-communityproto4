@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,13 +15,13 @@ interface BreadcrumbProps {
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumbData }) => {
   const pathname = usePathname();
-  const [activeLink, setActiveLink] = useState("");
+  const [activeLink, setActiveLink] = useState<string>("");
 
   useEffect(() => {
-    if (typeof window !== "undefined" && pathname) {
+    if (pathname) {
       setActiveLink(pathname);
     }
-  }, [pathname]);
+  }, [pathname]); // pathname만 의존
 
   return (
     <nav className="w-full bg-white rounded-2xl flex items-center shadow-lg transition-all duration-300 mt-3 mb-2">
@@ -30,7 +31,11 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumbData }) => {
         </p>
       </div>
       <div className="h-11 sm:h-11 md:h-12 border-solid border-sky-500 border-4 w-4/5 px-3 sm:px-5 md:px-10 flex items-center rounded-r-2xl gap-3 sm:gap-6 md:gap-10 bg-gray-50 hover:bg-gray-100 transition-all duration-300">
-        <span className="text-xs sm:text-sm md:text-base text-gray-700 font-medium truncate cursor-pointer hover:text-sky-600 transition-all duration-300">
+        <span
+          className={`text-xs sm:text-sm md:text-base text-gray-700 font-medium truncate cursor-pointer hover:text-sky-600 transition-all duration-300 ${
+            activeLink === pathname ? "text-sky-600" : "text-gray-700"
+          }`}
+        >
           {breadcrumbData.subMenu}
         </span>
       </div>

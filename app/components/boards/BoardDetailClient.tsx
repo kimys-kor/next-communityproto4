@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import masterIcon from "/public/images/masterIcon.png";
 import { BiCommentDetail } from "react-icons/bi";
 import { GrView } from "react-icons/gr";
@@ -12,7 +12,7 @@ import DOMPurify from "isomorphic-dompurify";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
 import EditPost from "./EditPost";
 import CommentPageClient from "./CommentClient";
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 
 interface BoardDetailClientPropsWithComments extends BoardDetailClientProps {
@@ -29,16 +29,18 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
   const basePath = pathname?.split("/").slice(0, -1).join("/") || "";
   const [isEditing, setIsEditing] = useState(false);
 
-  const sanitizedData = () => {
+  const sanitizedData = useMemo(() => {
     const contentHtml = content.content || "";
     return { __html: DOMPurify.sanitize(contentHtml) };
-  };
+  }, [content.content]);
 
   const { userInfo } = useUserStore();
-  const canEditOrDelete =
-    userInfo?.sck || userInfo?.username === content.username;
+  const canEditOrDelete = useMemo(
+    () => userInfo?.sck || userInfo?.username === content.username,
+    [userInfo, content.username]
+  );
 
-  const handleDelete = async () => {
+  const handleDelete = useCallback(async () => {
     const confirmed = window.confirm("정말 삭제하시겠습니까?");
     if (!confirmed) return;
 
@@ -60,7 +62,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
     } catch (error) {
       toast.error("게시글 삭제에 문제가 발생했습니다");
     }
-  };
+  }, [content.id, basePath]);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -140,7 +142,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
         </article>
       </section>
       <section className="px-3 py-10 flex flex-col gap-5">
-        <article dangerouslySetInnerHTML={sanitizedData()}></article>
+        <article dangerouslySetInnerHTML={sanitizedData}></article>
       </section>
       {/* Conditionally render CommentPageClient only when not editing */}
       {!isEditing && (

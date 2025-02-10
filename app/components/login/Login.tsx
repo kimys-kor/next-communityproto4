@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import IdIcon from "/public/images/idIcon.png";
 import PassIcon from "/public/images/passIcon.png";
 import Link from "next/link";
@@ -15,28 +16,40 @@ import { UserInfo } from "@/app/types";
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfoState] = useState<UserInfo | null>(null);
+
   const { loggedIn, setLoggedIn } = useAuthStore();
   const { setUserInfo, clearUserInfo } = useUserStore();
+
+  const isMounted = useRef(true); // To track if the component is mounted
+
+  // Initialize user information
   useEffect(() => {
     const initializeUser = async () => {
       const data = await refreshUserInfo();
-      if (data != null) {
-        setLoggedIn(true);
-        setUserInfo(data);
-        setUserInfoState(data);
-      } else {
-        setLoggedIn(false);
+      if (isMounted.current) {
+        if (data != null) {
+          setLoggedIn(true);
+          setUserInfo(data);
+          setUserInfoState(data);
+        } else {
+          setLoggedIn(false);
+        }
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     initializeUser();
-  }, []);
 
-  const handleLogin = async () => {
+    // Cleanup on component unmount
+    return () => {
+      isMounted.current = false;
+    };
+  }, [setLoggedIn, setUserInfo]);
+
+  // Memoize the login handler to avoid unnecessary re-renders
+  const handleLogin = useCallback(async () => {
     try {
       const response = await fetch("/api/auth", {
         method: "POST",
@@ -44,8 +57,8 @@ const Login: React.FC = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: username,
-          password: password,
+          username,
+          password,
         }),
       });
 
@@ -61,7 +74,7 @@ const Login: React.FC = () => {
     } catch (error) {
       toast.error("서버 오류가 발생했습니다");
     }
-  };
+  }, [username, password, clearUserInfo, setLoggedIn, setUserInfo]);
 
   if (loading) {
     return <ProfileSk />;

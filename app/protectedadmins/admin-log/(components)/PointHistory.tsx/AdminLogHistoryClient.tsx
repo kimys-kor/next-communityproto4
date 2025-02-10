@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Paging from "@/app/components/Paging";
 import toast from "react-hot-toast";
 
@@ -15,41 +15,46 @@ function AdminLogHistoryClient() {
   const size = 10;
   const [histories, setHistories] = useState<AdminLog[]>([]);
   const [searchField, setSearchField] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>(""); // Search query
   const [currentPage, setCurrentPage] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const fetchData = async (page: number, searchKeyword: string) => {
-    try {
-      const response = await fetch(
-        `/api/master/adminlog?page=${page - 1}&size=${size}&keyword=${encodeURIComponent(searchKeyword)}`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch admin log data");
-      }
-      const data = await response.json();
+  // Memoize the fetch function to avoid re-creations
+  const fetchData = useCallback(
+    async (page: number, searchKeyword: string) => {
+      try {
+        const response = await fetch(
+          `/api/master/adminlog?page=${page - 1}&size=${size}&keyword=${encodeURIComponent(searchKeyword)}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch admin log data");
+        }
+        const data = await response.json();
 
-      setHistories(data.data.content || []);
-      setTotalElements(data.data.totalElements);
-      setTotalPages(data.data.totalPages);
-    } catch (error) {
-      toast.error("관리자 액션로그 리스트에 문제가 발생했습니다");
-    }
-  };
+        setHistories(data.data.content || []);
+        setTotalElements(data.data.totalElements);
+        setTotalPages(data.data.totalPages);
+      } catch (error) {
+        toast.error("관리자 액션로그 리스트에 문제가 발생했습니다");
+      }
+    },
+    [] // empty array means this will only be created once during the initial render
+  );
 
   useEffect(() => {
+    // Fetch data only when currentPage or searchQuery changes
     fetchData(currentPage, searchQuery);
-  }, [currentPage, searchQuery]);
+  }, [currentPage, searchQuery, fetchData]); // Adding fetchData to dependencies to ensure it's always up-to-date
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
   };
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     setCurrentPage(1);
     fetchData(1, searchQuery);
-  };
+  }, [fetchData, searchQuery]); // memoize handleSearch to avoid re-creations on every render
 
   return (
     <div>

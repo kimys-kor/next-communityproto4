@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import IdIcon from "/public/images/idIcon.png";
 import PassIcon from "/public/images/passIcon.png";
 import Link from "next/link";
@@ -17,26 +17,38 @@ const LoginSide: React.FC = () => {
 
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfoState] = useState<UserInfo | null>(null);
+
   const { loggedIn, setLoggedIn } = useAuthStore();
   const { setUserInfo, clearUserInfo } = useUserStore();
+
+  const isMounted = useRef(true); // To track if the component is mounted
+
+  // Initialize user information and handle state updates safely
   useEffect(() => {
     const initializeUser = async () => {
       const data = await refreshUserInfo();
-
-      if (data != null) {
-        setLoggedIn(true);
-        setUserInfo(data);
-        setUserInfoState(data);
-      } else {
-        setLoggedIn(false);
+      if (isMounted.current) {
+        if (data != null) {
+          setLoggedIn(true);
+          setUserInfo(data);
+          setUserInfoState(data);
+        } else {
+          setLoggedIn(false);
+        }
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     initializeUser();
-  }, []);
 
-  const handleLogin = async () => {
+    // Cleanup on unmount to avoid memory leaks
+    return () => {
+      isMounted.current = false;
+    };
+  }, [setLoggedIn, setUserInfo]);
+
+  // Memoized login function
+  const handleLogin = useCallback(async () => {
     try {
       const response = await fetch("/api/auth", {
         method: "POST",
@@ -61,7 +73,7 @@ const LoginSide: React.FC = () => {
     } catch (error) {
       toast.error("서버 오류가 발생했습니다");
     }
-  };
+  }, [username, password, setLoggedIn, setUserInfo, clearUserInfo]);
 
   if (loading) {
     return <ProfileSk />;
@@ -78,7 +90,7 @@ const LoginSide: React.FC = () => {
         >
           <div className="relative mb-4">
             <input
-              type="string"
+              type="text"
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}

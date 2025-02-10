@@ -21,6 +21,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useCallback, useRef, useState } from "react";
 
+// getImageDimensions를 함수 외부로 이동
+const getImageDimensions = (
+  file: File
+): Promise<{ width: number; height: number }> => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve({ width: img.width, height: img.height });
+    };
+    img.src = URL.createObjectURL(file);
+  });
+};
+
 const FontSize = TextStyle.extend({
   addOptions() {
     return {
@@ -53,29 +66,26 @@ const MenuBar = ({ editor, uploadImagesToServer }: any) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [linkUrl, setLinkUrl] = useState<string>("");
 
-  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    const files = Array.from(e.target.files);
-    const imageDimensions = await Promise.all(
-      files.map((file) => getImageDimensions(file))
-    );
+  const handleImageChange = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (!e.target.files) return;
+      const files = Array.from(e.target.files);
+      const imageDimensions = await Promise.all(
+        files.map((file) => getImageDimensions(file))
+      );
 
-    const uploadedImageUrls = await uploadImagesToServer(files);
-    uploadedImageUrls.forEach((url: string, index: number) => {
-      const { width } = imageDimensions[index];
-      editor.chain().focus().setImage({ src: url, style: `width: ${width}px;` }).run();
-    });
-  };
-
-  const getImageDimensions = (file: File): Promise<{ width: number; height: number }> => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => {
-        resolve({ width: img.width, height: img.height });
-      };
-      img.src = URL.createObjectURL(file);
-    });
-  };
+      const uploadedImageUrls = await uploadImagesToServer(files);
+      uploadedImageUrls.forEach((url: string, index: number) => {
+        const { width } = imageDimensions[index];
+        editor
+          .chain()
+          .focus()
+          .setImage({ src: url, style: `width: ${width}px;` })
+          .run();
+      });
+    },
+    [editor, uploadImagesToServer]
+  );
 
   const handleIconClick = () => fileInputRef.current?.click();
 
@@ -111,102 +121,108 @@ const MenuBar = ({ editor, uploadImagesToServer }: any) => {
 
   return (
     <div className="flex flex-wrap items-center gap-1 sm:gap-2 bg-gray-100 p-2 w-full border-b border-solid border-gray-200">
-  <button
-    onClick={() => editor.chain().focus().toggleBold().run()}
-    className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive("bold") ? "bg-gray-300" : ""}`}
-    title="Bold"
-  >
-    <FontAwesomeIcon icon={faBold} />
-  </button>
+      <button
+        onClick={() => editor.chain().focus().toggleBold().run()}
+        className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive("bold") ? "bg-gray-300" : ""}`}
+        title="Bold"
+      >
+        <FontAwesomeIcon icon={faBold} />
+      </button>
 
-  <button
-    onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-    className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive("heading", { level: 2 }) ? "bg-gray-300" : ""}`}
-    title="Heading 2"
-  >
-    <FontAwesomeIcon icon={faHeading} />
-  </button>
+      <button
+        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+        className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive("heading", { level: 2 }) ? "bg-gray-300" : ""}`}
+        title="Heading 2"
+      >
+        <FontAwesomeIcon icon={faHeading} />
+      </button>
 
-  <button
-    onClick={() => editor.chain().focus().toggleBulletList().run()}
-    className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive("bulletList") ? "bg-gray-300" : ""}`}
-    title="Bullet List"
-  >
-    <FontAwesomeIcon icon={faListUl} />
-  </button>
+      <button
+        onClick={() => editor.chain().focus().toggleBulletList().run()}
+        className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive("bulletList") ? "bg-gray-300" : ""}`}
+        title="Bullet List"
+      >
+        <FontAwesomeIcon icon={faListUl} />
+      </button>
 
-  <button
-    onClick={() => editor.chain().focus().toggleOrderedList().run()}
-    className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive("orderedList") ? "bg-gray-300" : ""}`}
-    title="Ordered List"
-  >
-    <FontAwesomeIcon icon={faListOl} />
-  </button>
+      <button
+        onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive("orderedList") ? "bg-gray-300" : ""}`}
+        title="Ordered List"
+      >
+        <FontAwesomeIcon icon={faListOl} />
+      </button>
 
-  <button
-    onClick={() => editor.chain().focus().setTextAlign("left").run()}
-    className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive({ textAlign: "left" }) ? "bg-gray-300" : ""}`}
-    title="Align Left"
-  >
-    <FontAwesomeIcon icon={faAlignLeft} />
-  </button>
+      <button
+        onClick={() => editor.chain().focus().setTextAlign("left").run()}
+        className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive({ textAlign: "left" }) ? "bg-gray-300" : ""}`}
+        title="Align Left"
+      >
+        <FontAwesomeIcon icon={faAlignLeft} />
+      </button>
 
-  <button
-    onClick={() => editor.chain().focus().setTextAlign("center").run()}
-    className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive({ textAlign: "center" }) ? "bg-gray-300" : ""}`}
-    title="Align Center"
-  >
-    <FontAwesomeIcon icon={faAlignCenter} />
-  </button>
+      <button
+        onClick={() => editor.chain().focus().setTextAlign("center").run()}
+        className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive({ textAlign: "center" }) ? "bg-gray-300" : ""}`}
+        title="Align Center"
+      >
+        <FontAwesomeIcon icon={faAlignCenter} />
+      </button>
 
-  <button
-    onClick={() => editor.chain().focus().setTextAlign("right").run()}
-    className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive({ textAlign: "right" }) ? "bg-gray-300" : ""}`}
-    title="Align Right"
-  >
-    <FontAwesomeIcon icon={faAlignRight} />
-  </button>
+      <button
+        onClick={() => editor.chain().focus().setTextAlign("right").run()}
+        className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${editor.isActive({ textAlign: "right" }) ? "bg-gray-300" : ""}`}
+        title="Align Right"
+      >
+        <FontAwesomeIcon icon={faAlignRight} />
+      </button>
 
-  <button onClick={handleIconClick} className="p-1 sm:p-2 rounded text-xs sm:text-sm" title="Insert Image">
-    <FontAwesomeIcon icon={faImage} />
-  </button>
+      <button
+        onClick={handleIconClick}
+        className="p-1 sm:p-2 rounded text-xs sm:text-sm"
+        title="Insert Image"
+      >
+        <FontAwesomeIcon icon={faImage} />
+      </button>
 
-  <button onClick={addLink} className="p-1 sm:p-2 rounded text-xs sm:text-sm" title="Add Link">
-    <FontAwesomeIcon icon={faLink} />
-  </button>
+      <button
+        onClick={addLink}
+        className="p-1 sm:p-2 rounded text-xs sm:text-sm"
+        title="Add Link"
+      >
+        <FontAwesomeIcon icon={faLink} />
+      </button>
 
-  <input
-    type="file"
-    ref={fileInputRef}
-    onChange={handleImageChange}
-    className="hidden"
-    multiple
-  />
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleImageChange}
+        className="hidden"
+        multiple
+      />
 
-  <input
-    type="color"
-    onInput={handleTextColorChange}
-    className="p-1 w-8 h-8 border border-gray-400 rounded"
-    title="Text Color"
-  />
+      <input
+        type="color"
+        onInput={handleTextColorChange}
+        className="p-1 w-8 h-8 border border-gray-400 rounded"
+        title="Text Color"
+      />
 
-  <select
-    onChange={handleFontSizeChange}
-    className="p-1 border border-gray-400 rounded text-xs sm:text-sm"
-    title="Font Size"
-  >
-    <option value="24px">24px</option>
-    <option value="32px">32px</option>
-    <option value="38px">38px</option>
-    <option value="42px">42px</option>
-    <option value="56px">56px</option>
-  </select>
-</div>
+      <select
+        onChange={handleFontSizeChange}
+        className="p-1 border border-gray-400 rounded text-xs sm:text-sm"
+        title="Font Size"
+      >
+        <option value="24px">24px</option>
+        <option value="32px">32px</option>
+        <option value="38px">38px</option>
+        <option value="42px">42px</option>
+        <option value="56px">56px</option>
+      </select>
+    </div>
   );
 };
 
-
-// 팁탭
 const Tiptap = ({ value, onChange }: TipTapProps) => {
   const [loading, setLoading] = useState(false);
 
@@ -236,7 +252,11 @@ const Tiptap = ({ value, onChange }: TipTapProps) => {
         bulletList: { keepMarks: true, keepAttributes: false },
         orderedList: { keepMarks: true, keepAttributes: false },
         heading: { levels: [1, 2, 3] },
-        paragraph: { HTMLAttributes: { class: "text-base md:text-base min-h-[16px] md:min-h-[16px]" } },
+        paragraph: {
+          HTMLAttributes: {
+            class: "text-base md:text-base min-h-[16px] md:min-h-[16px]",
+          },
+        },
       }),
       FontSize,
       TextStyle,
@@ -267,19 +287,22 @@ const Tiptap = ({ value, onChange }: TipTapProps) => {
     immediatelyRender: false,
   });
 
-  const uploadImagesToServer = async (files: File[]): Promise<string[]> => {
-    const formData = new FormData();
-    files.forEach((file) => formData.append("files", file));
+  const uploadImagesToServer = useCallback(
+    async (files: File[]): Promise<string[]> => {
+      const formData = new FormData();
+      files.forEach((file) => formData.append("files", file));
 
-    const response = await fetch("/api/images", {
-      method: "POST",
-      body: formData,
-    });
-    if (!response.ok) throw new Error("Failed to upload images.");
+      const response = await fetch("/api/images", {
+        method: "POST",
+        body: formData,
+      });
+      if (!response.ok) throw new Error("Failed to upload images.");
 
-    const result = await response.json();
-    return result.data;
-  };
+      const result = await response.json();
+      return result.data;
+    },
+    []
+  );
 
   const handleMultipleImagesUpload = async (
     files: FileList,
@@ -301,32 +324,13 @@ const Tiptap = ({ value, onChange }: TipTapProps) => {
     });
   };
 
-  const getImageDimensions = (file: File): Promise<{ width: number; height: number }> => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => {
-        resolve({ width: img.width, height: img.height });
-      };
-      img.src = URL.createObjectURL(file);
-    });
-  };
-
-  const handleCompleteWriting = async () => {
-    if (loading) return;
-
-    setLoading(true);
-    try {
-      alert("게시글 저장중입니다.");
-    } catch (error) {
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="flex flex-col border border-solid border-gray-200">
       <MenuBar editor={editor} uploadImagesToServer={uploadImagesToServer} />
-      <EditorContent className="min-h-[200px] sm:min-h-[400px]" editor={editor} />
+      <EditorContent
+        className="min-h-[200px] sm:min-h-[400px]"
+        editor={editor}
+      />
     </div>
   );
 };

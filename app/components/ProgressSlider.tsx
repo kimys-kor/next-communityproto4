@@ -11,19 +11,24 @@ interface Item {
 
 export default function ProgressSlider({ items }: { items: Item[] }) {
   const duration: number = 5000;
-  const itemsRef = useRef<HTMLDivElement>(null);
   const frame = useRef<number>(0);
   const firstFrameTime = useRef(performance.now());
   const [active, setActive] = useState<number>(0);
   const [progress, setProgress] = useState<number>(0);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false); // 애니메이션 중 여부
 
   useEffect(() => {
-    firstFrameTime.current = performance.now();
-    frame.current = requestAnimationFrame(animate);
+    // active 상태가 바뀔 때마다 애니메이션을 재시작
+    if (isAnimating) {
+      firstFrameTime.current = performance.now();
+      frame.current = requestAnimationFrame(animate);
+    }
+
     return () => {
+      // 컴포넌트가 unmount 될 때 애니메이션을 정리
       cancelAnimationFrame(frame.current);
     };
-  }, [active]);
+  }, [active, isAnimating]);
 
   const animate = (now: number) => {
     let timeFraction = (now - firstFrameTime.current) / duration;
@@ -33,25 +38,31 @@ export default function ProgressSlider({ items }: { items: Item[] }) {
     } else {
       timeFraction = 1;
       setProgress(0);
-      setActive((active + 1) % items.length);
+      setActive((prevActive) => (prevActive + 1) % items.length);
+      setIsAnimating(false); // 애니메이션 종료
     }
   };
 
   const handleNext = () => {
-    setActive((active + 1) % items.length);
-    setProgress(0);
+    if (!isAnimating) {
+      setActive((prevActive) => (prevActive + 1) % items.length);
+      setProgress(0);
+      setIsAnimating(true); // 애니메이션 시작
+    }
   };
 
   const handlePrev = () => {
-    setActive(active === 0 ? items.length - 1 : active - 1);
-    setProgress(0);
+    if (!isAnimating) {
+      setActive(active === 0 ? items.length - 1 : active - 1);
+      setProgress(0);
+      setIsAnimating(true); // 애니메이션 시작
+    }
   };
 
   return (
     <div className="w-full max-w-[1200px] mx-auto text-center">
       {/* Item image */}
-
-      <div className="relative flex flex-col" ref={itemsRef}>
+      <div className="relative flex flex-col">
         {items.map((item, index) => (
           <Transition
             key={index}
@@ -73,8 +84,6 @@ export default function ProgressSlider({ items }: { items: Item[] }) {
         className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full focus:outline-none focus-visible:ring focus-visible:ring-indigo-300"
         onClick={handlePrev}
       >
-        {/* Left arrow icon */}
-        {/* You can replace the placeholder below with your actual left arrow icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6 text-gray-700"
@@ -94,8 +103,6 @@ export default function ProgressSlider({ items }: { items: Item[] }) {
         className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full focus:outline-none focus-visible:ring focus-visible:ring-indigo-300"
         onClick={handleNext}
       >
-        {/* Right arrow icon */}
-        {/* You can replace the placeholder below with your actual right arrow icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6 text-gray-700"

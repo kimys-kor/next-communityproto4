@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PhotoItem } from "@/app/types";
 import Paging from "@/app/components/Paging";
@@ -72,70 +72,76 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
     fetchBoardContent();
   }, [currentPage]);
 
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
-    router.replace(`/partner?page=${newPage}`);
-  };
+  const handlePageChange = useCallback(
+    (newPage: number) => {
+      setCurrentPage(newPage);
+      router.replace(`/partner?page=${newPage}`);
+    },
+    [router]
+  );
 
-  const handleSelectItem = (id: number) => {
+  const handleSelectItem = useCallback((id: number) => {
     setSelectedItems((prevSelected) =>
       prevSelected.includes(id)
         ? prevSelected.filter((itemId) => itemId !== id)
         : [...prevSelected, id]
     );
-  };
+  }, []);
 
-  const handleSelectAll = () => {
+  const handleSelectAll = useCallback(() => {
     if (selectAll) {
       setSelectedItems([]);
     } else {
       setSelectedItems(boardList.map((item) => item.id));
     }
     setSelectAll(!selectAll);
-  };
+  }, [selectAll, boardList]);
 
-  const handleMoveSelected = () => {
+  const handleMoveSelected = useCallback(() => {
     if (selectedItems.length === 0) {
       alert("이동하실 게시물을 선택하세요");
       return;
     }
     setShowTransferPopup(true);
-  };
+  }, [selectedItems]);
 
-  const handleTransferConfirm = async (postType: number) => {
-    try {
-      const response = await fetch("/api/board/transferPost", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          idList: selectedItems,
-          postType,
-        }),
-      });
+  const handleTransferConfirm = useCallback(
+    async (postType: number) => {
+      try {
+        const response = await fetch("/api/board/transferPost", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            idList: selectedItems,
+            postType,
+          }),
+        });
 
-      if (!response.ok) {
-        throw new Error("Failed to transfer selected posts");
+        if (!response.ok) {
+          throw new Error("Failed to transfer selected posts");
+        }
+
+        const result = await response.json();
+
+        setBoardList((prevBoardList) =>
+          prevBoardList.filter((item) => !selectedItems.includes(item.id))
+        );
+
+        setSelectedItems([]);
+        setSelectAll(false);
+        setShowTransferPopup(false);
+
+        router.refresh();
+      } catch (error) {
+        toast.error("게시글 이동에 문제가 발생했습니다");
       }
+    },
+    [selectedItems, router]
+  );
 
-      const result = await response.json();
-
-      setBoardList((prevBoardList) =>
-        prevBoardList.filter((item) => !selectedItems.includes(item.id))
-      );
-
-      setSelectedItems([]);
-      setSelectAll(false);
-      setShowTransferPopup(false);
-
-      router.refresh();
-    } catch (error) {
-      toast.error("게시글 이동에 문제가 발생했습니다");
-    }
-  };
-
-  const handleDeleteSelected = async () => {
+  const handleDeleteSelected = useCallback(async () => {
     if (selectedItems.length === 0) {
       alert("선택한 아이템이 없습니다.");
       return;
@@ -171,7 +177,10 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
     } catch (error) {
       toast.error("게시글 리스트 삭제에 문제가 발생했습니다");
     }
-  };
+  }, [selectedItems]);
+
+  // Memoize the board list to prevent unnecessary re-renders
+  const memoizedBoardList = useMemo(() => boardList, [boardList]);
 
   return (
     <div className="flex flex-col gap-5">
@@ -224,7 +233,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
       </header>
 
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {boardList.map((item) => (
+        {memoizedBoardList.map((item) => (
           <article
             key={item.id}
             className="w-full max-w-[300px] min-w-[250px] h-auto max-h-[220px] bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300 rounded-lg overflow-hidden flex flex-col items-center text-center mx-auto"

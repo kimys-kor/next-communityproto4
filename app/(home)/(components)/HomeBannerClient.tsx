@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { Banner } from "@/app/types";
 import { useRouter } from "next/navigation";
@@ -22,33 +22,39 @@ const HomeBannerClient: React.FC<BannerListProps> = ({ banners }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const shuffledBanners = shuffleArray(banners);
-    setBannerList(shuffledBanners);
+    if (banners.length > 0) {
+      const shuffledBanners = shuffleArray(banners);
+      setBannerList(shuffledBanners);
+    }
   }, [banners]);
 
-  const handleBannerClick = async (bannerId: number, partnerUrl: string) => {
-    try {
-      const response = await fetch(`/api/clickBanner?bannerId=${bannerId}`, {
-        method: "GET",
-      });
+  const handleBannerClick = useCallback(
+    async (bannerId: number, partnerUrl: string) => {
+      try {
+        const response = await fetch(`/api/clickBanner?bannerId=${bannerId}`, {
+          method: "GET",
+        });
 
-      if (response.ok) {
-        const formattedUrl =
-          partnerUrl.startsWith("http://") || partnerUrl.startsWith("https://")
-            ? partnerUrl
-            : `https://${partnerUrl}`;
+        if (response.ok) {
+          const formattedUrl =
+            partnerUrl.startsWith("http://") ||
+            partnerUrl.startsWith("https://")
+              ? partnerUrl
+              : `https://${partnerUrl}`;
 
-        window.location.href = formattedUrl;
-      } else {
-        toast.error("Failed to register banner click.");
+          window.location.href = formattedUrl;
+        } else {
+          toast.error("Failed to register banner click.");
+        }
+      } catch (error) {
+        toast.error("Error occurred while opening the banner.");
       }
-    } catch (error) {
-      toast.error("Error occurred while opening the banner.");
-    }
-  };
+    },
+    [] // 의존성 배열을 빈 배열로 설정하여 함수가 다시 생성되지 않도록 최적화
+  );
 
   if (bannerList.length === 0) {
-    return null;
+    return null; // 배너가 없으면 아무것도 렌더링하지 않음
   }
 
   return (

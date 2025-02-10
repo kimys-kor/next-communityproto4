@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { BoardItem } from "../../types";
 import Paging from "@/app/components/Paging";
 import Link from "next/link";
@@ -31,31 +31,37 @@ const BoardClient: React.FC<BoardClientProps> = ({
   const pathname = usePathname();
 
   const { userInfo } = useUserStore();
-  const [boardList, setBoardList] = useState<BoardItem[]>(initialItems);
-  const [page, setPage] = useState(initialPage || 1);
-  const [totalElements, setTotalElements] = useState(initialTotalElements);
+
+  // state 최적화: setState 없이 ref로 처리하는 값들
+  const boardListRef = useRef<BoardItem[]>(initialItems); // 변경 불필요한 배열은 ref로 관리
+  const [page, setPage] = useState<number>(initialPage || 1);
+  const [totalElements, setTotalElements] =
+    useState<number>(initialTotalElements);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
+
+  const totalPages = Math.ceil(totalElements / size);
   const [selectAll, setSelectAll] = useState(false);
   const [showTransferPopup, setShowTransferPopup] = useState(false);
 
-  const totalPages = Math.ceil(totalElements / size);
-
-  const fetchData = async (pageNumber: number, keyword: string) => {
-    try {
-      const response = await fetch(
-        `/api/board/list?typ=${typ}&keyword=${keyword}&page=${pageNumber - 1}&size=${size}`,
-        { cache: "no-store" }
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch board list");
+  const fetchData = useCallback(
+    async (pageNumber: number, keyword: string) => {
+      try {
+        const response = await fetch(
+          `/api/board/list?typ=${typ}&keyword=${keyword}&page=${pageNumber - 1}&size=${size}`,
+          { cache: "no-store" }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch board list");
+        }
+        const data = await response.json();
+        boardListRef.current = data.data.content; // ref로 데이터를 갱신
+        setTotalElements(data.data.totalElements);
+      } catch (error) {
+        toast.error("Failed to fetch board list");
       }
-      const data = await response.json();
-      setBoardList(data.data.content);
-      setTotalElements(data.data.totalElements);
-    } catch (error) {
-      toast.error("Failed to fetch board list");
-    }
-  };
+    },
+    [size, typ]
+  );
 
   const [keyword, setKeyword] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -86,7 +92,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
     if (selectAll) {
       setSelectedItems([]);
     } else {
-      setSelectedItems(boardList.map((item) => item.id));
+      setSelectedItems(boardListRef.current.map((item) => item.id));
     }
     setSelectAll(!selectAll);
   };
@@ -113,8 +119,8 @@ const BoardClient: React.FC<BoardClientProps> = ({
         throw new Error("Failed to transfer selected posts");
       }
 
-      setBoardList((prevBoardList) =>
-        prevBoardList.filter((item) => !selectedItems.includes(item.id))
+      boardListRef.current = boardListRef.current.filter(
+        (item) => !selectedItems.includes(item.id)
       );
       setSelectedItems([]);
       setSelectAll(false);
@@ -150,7 +156,6 @@ const BoardClient: React.FC<BoardClientProps> = ({
       }
 
       await fetchData(page, keyword);
-
       setSelectedItems([]);
       setSelectAll(false);
       toast.success("선택한 게시물이 성공적으로 삭제되었습니다.");
@@ -261,7 +266,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
           </tr>
         </thead>
         <tbody>
-          {boardList.map((boardItem) => (
+          {boardListRef.current.map((boardItem) => (
             <tr
               key={boardItem.id}
               className="border-b border-gray-200 bg-white hover:bg-[#f1f3fa] hover:text-blue"
@@ -311,7 +316,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
 
       {/* Mobile Layout */}
       <div className="sm:hidden flex flex-col gap-2">
-        {boardList.map((boardItem) => (
+        {boardListRef.current.map((boardItem) => (
           <div
             key={boardItem.id}
             className="w-full border border-gray-200 border-solid rounded-md p-3 shadow-sm hover:bg-[#f1f3fa]"

@@ -13,31 +13,16 @@ const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const [loading, setLoading] = useState(true);
-  const [userInfo, setUserInfoState] = useState<UserInfo | null>(null);
   const { loggedIn, setLoggedIn } = useAuthStore();
-  const { setUserInfo, clearUserInfo } = useUserStore();
+  const { userInfo, setUserInfo } = useUserStore(); // Destructure userInfo from useUserStore
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const initializeUser = async () => {
-      const data = await refreshUserInfo();
-      if (data != null) {
-        setLoggedIn(true);
-        setUserInfo(data);
-        setUserInfoState(data);
-      } else {
-        setLoggedIn(false);
-      }
-      setLoading(false);
-    };
-
-    initializeUser();
-  }, []);
-
+  // Memoized function to toggle the menu open/closed
   const toggleOpen = useCallback(() => {
     setIsOpen((prev) => !prev);
   }, []);
 
+  // Memoized function to handle outside clicks
   const handleClickOutside = useCallback((event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setIsOpen(false);
@@ -45,11 +30,29 @@ const UserMenu = () => {
   }, []);
 
   useEffect(() => {
+    // Fetch user info only on initial mount (empty dependency array)
+    const initializeUser = async () => {
+      const data = await refreshUserInfo();
+      if (data) {
+        setLoggedIn(true);
+        setUserInfo(data);
+      } else {
+        setLoggedIn(false);
+      }
+      setLoading(false);
+    };
+
+    initializeUser();
+
+    // Event listener for closing the menu when clicking outside
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside); // Cleanup event listener
     };
-  }, [handleClickOutside]);
+  }, [handleClickOutside, setLoggedIn, setUserInfo]);
+
+  // Only render Profile component if userInfo is available and loading is complete
+  const renderProfile = !loading && userInfo && <Profile userInfo={userInfo} />;
 
   return (
     <div className="relative" ref={menuRef}>
@@ -66,17 +69,15 @@ const UserMenu = () => {
       {isOpen && (
         <div className="z-10 w-72 absolute bg-white overflow-hidden right-0 top-12 text-sm border border-solid border-gray-300">
           <div className="flex flex-col">
-            <>
-              <Profile userInfo={userInfo} />
-              <Link href={"/myinfo"}>
-                <div
-                  onClick={toggleOpen}
-                  className="px-4 py-3 hover:bg-neutral-100 text-lg font-medium text-center"
-                >
-                  내정보수정
-                </div>
-              </Link>
-            </>
+            {renderProfile}
+            <Link href={"/myinfo"}>
+              <div
+                onClick={toggleOpen}
+                className="px-4 py-3 hover:bg-neutral-100 text-lg font-medium text-center"
+              >
+                내정보수정
+              </div>
+            </Link>
           </div>
         </div>
       )}

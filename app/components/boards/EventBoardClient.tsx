@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Paging from "@/app/components/Paging";
 import Link from "next/link";
 import Image from "next/image";
@@ -39,45 +39,47 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
   const typ = searchParams.get("typ") || "14";
   const keyword = searchParams.get("keyword") || "";
 
-  const fetchData = async (page: number) => {
-    try {
-      const response = await fetch(
-        `/api/board/photoList?typ=${typ}&keyword=${keyword}&page=${page - 1}&size=${size}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          cache: "no-store",
+  // Fetch board data with useCallback to prevent unnecessary re-fetching
+  const fetchData = useCallback(
+    async (page: number) => {
+      try {
+        const response = await fetch(
+          `/api/board/photoList?typ=${typ}&keyword=${keyword}&page=${page - 1}&size=${size}`,
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            cache: "no-store",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch photo board data");
         }
-      );
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch photo board data");
+        const data = await response.json();
+        setBoardList(data.data.content);
+        setTotalElements(data.data.totalElements);
+        setTotalPages(data.data.totalPages);
+      } catch (error) {
+        toast.error("포토 게시글 리스트에 문제가 발생했습니다");
       }
-
-      const data = await response.json();
-      setBoardList(data.data.content);
-      setTotalElements(data.data.totalElements);
-      setTotalPages(data.data.totalPages);
-    } catch (error) {
-      toast.error("포토 게시글 리스트에 문제가 발생했습니다");
-    }
-  };
+    },
+    [typ, keyword]
+  );
 
   useEffect(() => {
     fetchData(currentPage);
-  }, [currentPage, typ, keyword]);
+  }, [currentPage, fetchData]);
 
   const handlePageChange = (newPage: number) => {
+    if (newPage === currentPage) return; // prevent unnecessary rerenders
     setCurrentPage(newPage);
     router.replace(`${pathname}?page=${newPage}`);
   };
 
+  // Memoize the selectedItems for efficiency
   const handleSelectAll = () => {
-    if (selectAll) {
-      setSelectedItems([]);
-    } else {
-      setSelectedItems(boardList.map((item) => item.id));
-    }
+    setSelectedItems(selectAll ? [] : boardList.map((item) => item.id));
     setSelectAll(!selectAll);
   };
 
@@ -154,28 +156,34 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
     }
   };
 
+  const paginationInfo = useMemo(
+    () => ({
+      currentPage,
+      totalElements,
+      totalPages,
+    }),
+    [currentPage, totalElements, totalPages]
+  );
+
   return (
     <section className="flex flex-col mt-3">
       <div className="w-full">
-        <div
-          className="flex flex-col md:flex-row justify-between items-start md:items-center gap-1 w-full
-        "
-        >
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-1 w-full">
           <div className="flex items-center gap-2">
             <div className="text-[#555555] text-sm">
               총
               <span className="text-[#2C4AB6] font-semibold">
-                {" "}
-                {totalElements}
+                {paginationInfo.totalElements}
               </span>
               건
             </div>
             <div className="text-[#555555] text-sm">
               {"("}
               <span className="text-[#2C4AB6] font-semibold">
-                {currentPage}
+                {paginationInfo.currentPage}
               </span>
-              /<span> {Math.ceil(totalElements / size)}</span> 페이지{")"}
+              /<span> {Math.ceil(paginationInfo.totalElements / size)}</span>{" "}
+              페이지{")"}
             </div>
           </div>
         </div>
@@ -249,16 +257,14 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
         </span>
       )}
 
-      {/* Pagination component */}
       <Paging
-        page={currentPage}
+        page={paginationInfo.currentPage}
         size={size}
-        totalElements={totalElements}
+        totalElements={paginationInfo.totalElements}
         setPage={handlePageChange}
         scroll={"top"}
       />
 
-      {/* Transfer popup for move action */}
       {showTransferPopup && (
         <TransferPopup
           onClose={() => setShowTransferPopup(false)}

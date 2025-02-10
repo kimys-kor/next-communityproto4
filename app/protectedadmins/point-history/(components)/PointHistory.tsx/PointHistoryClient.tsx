@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Paging from "@/app/components/Paging";
 import toast from "react-hot-toast";
 
@@ -21,7 +21,8 @@ function PointHistoryClient() {
   const [totalElements, setTotalElements] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const fetchData = async (page: number, searchKeyword: string) => {
+  // Fetch point history data with search and pagination
+  const fetchData = useCallback(async (page: number, searchKeyword: string) => {
     try {
       const response = await fetch(
         `/api/admin/pointlog?page=${page - 1}&size=${size}&keyword=${encodeURIComponent(searchKeyword)}`
@@ -37,21 +38,22 @@ function PointHistoryClient() {
     } catch (error) {
       toast.error("포인트 로그 리스트에 문제가 발생했습니다");
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchData(currentPage, searchQuery);
-  }, [currentPage, searchQuery]);
+  }, [currentPage, searchQuery, fetchData]);
 
-  const handlePageChange = (newPage: number) => {
+  const handlePageChange = useCallback((newPage: number) => {
     setCurrentPage(newPage);
-  };
+  }, []);
 
-  const handleSearch = () => {
-    setCurrentPage(1);
-    fetchData(1, searchQuery);
-  };
+  const handleSearch = useCallback(() => {
+    setCurrentPage(1); // Reset to first page on search
+    fetchData(1, searchQuery); // Trigger search with page 1
+  }, [searchQuery, fetchData]);
 
+  // Filtering based on search criteria
   const filteredHistories = histories.filter((history) => {
     if (searchField === "all") {
       return (
@@ -127,7 +129,7 @@ function PointHistoryClient() {
             </tr>
           </thead>
           <tbody>
-            {histories.map((history, index) => (
+            {filteredHistories.map((history, index) => (
               <tr
                 key={history.id}
                 className={`text-gray-600 text-sm ${

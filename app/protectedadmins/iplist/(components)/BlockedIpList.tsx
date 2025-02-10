@@ -1,6 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Paging from "@/app/components/Paging";
+import React, { useEffect, useState, useCallback } from "react";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";
 
@@ -12,55 +11,53 @@ export type BlockedIp = {
 function BlockedIpList() {
   const [blockedIps, setBlockedIps] = useState<BlockedIp[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalElements, setTotalElements] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
   const [selectedIps, setSelectedIps] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const size = 10;
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async (page: number) => {
     try {
-      const response = await fetch("/api/admin/iplist");
+      const response = await fetch(
+        `/api/admin/iplist?page=${page}&size=${size}`
+      );
       if (!response.ok) throw new Error("Failed to fetch IP list data");
 
       const result = await response.json();
       if (Array.isArray(result.data)) {
         setBlockedIps(result.data);
-        setTotalElements(result.data.length);
-        setTotalPages(Math.ceil(result.data.length / size));
       }
-      setSelectedIps([]);
+      setSelectedIps([]); // Reset selected IPs on data fetch
     } catch (error) {
       toast.error("ip리스트에 문제가 발생했습니다");
     }
-  };
-
-  useEffect(() => {
-    fetchData();
   }, []);
 
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
-  };
+  useEffect(() => {
+    fetchData(currentPage);
+  }, [currentPage, fetchData]);
 
-  const handleSelectAll = () => {
+  const handlePageChange = useCallback((newPage: number) => {
+    setCurrentPage(newPage);
+  }, []);
+
+  const handleSelectAll = useCallback(() => {
     if (selectAll) {
       setSelectedIps([]);
     } else {
       setSelectedIps(blockedIps.map((ip) => ip.id));
     }
-    setSelectAll(!selectAll);
-  };
+    setSelectAll((prev) => !prev);
+  }, [blockedIps, selectAll]);
 
-  const handleSelectIp = (id: number) => {
+  const handleSelectIp = useCallback((id: number) => {
     setSelectedIps((prevSelected) =>
       prevSelected.includes(id)
         ? prevSelected.filter((ipId) => ipId !== id)
         : [...prevSelected, id]
     );
-  };
+  }, []);
 
-  const handleDeleteSelected = async () => {
+  const handleDeleteSelected = useCallback(async () => {
     if (selectedIps.length === 0) {
       alert("삭제할 IP를 선택하세요.");
       return;
@@ -71,14 +68,14 @@ function BlockedIpList() {
 
     try {
       await deleteSelectedIps(selectedIps);
-      setSelectedIps([]);
+      setSelectedIps([]); // Reset selected IPs after deletion
       setSelectAll(false);
       toast.success("선택한 IP가 삭제되었습니다.");
-      fetchData();
+      fetchData(currentPage); // Fetch updated data
     } catch (error) {
       toast.error("ip 리스트 삭제에 문제가 발생했습니다");
     }
-  };
+  }, [selectedIps, fetchData, currentPage]);
 
   async function deleteSelectedIps(idList: number[]) {
     try {
@@ -98,7 +95,7 @@ function BlockedIpList() {
     }
   }
 
-  const handleSaveIp = async () => {
+  const handleSaveIp = useCallback(async () => {
     const ipAddress = prompt("추가할 아이피를 입력하세요.");
 
     if (!ipAddress) {
@@ -117,11 +114,11 @@ function BlockedIpList() {
       if (!response.ok) throw new Error("Failed to save IP");
 
       toast.success("IP가 성공적으로 추가되었습니다.");
-      fetchData();
+      fetchData(currentPage); // Fetch updated data
     } catch (error) {
       toast.error("ip 추가에 문제가 발생했습니다");
     }
-  };
+  }, [fetchData, currentPage]);
 
   return (
     <div>
@@ -130,7 +127,7 @@ function BlockedIpList() {
           <div className="text-[#555555] text-sm flex items-center gap-2">
             총
             <span className="text-[#2C4AB6] font-semibold">
-              {totalElements}
+              {blockedIps.length}
             </span>
             건
           </div>
@@ -139,7 +136,7 @@ function BlockedIpList() {
             <span className="text-[#2C4AB6] font-semibold">
               {currentPage}
             </span>{" "}
-            / <span>{totalPages}</span> 페이지{")"}
+            / <span>{Math.ceil(blockedIps.length / size)}</span> 페이지{")"}
           </div>
         </div>
         <div className="flex items-center gap-5">

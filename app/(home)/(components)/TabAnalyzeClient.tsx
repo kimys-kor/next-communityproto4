@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { tabsAnalyze } from "@/app/utils";
@@ -19,17 +20,24 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState(initialTab);
   const [boardList, setBoardList] = useState<BoardItem[]>(initialData);
+  const [loading, setLoading] = useState<boolean>(false); // 로딩 상태 추가
+
+  // 비동기 요청 취소를 위한 abort controller
+  const controller = new AbortController();
 
   useEffect(() => {
     const fetchBoardList = async (typ: number) => {
+      setLoading(true); // 로딩 시작
+
       try {
-        setBoardList([]);
+        setBoardList([]); // 데이터를 비운 후 로딩 상태 처리
 
         const response = await fetch(
           `/api/board/list?typ=${typ}&keyword=&page=0&size=10`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
+            signal: controller.signal, // 요청 취소 시 신호를 전달
             cache: "no-store",
           }
         );
@@ -42,6 +50,8 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
         setBoardList(data.data.content);
       } catch (error) {
         toast.error("게시글리스트 데이터 문제가 발생했습니다");
+      } finally {
+        setLoading(false); // 로딩 끝
       }
     };
 
@@ -49,7 +59,16 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
     const typ = typMap[activeTab];
 
     fetchBoardList(typ);
-  }, [activeTab]);
+
+    // 컴포넌트 언마운트 시 fetch 요청 취소
+    return () => {
+      controller.abort();
+    };
+  }, [activeTab]); // activeTab이 변경될 때마다 새로운 데이터를 fetch
+
+  const handleTabChange = useCallback((index: number) => {
+    setActiveTab(index);
+  }, []);
 
   return (
     <article className="h-[450px] sm:h-[450px] w-full truncate bg-white rounded-2xl flex flex-col gap-5 border border-solid border-gray-200">
@@ -64,7 +83,7 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
                   ? "text-sky-700 border-sky-500 bg-sky-50"
                   : "text-gray-700 border-gray-300 bg-white"
               }`}
-              onClick={() => setActiveTab(index)}
+              onClick={() => handleTabChange(index)} // Tab 클릭 시 handleTabChange 함수 호출
             >
               <div className="flex justify-center items-center gap-1">
                 {tab.icon}
@@ -76,7 +95,11 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
 
         {/* Tab content with a fixed minimum height */}
         <div className="text-sm w-full flex flex-col">
-          {boardList.length === 0 ? (
+          {loading ? (
+            <div className="flex justify-center items-center h-full text-gray-500">
+              Loading...
+            </div>
+          ) : boardList.length === 0 ? (
             <div className="flex justify-center items-center h-full text-gray-500">
               No content available
             </div>

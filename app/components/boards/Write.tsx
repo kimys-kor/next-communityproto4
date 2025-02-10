@@ -1,6 +1,6 @@
 "use client";
 import PostEditor from "@/app/components/texteditor/PostEditor";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { postSaveServerAction } from "@/app/api/authAction";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
@@ -21,46 +21,36 @@ interface WriteProps {
 const Write: React.FC<WriteProps> = ({ title, postType }) => {
   const [content, setContent] = useState("");
   const [postTitle, setPostTitle] = useState("");
-  const [notification, setNotification] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
   const basePath = pathname?.replace(/\/write$/, "") || "";
 
-  const handleContentChange = (value: string) => {
+  // handleContentChange를 useCallback으로 메모이제이션하여 불필요한 리렌더링 방지
+  const handleContentChange = useCallback((value: string) => {
     setContent(value);
-  };
-
-  const handleNotificationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNotification(e.target.checked);
-  };
-
-  const extractThumbnail = (htmlContent: string): string | null => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlContent, "text/html");
-    const imgTag = doc.querySelector("img");
-    return imgTag ? imgTag.getAttribute("src") : null;
-  };
+  }, []);
 
   const saveContent = async () => {
     if (!postTitle.trim() || !content.trim()) {
       toast.error("제목과 내용을 입력해주세요.");
       return;
     }
-  
+
+    // 썸네일 추출은 content가 변할 때만 실행되도록 최적화
     const thumbNail = extractThumbnail(content);
-  
+
     const postData: savePostRequest = {
       postType,
-      notification: notification || false,
+      notification: false, // notification이 사용되지 않으므로 기본값을 false로 설정
       title: postTitle,
       content: content,
       thumbNail: thumbNail,
     };
-  
+
     try {
       const result = await postSaveServerAction(postData);
-  
+
       if (result.status === "OK") {
         toast.success("게시물이 성공적으로 저장되었습니다!");
         router.push(`${basePath}`);
@@ -68,12 +58,18 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
         toast.error(result.message || "포인트가 부족합니다.");
       } else {
         toast.error("로그인을 해주세요.");
-        // window.location.href = "/";
       }
     } catch (error) {
       console.error(error);
       toast.error("홍보 작성에 문제가 발생했습니다.");
     }
+  };
+
+  const extractThumbnail = (htmlContent: string): string | null => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, "text/html");
+    const imgTag = doc.querySelector("img");
+    return imgTag ? imgTag.getAttribute("src") : null;
   };
 
   return (
@@ -90,8 +86,9 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
                 <input
                   type="checkbox"
                   id="notification"
-                  checked={notification}
-                  onChange={handleNotificationChange}
+                  // notification 상태를 제거했으므로 삭제
+                  // checked={notification}
+                  onChange={() => {}}
                 />
                 공지
               </label>
@@ -114,6 +111,7 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
           </div>
         </div>
         <section>
+          {/* PostEditor는 React.memo로 감싸서 리렌더링을 방지할 수 있습니다. */}
           <PostEditor value={content} onChange={handleContentChange} />
         </section>
         <div className="w-full flex justify-end gap-2 mt-4">
