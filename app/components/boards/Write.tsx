@@ -1,6 +1,6 @@
 "use client";
 import PostEditor from "@/app/components/texteditor/PostEditor";
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { postSaveServerAction } from "@/app/api/authAction";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
@@ -21,15 +21,26 @@ interface WriteProps {
 const Write: React.FC<WriteProps> = ({ title, postType }) => {
   const [content, setContent] = useState("");
   const [postTitle, setPostTitle] = useState("");
+  const [notification, setNotification] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
   const basePath = pathname?.replace(/\/write$/, "") || "";
 
-  // handleContentChange를 useCallback으로 메모이제이션하여 불필요한 리렌더링 방지
-  const handleContentChange = useCallback((value: string) => {
+  const handleContentChange = (value: string) => {
     setContent(value);
-  }, []);
+  };
+
+  const handleNotificationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNotification(e.target.checked);
+  };
+
+  const extractThumbnail = (htmlContent: string): string | null => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, "text/html");
+    const imgTag = doc.querySelector("img");
+    return imgTag ? imgTag.getAttribute("src") : null;
+  };
 
   const saveContent = async () => {
     if (!postTitle.trim() || !content.trim()) {
@@ -37,12 +48,11 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
       return;
     }
 
-    // 썸네일 추출은 content가 변할 때만 실행되도록 최적화
     const thumbNail = extractThumbnail(content);
 
     const postData: savePostRequest = {
       postType,
-      notification: false, // notification이 사용되지 않으므로 기본값을 false로 설정
+      notification: notification || false,
       title: postTitle,
       content: content,
       thumbNail: thumbNail,
@@ -65,13 +75,6 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
     }
   };
 
-  const extractThumbnail = (htmlContent: string): string | null => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlContent, "text/html");
-    const imgTag = doc.querySelector("img");
-    return imgTag ? imgTag.getAttribute("src") : null;
-  };
-
   return (
     <div className="p-4">
       <p className="text-lg md:text-xl py-2">{title} 작성</p>
@@ -86,9 +89,8 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
                 <input
                   type="checkbox"
                   id="notification"
-                  // notification 상태를 제거했으므로 삭제
-                  // checked={notification}
-                  onChange={() => {}}
+                  checked={notification}
+                  onChange={handleNotificationChange}
                 />
                 공지
               </label>
@@ -111,7 +113,6 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
           </div>
         </div>
         <section>
-          {/* PostEditor는 React.memo로 감싸서 리렌더링을 방지할 수 있습니다. */}
           <PostEditor value={content} onChange={handleContentChange} />
         </section>
         <div className="w-full flex justify-end gap-2 mt-4">

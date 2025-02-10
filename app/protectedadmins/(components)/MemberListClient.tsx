@@ -89,6 +89,9 @@ function MemberListClient({
   );
 
   useEffect(() => {
+    if (currentPage <= 0) {
+      setCurrentPage(1);
+    }
     fetchData(currentPage, keyword);
   }, [currentPage, keyword, fetchData]);
 

@@ -133,7 +133,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
 
   const handleDeleteSelected = async () => {
     if (selectedItems.length === 0) {
-      alert("게시글을 선택 해주세요.");
+      toast.error("게시글을 선택 해주세요.");
       return;
     }
 
