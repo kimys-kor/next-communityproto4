@@ -8,11 +8,8 @@ import NoticeCard from "@/app/components/cards/NoticeCard";
 import NewPostCard from "@/app/components/cards/NewPostCard";
 import NewPartnerCard from "@/app/components/cards/NewPartnerCard";
 import MobBottomNav from "@/app/components/MobBottomNav";
-import GuidePage from "@/app/components/guide2/page";
-import GGongPage from "@/app/components/guide2/ggong/page";
-import MajorPage from "@/app/components/guide2/major/page";
-import SafePage from "@/app/components/guide2/safe/page";
-import MtverifyPage from "@/app/components/guide2/mtverify/page";
+import HomeDescription1 from "./(components)/HomeDescription1";
+import HomeDescription2 from "./(components)/HomeDescription2";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -33,11 +30,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </section>
           <RightSideBanner></RightSideBanner>
         </Container>
-        <GuidePage></GuidePage>
-        <MtverifyPage></MtverifyPage>
-        <GGongPage></GGongPage>
-        <MajorPage></MajorPage>
-        <SafePage></SafePage>
+        <HomeDescription1></HomeDescription1>
+        <HomeDescription2></HomeDescription2>
       </div>
       <Footer />
       <MobBottomNav />
