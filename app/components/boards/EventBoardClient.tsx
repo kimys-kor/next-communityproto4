@@ -122,13 +122,11 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
 
   const handleDeleteSelected = async () => {
     if (selectedItems.length === 0) {
-      alert("No items selected for deletion.");
+      toast.error("게시글을 선택 해주세요.");
       return;
     }
 
-    const confirmed = window.confirm(
-      "Are you sure you want to delete the selected items?"
-    );
+    const confirmed = window.confirm("정말 삭제 하시겠습니까?");
     if (!confirmed) {
       return;
     }
@@ -136,21 +134,23 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
     try {
       const response = await fetch("/api/board/deletePost", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ idList: selectedItems }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to delete selected posts");
+        throw new Error("게시글삭제 실패");
       }
 
-      setBoardList((prevBoardList) =>
-        prevBoardList.filter((item) => !selectedItems.includes(item.id))
-      );
+      await fetchData(1);
+
       setSelectedItems([]);
       setSelectAll(false);
+      toast.success("선택한 게시물이 성공적으로 삭제되었습니다.");
     } catch (error) {
-      toast.error("게시글 삭제에 문제가 발생했습니다");
+      toast.error("게시글 리스트 삭제에 문제가 발생했습니다");
     }
   };
 
