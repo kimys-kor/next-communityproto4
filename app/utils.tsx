@@ -243,8 +243,7 @@ export async function fetchBoardDayContent(
 }
 
 export async function fetchBoardWeekContent(
-  // period: string = "week",
-  period: string = "month",
+  period: string = "week",
   page: number = 0,
   size: number = 6
 ): Promise<BoardItem2[]> {
