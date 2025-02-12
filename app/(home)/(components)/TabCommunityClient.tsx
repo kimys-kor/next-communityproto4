@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import toast from "react-hot-toast";
@@ -28,18 +28,19 @@ interface TabACommunityClientProps {
   initialData: any[];
 }
 
+// Custom hook for screen size detection
 const useResponsiveSize = () => {
   const [isMobile, setIsMobile] = useState(false);
 
-  const handleResize = useCallback(() => {
-    setIsMobile(window.innerWidth < 640); // `sm` breakpoint at 640px
-  }, []);
-
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640); // `sm` breakpoint at 640px
+    };
+
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
+  }, []);
 
   return isMobile;
 };
@@ -50,17 +51,12 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState(initialTab);
   const [tabContent, setTabContent] = useState<any[]>(initialData);
-  const [cachedData, setCachedData] = useState<Record<number, any[]>>({});
   const isMobile = useResponsiveSize();
 
   useEffect(() => {
     const fetchTabContent = async (typ: number, size: number) => {
-      if (cachedData[typ]) {
-        setTabContent(cachedData[typ]);
-        return;
-      }
-
       try {
+        setTabContent([]);
         const response = await fetch(
           `/api/board/list?typ=${typ}&keyword=&page=0&size=${size}`,
           {
@@ -78,7 +74,6 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
         let content = data.data.content;
 
         setTabContent(content);
-        setCachedData((prev) => ({ ...prev, [typ]: content }));
       } catch (error) {
         toast.error("게시글리스트 데이터 문제가 발생했습니다");
       }
@@ -89,7 +84,7 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
     const size = isMobile ? 8 : 10;
 
     fetchTabContent(typ, size);
-  }, [activeTab, isMobile, cachedData]);
+  }, [activeTab, isMobile]);
 
   return (
     <article className="min-h-[266px] w-full truncate bg-white rounded-2xl flex flex-col gap-5 border border-solid border-gray-200">

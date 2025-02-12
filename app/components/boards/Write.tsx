@@ -68,6 +68,7 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
         toast.error(result.message || "포인트가 부족합니다.");
       } else {
         toast.error("로그인을 해주세요.");
+        // window.location.href = "/";
       }
     } catch (error) {
       console.error(error);

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Paging from "../Paging";
 import { Comment } from "@/app/types";
 import { useAuthStore } from "@/app/globalStatus/useAuthStore";
@@ -40,7 +40,6 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
   const pathname = usePathname();
   const basePath = pathname?.split("/")[1] || "";
 
-  // 로그인 상태 업데이트
   useEffect(() => {
     const unsubscribe = useAuthStore.subscribe((state) => {
       setIsLoggedIn(state.loggedIn);
@@ -48,30 +47,27 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
     return () => unsubscribe();
   }, []);
 
-  const fetchComments = useCallback(
-    async (page: number) => {
-      try {
-        const res = await fetch(
-          `/api/board/comment?boardId=${boardId}&page=${page - 1}&size=${size}`
-        );
-        if (!res.ok) throw new Error("Failed to fetch comments");
+  const fetchComments = async (page: number) => {
+    try {
+      const res = await fetch(
+        `/api/board/comment?boardId=${boardId}&page=${page - 1}&size=${size}`
+      );
+      if (!res.ok) throw new Error("Failed to fetch comments");
 
-        const data = await res.json();
-        if (data.status === "OK" && data.data) {
-          setComments(data.data.comments);
-          setTotalElements(data.data.total);
-          setTotalPages(Math.ceil(data.data.total / size));
-        }
-      } catch (error) {
-        toast.error("댓글 리스트 데이터 문제가 발생했습니다");
+      const data = await res.json();
+      if (data.status === "OK" && data.data) {
+        setComments(data.data.comments);
+        setTotalElements(data.data.total);
+        setTotalPages(Math.ceil(data.data.total / size));
       }
-    },
-    [boardId]
-  );
+    } catch (error) {
+      toast.error("댓글 리스트 데이터 문제가 발생했습니다");
+    }
+  };
 
   useEffect(() => {
     fetchComments(currentPage);
-  }, [currentPage, fetchComments]);
+  }, [currentPage]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -248,6 +244,12 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
                 <div className="flex gap-3 items-center">
                   {canEditOrDelete && (
                     <div className="flex gap-2">
+                      {/* <button
+                      onClick={() => startEditingComment(item.id, item.content)}
+                      className="text-blue hover:text-deepblue"
+                    >
+                      수정
+                    </button> */}
                       <button
                         onClick={() => handleDeleteComment(item.id.toString())}
                         className="text-red-500 hover:text-red-700"

@@ -19,16 +19,12 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState(initialTab);
   const [boardList, setBoardList] = useState<BoardItem[]>(initialData);
-  const [cachedData, setCachedData] = useState<Record<number, BoardItem[]>>({});
 
   useEffect(() => {
     const fetchBoardList = async (typ: number) => {
-      if (cachedData[typ]) {
-        setBoardList(cachedData[typ]);
-        return;
-      }
-
       try {
+        setBoardList([]);
+
         const response = await fetch(
           `/api/board/list?typ=${typ}&keyword=&page=0&size=10`,
           {
@@ -44,7 +40,6 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
 
         const data = await response.json();
         setBoardList(data.data.content);
-        setCachedData((prev) => ({ ...prev, [typ]: data.data.content }));
       } catch (error) {
         toast.error("게시글리스트 데이터 문제가 발생했습니다");
       }
@@ -53,9 +48,8 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
     const typMap = [2, 3, 4, 5, 6, 7, 8];
     const typ = typMap[activeTab];
 
-    // Fetch data only if not already cached
     fetchBoardList(typ);
-  }, [activeTab, cachedData]);
+  }, [activeTab]);
 
   return (
     <article className="h-[450px] sm:h-[450px] w-full truncate bg-white rounded-2xl flex flex-col gap-5 border border-solid border-gray-200">

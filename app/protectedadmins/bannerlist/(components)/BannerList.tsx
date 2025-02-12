@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import Paging from "@/app/components/Paging";
 import { FaPlus, FaTrash, FaEdit } from "react-icons/fa";
 import toast from "react-hot-toast";
@@ -26,7 +26,7 @@ function BannerList() {
   const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
   const size = 10;
 
-  const fetchData = useCallback(async () => {
+  const fetchData = async () => {
     try {
       const response = await fetch("/api/admin/bannerlist");
       if (!response.ok) throw new Error("Failed to fetch banner data");
@@ -36,42 +36,40 @@ function BannerList() {
         setBanners(result.data);
         setTotalElements(result.data.length);
         setTotalPages(Math.ceil(result.data.length / size));
+      } else {
       }
-      setSelectedBanners([]); // Clear selection on data fetch
+      setSelectedBanners([]);
     } catch (error) {
       toast.error("배너 리스트에 문제가 발생했습니다");
     }
-  }, []);
+  };
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
-
-  const handlePageChange = useCallback((newPage: number) => {
-    setCurrentPage(newPage);
   }, []);
 
-  const handleSelectAll = useCallback(() => {
-    setSelectAll((prevSelectAll) => {
-      const newSelectAll = !prevSelectAll;
-      if (newSelectAll) {
-        setSelectedBanners(banners.map((banner) => banner.id));
-      } else {
-        setSelectedBanners([]);
-      }
-      return newSelectAll;
-    });
-  }, [banners]);
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
 
-  const handleSelectBanner = useCallback((id: number) => {
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setSelectedBanners([]);
+    } else {
+      setSelectedBanners(banners.map((banner) => banner.id));
+    }
+    setSelectAll(!selectAll);
+  };
+
+  const handleSelectBanner = (id: number) => {
     setSelectedBanners((prevSelected) =>
       prevSelected.includes(id)
         ? prevSelected.filter((bannerId) => bannerId !== id)
         : [...prevSelected, id]
     );
-  }, []);
+  };
 
-  const handleDeleteSelected = useCallback(async () => {
+  const handleDeleteSelected = async () => {
     if (selectedBanners.length === 0) {
       alert("삭제할 배너를 선택하세요.");
       return;
@@ -89,9 +87,9 @@ function BannerList() {
     } catch (error) {
       toast.error("배너 리스트 삭제에 문제가 발생했습니다");
     }
-  }, [selectedBanners, fetchData]);
+  };
 
-  const deleteSelectedBanners = useCallback(async (idList: number[]) => {
+  async function deleteSelectedBanners(idList: number[]) {
     try {
       const response = await fetch("/api/admin/deletebanner", {
         method: "PUT",
@@ -107,9 +105,7 @@ function BannerList() {
     } catch (error) {
       toast.error("배너 리스트 삭제에 문제가 발생했습니다");
     }
-  }, []);
-
-  const memoizedBanners = useMemo(() => banners, [banners]); // Memoizing the banner list
+  }
 
   if (selectedBanner) {
     return (
@@ -183,7 +179,7 @@ function BannerList() {
             </tr>
           </thead>
           <tbody>
-            {memoizedBanners.map((banner) => (
+            {banners.map((banner) => (
               <tr
                 key={banner.id}
                 className="text-gray-600 text-sm hover:bg-gray-200 transition-colors duration-200"
@@ -211,17 +207,19 @@ function BannerList() {
                   />
                 </td>
                 <td className="py-2 px-4 border-b border-solid align-middle">
-                  <a
-                    href={
-                      banner.partnerUrl.startsWith("http")
-                        ? banner.partnerUrl
-                        : `http://${banner.partnerUrl}`
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {banner.partnerUrl}
-                  </a>
+                  <td className="py-2 px-4 border-b border-solid align-middle">
+                    <a
+                      href={
+                        banner.partnerUrl.startsWith("http")
+                          ? banner.partnerUrl
+                          : `http://${banner.partnerUrl}`
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {banner.partnerUrl}
+                    </a>
+                  </td>
                 </td>
                 <td className="py-2 px-4 border-b border-solid text-center align-middle">
                   {banner.clickNum}

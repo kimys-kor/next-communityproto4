@@ -1,7 +1,7 @@
 "use client";
 
 import PostEditor from "@/app/components/texteditor/PostEditor";
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
@@ -34,26 +34,23 @@ const EditPost: React.FC<EditPostProps> = ({
 
   const { userInfo } = useUserStore();
 
-  const handleContentChange = useCallback((value: string) => {
+  const handleContentChange = (value: string) => {
     setContent(value);
-  }, []);
+  };
 
   const handleNotificationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNotification(e.target.checked);
   };
 
-  // `content` 변경 시에만 계산하도록 useMemo 사용
-  const thumbNail = useMemo(() => {
-    const extractThumbnail = (htmlContent: string): string | null => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(htmlContent, "text/html");
-      const imgTag = doc.querySelector("img");
-      return imgTag ? imgTag.getAttribute("src") : null;
-    };
-    return extractThumbnail(content);
-  }, [content]); // content가 바뀔 때만 실행
+  const extractThumbnail = (htmlContent: string): string | null => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, "text/html");
+    const imgTag = doc.querySelector("img");
+    return imgTag ? imgTag.getAttribute("src") : null;
+  };
+  const thumbNail = extractThumbnail(content);
 
-  const saveEditedContent = useCallback(async () => {
+  const saveEditedContent = async () => {
     if (!title.trim() || !content.trim()) {
       toast.error("제목과 내용을 입력해주세요.");
       return;
@@ -84,7 +81,7 @@ const EditPost: React.FC<EditPostProps> = ({
     } catch (error) {
       toast.error("게시글 수정에 문제가 발생했습니다");
     }
-  }, [content, notification, postId, title, thumbNail]);
+  };
 
   return (
     <div className="p-4">

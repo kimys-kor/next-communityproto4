@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import MemberDetail from "./MemberDetail";
 import Paging from "@/app/components/Paging";
 import { FaPlus, FaTrash } from "react-icons/fa";
@@ -29,42 +29,41 @@ function AdminMemberListClient() {
   const [totalPages, setTotalPages] = useState(0);
   const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
   const [selectAll, setSelectAll] = useState(false);
-  const [showForm, setShowForm] = useState(false);
-  const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // Fetch member data with memoization for search and pagination
-  const fetchData = useCallback(
-    async (pageNumber: number, searchKeyword: string) => {
-      setMembers([]); // Reset members list to avoid showing stale data
-      try {
-        const response = await fetch(
-          `/api/master/adminuser?page=${pageNumber - 1}&size=${size}&keyword=${encodeURIComponent(
-            searchKeyword
-          )}`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch member data");
-        }
-        const data = await response.json();
-        setMembers(data.data.content || []);
-        setTotalElements(data.data.totalElements || 0);
-        setTotalPages(Math.ceil(data.data.totalElements / size) || 1);
-        setSelectedMembers([]); // Clear selection after fetching new data
-        setSelectAll(false);
-      } catch (error) {
-        toast.error("관리자 계정 리스트에 문제가 발생했습니다");
+  const [showForm, setShowForm] = useState(false);
+
+  const fetchData = async (pageNumber: number, searchKeyword: string) => {
+    setMembers([]);
+    try {
+      const response = await fetch(
+        `/api/master/adminuser?page=${pageNumber - 1}&size=${size}&keyword=${encodeURIComponent(
+          searchKeyword
+        )}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch member data");
       }
-    },
-    []
-  );
+      const data = await response.json();
+      setMembers(data.data.content || []);
+      setTotalElements(data.data.totalElements || 0);
+      setTotalPages(Math.ceil(data.data.totalElements / size) || 1);
+      setSelectedMembers([]);
+      setSelectAll(false);
+    } catch (error) {
+      toast.error("관리자 계정 리스트에 문제가 발생했습니다");
+    }
+  };
 
   useEffect(() => {
     fetchData(currentPage, keyword);
-  }, [currentPage, keyword, fetchData]);
+  }, [currentPage, keyword]);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
   };
+
+  const [searchField, setSearchField] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleSearch = () => {
     setCurrentPage(1);
@@ -129,67 +128,20 @@ function AdminMemberListClient() {
     );
   }
 
-  // Memoize rendered member rows to avoid unnecessary re-renders
-  const renderedMembers = useMemo(() => {
-    return members.map((member) => (
-      <tr
-        key={member.id}
-        className="text-gray-600 text-xs sm:text-sm hover:bg-gray-200 transition-colors duration-200"
-      >
-        <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
-          <input
-            type="checkbox"
-            checked={selectedMembers.includes(member.username)}
-            onChange={() => handleSelectMember(member.username)}
-            className="h-4 w-4"
-          />
-        </td>
-        <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
-          {member.id}
-        </td>
-        <td className="py-2 px-2 sm:px-4 border-b border-solid">
-          {member.username}
-        </td>
-        <td className="py-2 px-2 sm:px-4 border-b border-solid">
-          {member.phoneNum}
-        </td>
-        <td className="py-2 px-2 sm:px-4 border-b border-solid">
-          {member.fullName}
-        </td>
-        <td className="py-2 px-2 sm:px-4 border-b border-solid">
-          {member.nickname}
-        </td>
-        <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
-          {member.point}
-        </td>
-        <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
-          {member.exp}
-        </td>
-        <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
-          {member.status}
-        </td>
-        <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
-          {member.createdDt}
-        </td>
-        <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
-          {member.lastLogin ? member.lastLogin : "모름"}
-        </td>
-        <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
-          <button
-            onClick={() => setSelectedMember(member)}
-            className="px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm text-gray-700 border border-solid border-gray-500 rounded hover:bg-gray-500 hover:text-white transition-colors duration-200"
-          >
-            수정
-          </button>
-        </td>
-      </tr>
-    ));
-  }, [members, selectedMembers]);
-
   return (
     <div>
       {/* Search Controls */}
       <div className="flex flex-col md:flex-row items-center gap-3 mb-6 p-3 bg-white rounded-md border border-solid border-gray-200 shadow-sm">
+        <select
+          className="p-2 border border-solid border-gray-300 rounded bg-gray-100 text-gray-700 text-sm w-full md:w-auto"
+          value={searchField}
+          onChange={(e) => setSearchField(e.target.value)}
+        >
+          <option value="all">전체</option>
+          <option value="title">제목</option>
+          <option value="content">내용</option>
+          <option value="nickname">닉네임</option>
+        </select>
         <input
           type="text"
           placeholder="검색어 입력"
@@ -206,10 +158,21 @@ function AdminMemberListClient() {
       </div>
 
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full text-xs md:text-sm text-[#555555]">
-        <div className="text-[#555555] text-sm flex items-center gap-2">
-          총
-          <span className="text-[#2C4AB6] font-semibold">{totalElements}</span>
-          건
+        <div className="flex gap-2 mb-4 sm:mb-0">
+          <div className="text-[#555555] text-sm flex items-center gap-2">
+            총
+            <span className="text-[#2C4AB6] font-semibold">
+              {totalElements}
+            </span>
+            건
+          </div>
+          <div className="text-[#555555] text-sm">
+            {"("}
+            <span className="text-[#2C4AB6] font-semibold">
+              {currentPage}
+            </span>{" "}
+            / <span>{totalPages}</span> 페이지{")"}
+          </div>
         </div>
         <div className="flex items-center gap-5">
           <button
@@ -282,7 +245,61 @@ function AdminMemberListClient() {
               <th className="py-2 px-2 sm:px-4 border-b border-solid">수정</th>
             </tr>
           </thead>
-          <tbody>{renderedMembers}</tbody>
+          <tbody>
+            {members.map((member) => (
+              <tr
+                key={member.id}
+                className="text-gray-600 text-xs sm:text-sm hover:bg-gray-200 transition-colors duration-200"
+              >
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
+                  <input
+                    type="checkbox"
+                    checked={selectedMembers.includes(member.username)}
+                    onChange={() => handleSelectMember(member.username)}
+                    className="h-4 w-4"
+                  />
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
+                  {member.id}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid">
+                  {member.username}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid">
+                  {member.phoneNum}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid">
+                  {member.fullName}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid">
+                  {member.nickname}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
+                  {member.point}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
+                  {member.exp}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
+                  {member.status}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
+                  {member.createdDt}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
+                  {member.lastLogin ? member.lastLogin : "모름"}
+                </td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
+                  <button
+                    onClick={() => setSelectedMember(member)}
+                    className="px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm text-gray-700 border border-solid border-gray-500 rounded hover:bg-gray-500 hover:text-white transition-colors duration-200"
+                  >
+                    수정
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
 

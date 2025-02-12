@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import Paging from "@/app/components/Paging";
 import Link from "next/link";
 import Image from "next/image";
@@ -38,86 +38,65 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
   const typ = searchParams.get("typ") || "9";
   const keyword = searchParams.get("keyword") || "";
 
-  // Fetch data using useCallback to prevent unnecessary re-fetches
-  const fetchData = useCallback(
-    async (page: number) => {
-      try {
-        const response = await fetch(
-          `/api/board/photoList?typ=${typ}&keyword=${keyword}&page=${page - 1}&size=${size}`,
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-            cache: "no-store",
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch photo board data");
+  const fetchData = async (page: number) => {
+    try {
+      const response = await fetch(
+        `/api/board/photoList?typ=${typ}&keyword=${keyword}&page=${page - 1}&size=${size}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-store",
         }
+      );
 
-        const data = await response.json();
-
-        // Only update state if the data has changed
-        if (JSON.stringify(data.data.content) !== JSON.stringify(boardList)) {
-          setBoardList(data.data.content);
-          setTotalElements(data.data.totalElements);
-          setTotalPages(data.data.totalPages);
-        }
-      } catch (error) {
-        toast.error("포토 게시글 리스트에 문제가 발생했습니다");
+      if (!response.ok) {
+        throw new Error("Failed to fetch photo board data");
       }
-    },
-    [typ, keyword, boardList]
-  );
+
+      const data = await response.json();
+      setBoardList(data.data.content);
+      setTotalElements(data.data.totalElements);
+      setTotalPages(data.data.totalPages);
+    } catch (error) {
+      toast.error("포토 게시글 리스트에 문제가 발생했습니다");
+    }
+  };
 
   useEffect(() => {
     fetchData(currentPage);
-  }, [currentPage, fetchData]);
+  }, [currentPage, typ, keyword]);
 
-  // Memoize the selectedItems list to optimize performance
-  const handleSelectAll = useCallback(() => {
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    router.replace(`${pathname}?page=${newPage}`);
+  };
+
+  const handleSelectAll = () => {
     if (selectAll) {
       setSelectedItems([]);
     } else {
       setSelectedItems(boardList.map((item) => item.id));
     }
-    setSelectAll((prevSelectAll) => !prevSelectAll);
-  }, [boardList, selectAll]);
+    setSelectAll(!selectAll);
+  };
 
-  // Memoized handle select item
-  const handleSelectItem = useCallback((id: number) => {
+  const handleSelectItem = (id: number) => {
     setSelectedItems((prevSelected) =>
       prevSelected.includes(id)
         ? prevSelected.filter((itemId) => itemId !== id)
         : [...prevSelected, id]
     );
-  }, []);
+  };
 
-  // Handle page change with memoized function
-  const handlePageChange = useCallback(
-    (newPage: number) => {
-      if (newPage === currentPage) return; // Prevent unnecessary re-rendering
-      setCurrentPage(newPage);
-      router.replace(`${pathname}?page=${newPage}`);
-    },
-    [currentPage, router, pathname]
-  );
-
-  // Handle moving selected items
-  const handleMoveSelected = useCallback(() => {
+  const handleMoveSelected = () => {
     if (selectedItems.length === 0) {
       alert("이동하실 게시물을 선택하세요");
       return;
     }
     setShowTransferPopup(true);
-  }, [selectedItems]);
+  };
 
   const handleTransferConfirm = async (postType: number) => {
-    if (!postType) {
-      toast.error("Invalid post type.");
-      return;
-    }
-
     try {
       const response = await fetch("/api/board/transferPost", {
         method: "PUT",
@@ -126,8 +105,6 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json(); // Log error data for debugging
-        console.error("Transfer Error:", errorData);
         throw new Error("Failed to transfer selected posts");
       }
 
@@ -138,14 +115,11 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
       setSelectAll(false);
       setShowTransferPopup(false);
     } catch (error) {
-      console.error("Error during transfer:", error); // Log the actual error for debugging
       toast.error("게시글 이동에 문제가 발생했습니다");
     }
   };
 
-  // Handle delete selected items
-
-  const handleDeleteSelected = useCallback(async () => {
+  const handleDeleteSelected = async () => {
     if (selectedItems.length === 0) {
       alert("No items selected for deletion.");
       return;
@@ -177,17 +151,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
     } catch (error) {
       toast.error("게시글 삭제에 문제가 발생했습니다");
     }
-  }, [selectedItems]);
-
-  // Memoize pagination data to avoid unnecessary recalculations
-  const paginationInfo = useMemo(
-    () => ({
-      currentPage,
-      totalElements,
-      totalPages,
-    }),
-    [currentPage, totalElements, totalPages]
-  );
+  };
 
   return (
     <section className="flex flex-col gap-1 mt-3">
@@ -197,13 +161,12 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
             <div className="text-[#555555] text-sm">
               총{" "}
               <span className="text-[#2C4AB6] font-semibold">
-                {paginationInfo.totalElements}
+                {totalElements}
               </span>{" "}
               건
             </div>
             <div className="text-[#555555] text-sm">
-              ({paginationInfo.currentPage} /{" "}
-              <span>{paginationInfo.totalPages}</span> 페이지)
+              ({currentPage} / <span>{totalPages}</span> 페이지)
             </div>
           </div>
         </div>
@@ -284,9 +247,9 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
       )}
 
       <Paging
-        page={paginationInfo.currentPage}
+        page={currentPage}
         size={size}
-        totalElements={paginationInfo.totalElements}
+        totalElements={totalElements}
         setPage={handlePageChange}
         scroll="top"
       />

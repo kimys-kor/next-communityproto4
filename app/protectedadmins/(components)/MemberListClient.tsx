@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import MemberDetail from "./MemberDetail";
 import Paging from "@/app/components/Paging";
 import { FaTrash } from "react-icons/fa";
@@ -72,28 +72,26 @@ function MemberListClient({
   const [selectAll, setSelectAll] = useState(false);
   const [searchField, setSearchField] = useState<string>("all");
 
-  const fetchData = useCallback(
-    async (pageNumber: number, searchKeyword: string) => {
-      try {
-        const data = await fetchMembers(pageNumber - 1, size, searchKeyword);
-        setMembers(data.data.content);
-        setTotalElements(data.data.totalElements);
-        setTotalPages(Math.ceil(data.data.totalElements / size));
-        setSelectedMembers([]);
-        setSelectAll(false);
-      } catch (error) {
-        toast.error("관리자 계정 리스트에 문제가 발생했습니다");
-      }
-    },
-    [size]
-  );
+  const fetchData = async (pageNumber: number, searchKeyword: string) => {
+    setMembers([]);
+    try {
+      const data = await fetchMembers(pageNumber - 1, size, searchKeyword);
+      setMembers(data.data.content);
+      setTotalElements(data.data.totalElements);
+      setTotalPages(Math.ceil(data.data.totalElements / size));
+      setSelectedMembers([]);
+      setSelectAll(false);
+    } catch (error) {
+      toast.error("관리자 계정 리스트에 문제가 발생했습니다");
+    }
+  };
 
   useEffect(() => {
     if (currentPage <= 0) {
       setCurrentPage(1);
     }
     fetchData(currentPage, keyword);
-  }, [currentPage, keyword, fetchData]);
+  }, [currentPage, keyword]);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
@@ -135,22 +133,11 @@ function MemberListClient({
       setSelectedMembers([]);
       setSelectAll(false);
       toast.success("선택한 회원이 차단되었습니다.");
-      fetchData(currentPage, keyword); // Refetch data without reloading the page
+      window.location.reload();
     } catch (error) {
       toast.error("회원 리스트 차단에 문제가 발생했습니다");
     }
   };
-
-  const debouncedSearchQuery = useMemo(() => {
-    const handler = setTimeout(() => {
-      setKeyword(searchQuery);
-    }, 500); // Debounce time: 500ms
-    return () => clearTimeout(handler);
-  }, [searchQuery]);
-
-  useEffect(() => {
-    debouncedSearchQuery;
-  }, [searchQuery, debouncedSearchQuery]);
 
   if (selectedMember) {
     return (

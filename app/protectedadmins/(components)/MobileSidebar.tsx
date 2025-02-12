@@ -1,20 +1,19 @@
 "use client";
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import Link from "next/link";
 import { MdAddToHomeScreen } from "react-icons/md";
 import { menuItems } from "@/app/utils";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
 
-const MobileSidebar = React.memo(() => {
+export default function MobileSidebar() {
   const { userInfo } = useUserStore();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  // Memoize toggleSidebar function to prevent re-creation on each render
-  const toggleSidebar = useCallback(() => {
-    setIsSidebarOpen((prev) => !prev);
-  }, []);
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   // Close sidebar on outside click
   useEffect(() => {
@@ -42,7 +41,9 @@ const MobileSidebar = React.memo(() => {
 
       <aside
         ref={sidebarRef}
-        className={`fixed pt-[100px] top-0 left-0 h-full z-40 transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 bg-gray-100 w-54 p-3 overflow-y-auto max-h-full`}
+        className={`fixed pt-[100px] top-0 left-0 h-full z-40 transform ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } transition-transform duration-300 bg-gray-100 w-54 p-3 overflow-y-auto max-h-full`}
       >
         <div className="flex flex-col gap-2">
           <div className="bg-gray-100 rounded-lg p-4 h-full w-full max-w-full lg:max-w-xs overflow-y-auto">
@@ -111,6 +112,4 @@ const MobileSidebar = React.memo(() => {
       </aside>
     </>
   );
-});
-
-export default MobileSidebar;
+}

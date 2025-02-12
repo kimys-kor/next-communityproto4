@@ -1,12 +1,5 @@
 "use client";
-import React, {
-  useState,
-  useEffect,
-  ChangeEvent,
-  FormEvent,
-  useMemo,
-  useCallback,
-} from "react";
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
 
 // Define the types for user information and editable data
@@ -16,77 +9,68 @@ interface FormData {
   phoneNum: string;
 }
 
-const useUpdateUserInfo = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+function InfoChange() {
+  const { userInfo } = useUserStore();
 
-  const updateUserInfo = async (data: FormData) => {
-    setLoading(true);
+  // Set up initial state based on userInfo
+  const [editableData, setEditableData] = useState<FormData>({
+    fullname: userInfo?.fullName || "",
+    nickname: userInfo?.nickname || "",
+    phoneNum: userInfo?.phoneNum || "",
+  });
+
+  // Detect changes to enable the submit button
+  const hasChanges =
+    editableData.fullname !== (userInfo?.fullName || "") ||
+    editableData.nickname !== (userInfo?.nickname || "") ||
+    (editableData.phoneNum !== (userInfo?.phoneNum || "") &&
+      editableData.phoneNum.length === 11);
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEditableData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const apiData = {
+      fullName: editableData.fullname,
+      nickname: editableData.nickname,
+      phoneNum: editableData.phoneNum,
+    };
+
     try {
       const response = await fetch("/api/updateMyInfo", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(apiData),
       });
 
       if (!response.ok) {
         throw new Error("Failed to update user info");
       }
 
-      await response.json();
+      const result = await response.json();
       alert("회원정보가 성공적으로 수정되었습니다!");
-      window.location.href = "/";
+      window.location.href = `/`;
     } catch (error) {
-      setError("회원정보 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
-    } finally {
-      setLoading(false);
+      alert("회원정보 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
-  return { updateUserInfo, loading, error };
-};
-
-function InfoChange() {
-  const { userInfo } = useUserStore();
-
-  // Memoize editableData to avoid unnecessary recalculations
-  const editableData = useMemo(
-    () => ({
+  useEffect(() => {
+    setEditableData({
       fullname: userInfo?.fullName || "",
       nickname: userInfo?.nickname || "",
       phoneNum: userInfo?.phoneNum || "",
-    }),
-    [userInfo]
-  );
-
-  const { updateUserInfo, loading, error } = useUpdateUserInfo();
-
-  // Handle input changes with debounce logic
-  const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setEditableData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  }, []);
-
-  const [editableDataState, setEditableData] = useState<FormData>(editableData);
-
-  // Detect changes to enable the submit button
-  const hasChanges = useMemo(() => {
-    return (
-      editableDataState.fullname !== userInfo?.fullName ||
-      editableDataState.nickname !== userInfo?.nickname ||
-      editableDataState.phoneNum !== userInfo?.phoneNum
-    );
-  }, [editableDataState, userInfo]);
-
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    await updateUserInfo(editableDataState);
-  };
+    });
+  }, [userInfo]);
 
   return (
     <div className="w-full flex justify-center">
@@ -116,7 +100,7 @@ function InfoChange() {
                 <p className="w-24">이름</p>
                 <input
                   name="fullname"
-                  value={editableDataState.fullname}
+                  value={editableData.fullname}
                   onChange={handleInputChange}
                   className="truncate appearance-none border rounded py-2 px-1 font-normal text-sm text-gray-700 leading-tight focus:outline-none"
                 />
@@ -125,7 +109,7 @@ function InfoChange() {
                 <p className="w-24">닉네임</p>
                 <input
                   name="nickname"
-                  value={editableDataState.nickname}
+                  value={editableData.nickname}
                   onChange={handleInputChange}
                   className="truncate appearance-none border rounded py-2 px-1 font-normal text-sm text-gray-700 leading-tight focus:outline-none"
                 />
@@ -135,7 +119,7 @@ function InfoChange() {
                 <p className="text-subtext2 text-sm">-없이 숫자만 입력</p>
                 <input
                   name="phoneNum"
-                  value={editableDataState.phoneNum}
+                  value={editableData.phoneNum}
                   onChange={handleInputChange}
                   maxLength={11}
                   className="truncate appearance-none border rounded py-2 px-1 font-normal text-sm text-gray-700 leading-tight focus:outline-none"
@@ -146,18 +130,17 @@ function InfoChange() {
           <div className="w-full gap-3 flex justify-center p-2">
             <button
               type="submit"
-              disabled={!hasChanges || loading}
+              disabled={!hasChanges}
               className={`w-full md:w-1/2 lg:w-1/3 px-4 py-4 ${
-                hasChanges && !loading
+                hasChanges
                   ? "bg-blue text-white hover:bg-deepblue"
                   : "bg-gray-400 text-gray-600 cursor-not-allowed"
               }`}
             >
-              {loading ? "저장 중..." : "회원정보수정"}
+              회원정보수정
             </button>
           </div>
         </form>
-        {error && <div className="text-red-500">{error}</div>}
       </div>
     </div>
   );
