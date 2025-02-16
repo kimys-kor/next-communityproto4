@@ -2,7 +2,7 @@ import React from "react";
 import Ranking from "./Ranking";
 
 type Category =
-  | "토이소 텔레 공식 채널"
+  | "먹튀검증은 토이소"
   | "웹툰"
   | "무료드라마"
   | "성인사이트"
@@ -151,7 +151,7 @@ const linkData: Record<string, { name: string; url: string }[]> = {
 const RankingList: React.FC = () => {
   return (
     <div className="container mx-auto min-h-screen py-6 px-4">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
+      <h1 className="text-4xl font-bold text-center text-white mb-8">
         인기 웹사이트 순위
       </h1>
       {/* 각 카테고리별로 Ranking 컴포넌트를 렌더링 */}
