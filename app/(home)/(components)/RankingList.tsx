@@ -1,7 +1,21 @@
 import React from "react";
 import Ranking from "./Ranking";
 
-const linkData = {
+type Category =
+  | "토이소 텔레 공식 채널"
+  | "웹툰"
+  | "무료드라마"
+  | "성인사이트"
+  | "오피/유흥"
+  | "스포츠중계"
+  | "먹튀검증"
+  | "토렌트"
+  | "커뮤니티"
+  | "성인용품"
+  | "한인교민"
+  | "토이소 공식 텔레 채널 : toiso777"; // 여기 추가
+
+const linkData: Record<string, { name: string; url: string }[]> = {
   "토이소 텔레 공식 채널": [
     { name: "Google", url: "https://google.com" },
     { name: "Youtube", url: "https://youtube.com" },
