@@ -23,14 +23,40 @@ const Ranking: React.FC<RankingProps> = ({ category, rankings }) => {
         {rankings.map((item, index) => {
           let rankIcon;
           // 랭킹에 맞는 아이콘 처리
-          if (index === 0) {
-            rankIcon = "🌟"; // 1등: 금별
-          } else if (index === 1) {
-            rankIcon = "🌙"; // 2등: 은별
-          } else if (index === 2) {
-            rankIcon = "🏅"; // 3등: 동메달
-          } else {
-            rankIcon = `#${index + 1}`; // 그 외 랭킹은 #순위 표시
+          switch (index) {
+            case 0:
+              rankIcon = "🌟"; // 1등: 금별
+              break;
+            case 1:
+              rankIcon = "🌙"; // 2등: 은별
+              break;
+            case 2:
+              rankIcon = "🏅"; // 3등: 동메달
+              break;
+            case 3:
+              rankIcon = "🎖️"; // 4등: 훈장
+              break;
+            case 4:
+              rankIcon = "🥇"; // 5등: 1등 메달
+              break;
+            case 5:
+              rankIcon = "🥈"; // 6등: 2등 메달
+              break;
+            case 6:
+              rankIcon = "🥉"; // 7등: 3등 메달
+              break;
+            case 7:
+              rankIcon = "🎯"; // 8등: 과녁
+              break;
+            case 8:
+              rankIcon = "🏆"; // 9등: 트로피
+              break;
+            case 9:
+              rankIcon = "🚀"; // 10등: 로켓
+              break;
+            default:
+              rankIcon = `#${index + 1}`; // 그 외 랭킹은 #순위 표시
+              break;
           }
 
           return (
@@ -61,7 +87,10 @@ const Ranking: React.FC<RankingProps> = ({ category, rankings }) => {
                         : "text-red-500"
                   }`}
                 >
-                  {item.score} 점
+                  {item.score}
+                </span>
+                <span className="text-lg font-semibold text-indigo-600">
+                  점
                 </span>
               </div>
             </div>
