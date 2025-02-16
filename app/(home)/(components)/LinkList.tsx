@@ -16,7 +16,7 @@ type Category =
   | "한인교민";
 
 const linkData: Record<Category, { name: string; url: string }[]> = {
-  "주소월드 텔레 공식 채널": [
+  "토이소 공식 텔레 채널 : toiso777": [
     { name: "Google", url: "https://google.com" },
     { name: "Youtube", url: "https://youtube.com" },
     { name: "Naver", url: "https://naver.com" },

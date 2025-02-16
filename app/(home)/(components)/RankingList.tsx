@@ -2,7 +2,7 @@ import React from "react";
 import Ranking from "./Ranking";
 
 const linkData = {
-  "주소월드 텔레 공식 채널": [
+  "토이소 텔레 공식 채널": [
     { name: "Google", url: "https://google.com" },
     { name: "Youtube", url: "https://youtube.com" },
     { name: "Naver", url: "https://naver.com" },
@@ -136,10 +136,8 @@ const linkData = {
 
 const RankingList: React.FC = () => {
   return (
-    <div className="container mx-auto p-8 bg-gray-100 min-h-screen">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">
-        홈 화면
-      </h1>
+    <div className="container mx-auto min-h-screen">
+      <h1 className="text-4xl font-bold text-center text-gray-800 mb-10"></h1>
       {/* 각 카테고리별로 Ranking 컴포넌트를 렌더링 */}
       {Object.entries(linkData).map(([category, rankings]) => (
         <Ranking
