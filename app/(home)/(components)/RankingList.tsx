@@ -150,8 +150,10 @@ const linkData: Record<string, { name: string; url: string }[]> = {
 
 const RankingList: React.FC = () => {
   return (
-    <div className="container mx-auto min-h-screen">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-10"></h1>
+    <div className="container mx-auto min-h-screen py-6 px-4">
+      <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
+        인기 웹사이트 순위
+      </h1>
       {/* 각 카테고리별로 Ranking 컴포넌트를 렌더링 */}
       {Object.entries(linkData).map(([category, rankings]) => (
         <Ranking

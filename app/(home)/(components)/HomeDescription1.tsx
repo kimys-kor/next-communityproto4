@@ -2,16 +2,15 @@ import Image from "next/image";
 import money from "/public/images/money.png";
 import search from "/public/images/search.png";
 import talkball from "/public/images/talkball.png";
+import RankingList from "./RankingList";
 
 function HomeDescription1() {
   return (
     <div className="w-full pt-36">
+      <RankingList />
       <main>
         <section className="block lg:flex bg-bgblue py-28 px-10 gap-5">
           <div className="container mx-auto px-6 py-16">
-            <h1 className="text-4xl font-semibold text-gray-900 mb-8 text-center">
-              꽁머니와 안전한 스포츠토토 즐기기
-            </h1>
             <div className="text-base md:text-lg text-gray-700 font-normal leading-relaxed space-y-6 max-w-3xl mx-auto">
               <p>
                 꽁머니는 꽁머니사이트와 다양한 온라인 플랫폼에서 제공하는 무료
