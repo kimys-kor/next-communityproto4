@@ -152,7 +152,8 @@ const RankingList: React.FC = () => {
   return (
     <div className="container mx-auto min-h-screen py-6 px-4">
       <h1 className="text-4xl font-bold text-center text-white mb-8">
-        인기 웹사이트 순위
+        토이소:링크모음 주소모음 주소모아 주소월드 링크공유 주소공유 컨텐츠 인기
+        웹사이트 순위
       </h1>
       {/* 각 카테고리별로 Ranking 컴포넌트를 렌더링 */}
       {Object.entries(linkData).map(([category, rankings]) => (
