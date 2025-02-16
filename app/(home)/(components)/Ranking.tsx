@@ -1,10 +1,9 @@
 import React from "react";
 
-// 각 랭킹 항목 타입 정의
+// 각 랭킹 항목 타입 정의 (score를 제거)
 interface RankingItem {
   name: string;
   url: string; // URL 추가
-  score: number; // 점수 추가
 }
 
 // Ranking 컴포넌트 Props 타입 정의
@@ -21,8 +20,10 @@ const Ranking: React.FC<RankingProps> = ({ category, rankings }) => {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {rankings.map((item, index) => {
+          // 랭킹에 따른 아이콘 결정 (점수를 기준으로 설정)
           let rankIcon;
-          // 랭킹에 맞는 아이콘 처리
+          let score = 100 - index * 10; // 예시: 1등은 100점, 2등은 90점, 3등은 80점, ... (점수 계산)
+
           switch (index) {
             case 0:
               rankIcon = "🌟"; // 1등: 금별
@@ -80,17 +81,14 @@ const Ranking: React.FC<RankingProps> = ({ category, rankings }) => {
                 {/* 랭킹 점수 아이콘 표현 */}
                 <span
                   className={`text-lg font-semibold ${
-                    item.score >= 80
+                    score >= 80
                       ? "text-green-500"
-                      : item.score >= 50
+                      : score >= 50
                         ? "text-yellow-500"
                         : "text-red-500"
                   }`}
                 >
-                  {item.score}
-                </span>
-                <span className="text-lg font-semibold text-indigo-600">
-                  점
+                  {score}점
                 </span>
               </div>
             </div>
