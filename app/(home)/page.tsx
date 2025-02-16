@@ -6,11 +6,13 @@ import { Suspense } from "react";
 import HomeBannerSk from "../components/skeleton/HomeBannerSk";
 import HomeBoard from "./(components)/HomeBoard";
 import Page from "../guide/page";
+import RankingList from "./(components)/RankingList";
 
 export default function Home() {
   return (
     <div>
       <article className="w-full h-full flex flex-col gap-5 lg:gap-10">
+        <RankingList />
         <HomeBanner></HomeBanner>
 
         <ProgressSliderPage></ProgressSliderPage>
