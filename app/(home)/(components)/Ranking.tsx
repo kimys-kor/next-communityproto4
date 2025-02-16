@@ -14,8 +14,8 @@ interface RankingProps {
 
 const Ranking: React.FC<RankingProps> = ({ category, rankings }) => {
   return (
-    <div className="my-8 p-8 bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-lg shadow-xl border border-purple-200">
-      <h2 className="text-3xl font-bold text-purple-700 mb-6 text-center">
+    <div className="my-8 p-8 bg-gradient-to-r from-indigo-50  rounded-lg shadow-xl border border-purple-100">
+      <h2 className="text-3xl font-bold text-purple-500 mb-6 text-center">
         {category} 랭킹
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
