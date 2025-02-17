@@ -18,8 +18,9 @@ const Ranking: React.FC<RankingProps> = ({ category, rankings }) => {
       <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 mb-6 text-center animate-pulse">
         {category} 랭킹
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
-        {rankings.map((item, index) => {
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {/* 모바일에서는 2열, 중간 화면 이상에서는 4열로 배치 */}
+        {rankings.slice(0, 10).map((item, index) => {
           let rankIcon;
           let score = 100 - index * 10;
 
@@ -90,15 +91,6 @@ const Ranking: React.FC<RankingProps> = ({ category, rankings }) => {
                     : "text-indigo-600 hover:text-indigo-800"
                 } hover:underline transition-all duration-200`}
               >
-                <span
-                  className={`text-lg font-semibold ${
-                    score >= 80
-                      ? "text-green-500"
-                      : score >= 50
-                        ? "text-yellow-500"
-                        : "text-red-500"
-                  }`}
-                ></span>
                 {item.name}
               </a>
             </div>
