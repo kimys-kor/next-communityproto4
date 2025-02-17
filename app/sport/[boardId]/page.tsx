@@ -61,7 +61,7 @@ export async function generateMetadata({
 
     // boardContent.content에서 HTML 태그를 제거하고 첫 500글자만 추출
     const contentText = stripHtmlTags(boardContent.content);
-    const description = contentText.slice(0, 500);
+    const description = contentText.slice(0, 250);
 
     return {
       title:
