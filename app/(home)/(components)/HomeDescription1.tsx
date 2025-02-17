@@ -6,7 +6,7 @@ import RankingList from "./RankingList";
 
 function HomeDescription1() {
   return (
-    <div className="w-full pt-36">
+    <div className="w-full pt-4">
       <RankingList />
       <main>
         <section className="block lg:flex bg-bgblue py-28 px-10 gap-5">
