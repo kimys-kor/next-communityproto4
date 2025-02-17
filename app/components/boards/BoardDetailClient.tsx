@@ -86,7 +86,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
     <div>
       <section className="flex flex-col gap-1 mt-3">
         <h1 className="font-semibold text-lg md:text:xl">
-          토이소 스포츠분석 {content.title}
+          토이소 먹튀검증 스포츠분석 {content.title}
         </h1>
         <article className="mt-3 w-full px-3 py-2 flex items-center justify-between gap-1 bg-semiblue">
           <div className="flex items-center gap-1">
