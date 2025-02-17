@@ -20,6 +20,7 @@ const Login: React.FC = () => {
   const [userInfo, setUserInfoState] = useState<UserInfo | null>(null);
   const { loggedIn, setLoggedIn } = useAuthStore();
   const { setUserInfo, clearUserInfo } = useUserStore();
+
   useEffect(() => {
     const initializeUser = async () => {
       const data = await refreshUserInfo();
@@ -68,7 +69,7 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className="max-w-128 bg-white p-8 rounded-lg w-full border-solid border-slate-200 border">
+    <div className="max-w-128 bg-white p-8 rounded-lg w-full border-solid border-slate-200 border max-h-[260px] overflow-y-auto">
       {loggedIn && userInfo ? (
         <Profile userInfo={userInfo} />
       ) : (
@@ -78,7 +79,7 @@ const Login: React.FC = () => {
             handleLogin();
           }}
         >
-          <div className="relative mb-4">
+          <div className="relative mb-4 max">
             <input
               type="string"
               id="username"

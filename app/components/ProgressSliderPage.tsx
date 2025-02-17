@@ -4,11 +4,11 @@ import ProgressSlider from "./ProgressSlider";
 export default function ProgressSliderPage() {
   const items = [
     {
-      img: main_top,
+      img: main_top.src, // .src로 경로를 가져옴
       desc: "main_banner",
     },
     {
-      img: main_top,
+      img: main_top.src, // .src로 경로를 가져옴
       desc: "main_banner",
     },
   ];
