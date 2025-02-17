@@ -1,13 +1,9 @@
 import Image from "next/image";
 import money from "/public/images/money.png";
-import search from "/public/images/search.png";
-import talkball from "/public/images/talkball.png";
-import RankingList from "./RankingList";
 
 function HomeDescription1() {
   return (
     <div className="w-full pt-8">
-      <RankingList />
       <main>
         <section className="block lg:flex bg-bgblue py-28 px-10 gap-5">
           <div className="container mx-auto px-6 py-16">
