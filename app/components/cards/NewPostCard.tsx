@@ -5,7 +5,7 @@ import { getPostUrl } from "@/app/utils";
 
 const fetchBoardList = async (typeList: number[]) => {
   const page = 0;
-  const size = 6;
+  const size = 7;
   const typeListQuery = typeList.map((type) => `typeList=${type}`).join("&");
 
   const response = await fetch(
