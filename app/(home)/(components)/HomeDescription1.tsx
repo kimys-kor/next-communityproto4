@@ -1,6 +1,3 @@
-import Image from "next/image";
-import money from "/public/images/money.png";
-
 function HomeDescription1() {
   return (
     <div className="w-full pt-8">
@@ -31,11 +28,11 @@ function HomeDescription1() {
 
         {/* 첫 번째 섹션: 안전한 꽁머니 사이트 선택 */}
         <section className="flex flex-col justify-center items-center py-20">
-          <Image
+          <img
             alt="안전한 꽁머니 사이트 선택"
             width={248}
             height={255}
-            src={money}
+            src="/images/money.png"
           />
           <h2 className="text-4xl font-semibold text-blue pt-10">
             안전한 꽁머니사이트 선택하기

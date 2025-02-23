@@ -1,9 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import IdIcon from "/public/images/idIcon.png";
-import PassIcon from "/public/images/passIcon.png";
 import Link from "next/link";
-import Image from "next/image";
 import ProfileSk from "../skeleton/ProfileSk";
 import toast from "react-hot-toast";
 import { refreshUserInfo } from "@/app/api/authAction";
@@ -87,7 +84,7 @@ const LoginSide: React.FC = () => {
               required
             />
             <img
-              src=""
+              src="/images/idIcon.png"
               width={17}
               height={17}
               alt="Id Icon"

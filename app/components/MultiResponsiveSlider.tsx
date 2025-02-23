@@ -10,12 +10,12 @@ interface ResponsiveSliderProps {
   images: string[];
 }
 
-const images = [
-  "/images/11.PNG",
-  "/images/22.PNG",
-  "/images/33.PNG",
-  "/images/44.PNG",
-];
+// const images = [
+//   "/images/11.PNG",
+//   "/images/22.PNG",
+//   "/images/33.PNG",
+//   "/images/44.PNG",
+// ];
 
 const NextArrow: React.FC<{ onClick?: () => void }> = ({ onClick }) => {
   return (

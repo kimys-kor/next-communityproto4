@@ -1,14 +1,14 @@
-import Image from "next/image";
-import search from "/public/images/search.png";
-import talkball from "/public/images/talkball.png";
-import major from "/public/images/major.png";
-
 function HomeDescription2() {
   return (
     <div className="w-full pt-36">
       <main>
         <section className="flex flex-col justify-center items-center bg-white">
-          <Image alt="토이소 먹튀검증" width={248} height={255} src={major} />
+          <img
+            alt="토이소 먹튀검증"
+            width={248}
+            height={255}
+            src="/images/major.png"
+          />
           <h2 className="text-4xl font-semibold px-3 text-blue mt-6">
             토이소만의 먹튀검증
           </h2>
@@ -99,8 +99,8 @@ function HomeDescription2() {
 
           <div className="w-full pt-10">
             <article className="w-full flex justify-center items-center gap-3 px-5">
-              <Image
-                src={search}
+              <img
+                src="/images/search.png"
                 width={120}
                 height={120}
                 alt="먹튀 제보 및 신고 처리"
@@ -181,8 +181,8 @@ function HomeDescription2() {
             </article>
 
             <article className="w-full flex justify-center items-center gap-3 px-5 pt-10">
-              <Image
-                src={major}
+              <img
+                src="/images/major.png"
                 width={120}
                 height={120}
                 alt="메이저놀이터 검증"
@@ -214,8 +214,8 @@ function HomeDescription2() {
             </article>
 
             <article className="w-full flex justify-center items-center gap-3 px-5 pt-10">
-              <Image
-                src={talkball}
+              <img
+                src="/images/talkball.png"
                 width={120}
                 height={120}
                 alt="먹튀검증 트렌드 변화"

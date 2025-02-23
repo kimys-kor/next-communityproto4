@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+
 import { tabsAnalyze } from "@/app/utils";
 import { BoardItem } from "@/app/types";
 import toast from "react-hot-toast";

@@ -89,8 +89,8 @@ const Login: React.FC = () => {
               placeholder="아이디"
               required
             />
-            <Image
-              src={IdIcon}
+            <img
+              src="/images/idIcon.png"
               width={17}
               height={17}
               alt="Id Icon"
@@ -107,8 +107,8 @@ const Login: React.FC = () => {
               placeholder="비밀번호"
               required
             />
-            <Image
-              src={PassIcon}
+            <img
+              src="/images/passIcon.png"
               width={17}
               height={17}
               alt="Password Icon"
