@@ -20,16 +20,23 @@ type MemberDetailProps = {
 
 function MemberDetail({ member, onBack }: MemberDetailProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [isPointEditing, setIsPointEditing] = useState(false); // 포인트 수정 상태
   const [formData, setFormData] = useState({
     password: "",
     fullName: member.fullName,
     nickname: member.nickname,
     phoneNum: member.phoneNum,
   });
+  const [newPoint, setNewPoint] = useState(member.point); // 포인트 수정 상태
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handlePointChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setNewPoint(Number(value)); // 포인트 값 수정
   };
 
   const handleEditClick = () => {
@@ -69,6 +76,32 @@ function MemberDetail({ member, onBack }: MemberDetailProps) {
       }
     } catch (error) {
       console.error("Error updating user information:", error);
+    }
+  };
+
+  const handlePointSubmit = async () => {
+    try {
+      const payload = {
+        userId: member.id,
+        point: newPoint,
+      };
+
+      const response = await fetch("/api/admin/updateUserPoint", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        alert("포인트가 성공적으로 업데이트되었습니다.");
+        window.location.reload();
+      } else {
+        alert("포인트 업데이트 중 오류가 발생했습니다.");
+      }
+    } catch (error) {
+      console.error("Error updating user point:", error);
     }
   };
 
@@ -174,9 +207,51 @@ function MemberDetail({ member, onBack }: MemberDetailProps) {
           </>
         )}
 
-        <p>
-          <strong>포인트:</strong> {member.point}
-        </p>
+        {/* 포인트 수정 UI */}
+        <div className="mt-4">
+          {isPointEditing ? (
+            <>
+              <label className="block font-medium mb-1 text-indigo-700">
+                포인트 수정
+              </label>
+              <input
+                type="number"
+                value={newPoint}
+                onChange={handlePointChange}
+                className="w-full p-2 border border-blue-300 rounded bg-blue-50"
+                min="0"
+              />
+              <div className="mt-4 flex space-x-2">
+                <button
+                  onClick={() => setIsPointEditing(false)}
+                  className="w-full px-4 py-2 bg-gray-500 text-white rounded-md"
+                >
+                  취소
+                </button>
+                <button
+                  onClick={handlePointSubmit}
+                  className="w-full px-4 py-2 bg-purple-600 text-white rounded-md"
+                >
+                  저장
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <p>
+                <strong className="text-indigo-700">포인트:</strong>{" "}
+                {member.point}
+              </p>
+              <button
+                onClick={() => setIsPointEditing(true)}
+                className="mt-2 w-full px-4 py-2 bg-indigo-600 text-white rounded-md"
+              >
+                포인트 수정
+              </button>
+            </>
+          )}
+        </div>
+
         <p>
           <strong>경험치:</strong> {member.exp}
         </p>

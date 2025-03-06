@@ -65,7 +65,7 @@ const LoginSide: React.FC = () => {
   }
 
   return (
-    <div className="max-w-128 bg-white p-8 rounded-lg w-full border-solid border-slate-200 border">
+    <div className="max-w-128 bg-white p-8 rounded-lg w-full border-solid border-red-200 border">
       {loggedIn && userInfo ? null : (
         <form
           onSubmit={(e) => {
