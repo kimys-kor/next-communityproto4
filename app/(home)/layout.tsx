@@ -31,7 +31,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </section>
           <RightSideBanner></RightSideBanner>
         </Container>
-        <RankingList />
         <HomeDescription1></HomeDescription1>
         <HomeDescription2></HomeDescription2>
       </div>
