@@ -129,7 +129,9 @@ function HomeDescription1() {
 
         {/* 결론 섹션 */}
         <section className="py-10">
-          <h2 className="text-4xl font-semibold text-blue text-center">TIP</h2>
+          <h2 className="text-4xl font-semibold text-blue text-center">
+            추가 TIP
+          </h2>
           <p className="w-full max-w-[900px] mx-auto px-5 pt-5 text-description leading-6 flex flex-col justify-center items-center text-sm">
             토토사이트**에서 베팅을 할 때는 **안전성**과 **먹튀검증**이 가장
             중요합니다. 꽁머니는 안전한 사이트에서 제공되는 보너스를 활용하여
