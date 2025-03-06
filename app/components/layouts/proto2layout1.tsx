@@ -9,7 +9,6 @@ import NewPartnerCard from "@/app/components/cards/NewPartnerCard";
 import MobBottomNav from "@/app/components/MobBottomNav";
 import TabAnalyzePage from "@/app/(home)/(components)/TabAnalyzePage";
 import TabACommunityPage from "@/app/(home)/(components)/TabACommunityPage";
-import RankingList from "../RankingList";
 
 export default function Proto2layout1({
   children,
@@ -36,7 +35,6 @@ export default function Proto2layout1({
         </section>
         <RightSideBanner></RightSideBanner>
       </Container>
-      <RankingList />
       <Footer />
       <MobBottomNav />
     </>

@@ -140,6 +140,7 @@ const Navbar = () => {
               className="h-14 md:h-16 relative group cursor-pointer flex flex-col justify-center items-center box-border"
             >
               <Link
+                title="콘텐츠로 건너뛰기"
                 key={link.href}
                 href={link.href}
                 className={`relative 
@@ -159,6 +160,7 @@ const Navbar = () => {
                   >
                     {link.dropdown.map((sublink, index) => (
                       <Link
+                        title="콘텐츠로 건너뛰기"
                         key={sublink.href}
                         href={sublink.href}
                         className={`outline-white w-full block p-2 text-base lg:text-base hover:bg-gray-700 hover:text-white truncate
