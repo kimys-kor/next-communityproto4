@@ -7,9 +7,9 @@ function HomeDescription3() {
         <section>
           <div>
             <article>
-              <h1 className="text-3xl font-bold text-center mt-10">
+              <h2 className="text-3xl font-bold text-center mt-10">
                 안전한 온라인 베팅을 위한 필수 지침
-              </h1>
+              </h2>
               <div className="mt-5">
                 <h2 className="font-bold text-2xl mt-10">
                   먹튀검증: 안전한 토토사이트 선택을 위한 필수 과정
