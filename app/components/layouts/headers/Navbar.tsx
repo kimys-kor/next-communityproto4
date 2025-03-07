@@ -33,12 +33,12 @@ const Navbar = () => {
     {
       href: "/mtcase",
       label: "먹튀사이트",
-      // width: "w-14 md:w-24 lg:w-32",
+      width: "w-14 md:w-24 lg:w-32",
     },
     {
       href: "/majorplay",
       label: "메이저놀이터",
-      // width: "w-14 md:w-24 lg:w-32",
+      width: "w-14 md:w-24 lg:w-32",
     },
     {
       href: "/sport",
@@ -180,24 +180,29 @@ const Navbar = () => {
       <nav className="md:hidden w-full bg-blue font-medium text-sm text-white overflow-hidden">
         <div className="flex flex-wrap">
           <div className="flex flex-wrap items-center pl-3 divide-x divide-gray-300 w-full">
+            {/* 메뉴 버튼 */}
             <div
               className="cursor-pointer px-2 h-[48px] py-2 flex items-center justify-center transition-colors duration-200 hover:bg-indigo-600 hover:text-white"
               onClick={toggleSidebar}
             >
-              <AiOutlineMenu size={15} />
+              <AiOutlineMenu size={20} />
             </div>
+
+            {/* 네비게이션 항목 */}
             {links.map((link, index) => (
               <Link
                 key={index}
                 href={link.href}
-                className={`flex-1 h-[48px] py-2 flex items-center justify-center transition-colors duration-200 hover:bg-indigo-600 hover:text-white`}
+                className={`flex-1 h-[48px] py-2 flex items-center justify-center transition-colors duration-200 hover:bg-indigo-600 hover:text-white text-xs`}
                 style={{
-                  minWidth: link.icon ? "100px" : "70px",
-                  maxWidth: "25%",
+                  minWidth: link.icon ? "80px" : "70px", // 최소 너비
+                  maxWidth: "25%", // 최대 너비
+                  whiteSpace: "nowrap", // 텍스트가 한 줄로 유지되도록 함
                 }}
                 onClick={() => handleLinkClick(link.href)}
               >
-                {link.label}
+                <span className="truncate">{link.label}</span>{" "}
+                {/* 텍스트가 넘치지 않도록 처리 */}
                 <div>{link.icon ? link.icon : null}</div>
               </Link>
             ))}
