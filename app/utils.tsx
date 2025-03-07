@@ -469,18 +469,6 @@ export const tabsCommunity = [
       />
     ),
   },
-  {
-    label: "피해사례",
-    typ: 13,
-    icon: (
-      <img
-        src="/images/icon/analyze.png"
-        width={20}
-        height={20}
-        alt="menuIcon"
-      />
-    ),
-  },
 ];
 
 export const tabsAnalyze = [
