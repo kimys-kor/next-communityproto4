@@ -41,11 +41,6 @@ const Navbar = () => {
       // width: "w-14 md:w-24 lg:w-32",
     },
     {
-      href: "/safeplay",
-      label: "안전놀이터",
-      // width: "w-14 md:w-24 lg:w-32",
-    },
-    {
       href: "/sport",
       label: "스포츠분석",
       dropdown: [
@@ -114,7 +109,6 @@ const Navbar = () => {
   const isActiveLink = (link: string) => {
     if (activeLink === link) return true;
     if (link === "/majorplay" && activeLink.startsWith("/guide")) return true;
-    if (link === "/safeplay" && activeLink.startsWith("/guide")) return true;
     if (link === "/verify" && activeLink.startsWith("/verify")) return true;
     if (link === "/sport" && activeLink.startsWith("/sport")) return true;
     if (link === "/pickster" && activeLink.startsWith("/pickster")) return true;

@@ -3,6 +3,7 @@ import PartnerCard from "./(components)/PartnerCard";
 import Paging from "../components/Paging";
 import ProgressSliderPage from "../components/ProgressSliderPage";
 import Breadcrumb from "../components/BreadCrumb";
+import PartnerDescription1 from "./(components)/PartnerDescription1";
 
 interface ImgContent {
   img: string;
@@ -21,6 +22,7 @@ function Page() {
       <ProgressSliderPage />
       <Breadcrumb breadcrumbData={breadcrumbItems} />
       <PartnerCard />
+      <PartnerDescription1 />
     </div>
   );
 }

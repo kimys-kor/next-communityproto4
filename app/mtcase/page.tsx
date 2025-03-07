@@ -5,6 +5,7 @@ import ProgressSliderPage from "@/app/components/ProgressSliderPage";
 import Breadcrumb from "@/app/components/BreadCrumb";
 import SubMenu from "../community/(component)/SubMenu";
 import BoardContainer from "@/app/components/boards/BoardContainer";
+import MtcaseDescription1 from "./(components)/MtcaseDescription1";
 
 function page() {
   const breadcrumbItems = {
@@ -19,6 +20,7 @@ function page() {
       <ProgressSliderPage></ProgressSliderPage>
       <Breadcrumb breadcrumbData={breadcrumbItems}></Breadcrumb>
       <BoardContainer writeBoolean={true} typ={13} page={1} size={15} />
+      <MtcaseDescription1 />
     </div>
   );
 }

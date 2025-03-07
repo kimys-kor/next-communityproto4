@@ -9,6 +9,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: "https://toiso777.com/partner",
     },
     {
+      url: "https://toiso777.com/mtcase",
+    },
+    {
+      url: "https://toiso777.com/majorplay",
+    },
+    {
       url: "https://toiso777.com/sport",
     },
     {
@@ -41,12 +47,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: "https://toiso777.com/community/free",
     },
-    {
-      url: "https://toiso777.com/community/case",
-    },
-    {
-      url: "https://toiso777.com/event",
-    },
+    // {
+    //   url: "https://toiso777.com/event",
+    // },
     {
       url: "https://toiso777.com/promotion",
     },
@@ -55,15 +58,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: "https://toiso777.com/promotion/hunting",
-    },
-    {
-      url: "https://toiso777.com/guide",
-    },
-    {
-      url: "https://toiso777.com/guide/ggong",
-    },
-    {
-      url: "https://toiso777.com/guide/major",
     },
     {
       url: "https://toiso777.com/customer",
