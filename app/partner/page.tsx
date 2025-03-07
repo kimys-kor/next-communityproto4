@@ -12,8 +12,8 @@ interface ImgContent {
 
 function Page() {
   const breadcrumbItems = {
-    title: "토이소",
-    subMenu: "파트너",
+    title: "안전놀이터",
+    subMenu: "안전놀이터",
   };
 
   return (

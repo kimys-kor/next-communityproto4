@@ -24,10 +24,25 @@ const Navbar = () => {
   const links = [
     {
       href: "/partner",
-      label: "파트너",
+      label: "안전놀이터",
       icon: (
         <Image src={partnerIcon} width={33} height={33} alt="partnerIcon" />
       ),
+      // width: "w-14 md:w-24 lg:w-32",
+    },
+    {
+      href: "/mtcase",
+      label: "먹튀사이트",
+      // width: "w-14 md:w-24 lg:w-32",
+    },
+    {
+      href: "/majorplay",
+      label: "메이저놀이터",
+      // width: "w-14 md:w-24 lg:w-32",
+    },
+    {
+      href: "/safeplay",
+      label: "안전놀이터",
       // width: "w-14 md:w-24 lg:w-32",
     },
     {
@@ -53,20 +68,19 @@ const Navbar = () => {
         { href: "/community/humor", label: "유머 & 이슈" },
         { href: "/community/pickster", label: "나는분석왕" },
         { href: "/community/free", label: "자유게시판" },
-        { href: "/community/case", label: "먹튀피해제보" },
       ],
       icon: <Image src={commuIcon} width={33} height={33} alt="commuIcon" />,
       // width: "w-14 md:w-24 lg:w-32",
     },
-    {
-      href: "/event",
-      label: "이벤트",
-      // width: "w-14 md:w-24 lg:w-32",
-      dropdown: [
-        { href: "/event", label: "이벤트" },
-        // { href: "/event/pointchange", label: "포인트교환" },
-      ],
-    },
+    // {
+    //   href: "/event",
+    //   label: "이벤트",
+    //   // width: "w-14 md:w-24 lg:w-32",
+    //   dropdown: [
+    //     { href: "/event", label: "이벤트" },
+    //     // { href: "/event/pointchange", label: "포인트교환" },
+    //   ],
+    // },
     {
       href: "/promotion",
       label: "홍보센터",
@@ -76,16 +90,6 @@ const Navbar = () => {
         { href: "/promotion/hunting", label: "구인구직" },
       ],
       // width: "w-14 md:w-24 lg:w-32",
-    },
-    {
-      href: "/guide",
-      label: "가이드",
-      dropdown: [
-        { href: "/guide/ggong", label: "꽁머니" },
-        { href: "/guide/major", label: "메이저" },
-        { href: "/guide/safe", label: "안전놀이터" },
-      ],
-      // width: "w-14 md:w-24 lg:w-24",
     },
     {
       href: "/customer",
@@ -109,7 +113,8 @@ const Navbar = () => {
 
   const isActiveLink = (link: string) => {
     if (activeLink === link) return true;
-    if (link === "/guide" && activeLink.startsWith("/guide")) return true;
+    if (link === "/majorplay" && activeLink.startsWith("/guide")) return true;
+    if (link === "/safeplay" && activeLink.startsWith("/guide")) return true;
     if (link === "/verify" && activeLink.startsWith("/verify")) return true;
     if (link === "/sport" && activeLink.startsWith("/sport")) return true;
     if (link === "/pickster" && activeLink.startsWith("/pickster")) return true;

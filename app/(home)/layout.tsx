@@ -10,6 +10,7 @@ import NewPartnerCard from "@/app/components/cards/NewPartnerCard";
 import MobBottomNav from "@/app/components/MobBottomNav";
 import HomeDescription1 from "./(components)/HomeDescription1";
 import HomeDescription2 from "./(components)/HomeDescription2";
+import HomeDescription3 from "./(components)/HomeDescription3";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -30,8 +31,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </section>
           <RightSideBanner></RightSideBanner>
         </Container>
-        <HomeDescription1></HomeDescription1>
-        <HomeDescription2></HomeDescription2>
+        <HomeDescription1 />
+        <HomeDescription2 />
+        <HomeDescription3 />
       </div>
       <Footer />
       <MobBottomNav />
