@@ -16,9 +16,9 @@ function PartnerDescription1() {
             height={255}
             src={safe}
           ></Image>
-          <div className="text-4xl font-semibold px-3">
+          <h1 className="text-4xl font-semibold px-3">
             <span className="text-blue">안전 놀이터 </span>란?
-          </div>
+          </h1>
 
           <p className="w-full max-w-[900px] px-5 pt-5 text-description leading-6 flex flex-col justify-center items-center text-sm">
             안전 놀이터는 토토사이트, 스포츠토토, 카지노 등에서 오랜 기간

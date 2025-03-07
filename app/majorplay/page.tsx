@@ -17,9 +17,9 @@ function Page() {
             height={255}
             src={major}
           />
-          <div className="text-4xl font-semibold px-3">
+          <h1 className="text-4xl font-semibold px-3">
             <span className="text-blue">메이저 놀이터</span> 란?
-          </div>
+          </h1>
 
           <div className="w-full max-w-[900px] px-5 pt-5 text-description leading-6 text-sm">
             <h2 className="text-2xl font-bold mb-4">
