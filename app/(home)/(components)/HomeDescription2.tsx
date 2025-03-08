@@ -16,9 +16,10 @@ function HomeDescription2() {
           <div className="w-full max-w-4xl mx-auto pt-4 px-5">
             <p className="text-lg text-gray-700 leading-8">
               먹튀 안전 보증금 제휴 시 100% 실 보증금을 반드시 전달받습니다.
-              이를 통해 토이소를 통해 가입한 모든 분들은 2차 방어 효과로 먹튀
-              걱정 없이 안전하게 업장을 이용할 수 있습니다. 자세한 인증 자료와
-              먹튀검증 결과는 보증 업장의 소개 글에서 확인하실 수 있습니다.
+              이를 통해 토이소를 통해 가입한 모든 분들은 2차 방어 효과로
+              먹튀피해 걱정 없이 안전하게 토토사이트를 이용할 수 있습니다.
+              자세한 인증 자료와 먹튀검증 결과는 보증 업장의 소개 글에서
+              확인하실 수 있습니다.
             </p>
 
             <div className="pt-16 flex flex-col">
@@ -29,19 +30,19 @@ function HomeDescription2() {
                       먹튀사이트 피해 사실 접수
                     </h3>
                     <p className="text-gray-600">
-                      토이소를 통해 먹튀사이트 피해 사실을 접수하시면, 먹튀
-                      업장과 대화가 재개될 수 있습니다. 피해 금액 반환 협의도
+                      토이소를 통해 먹튀사이트 먹튀피해 사실을 접수하시면, 먹튀
+                      사이트와 대화가 재개될 수 있습니다. 피해 금액 반환 협의도
                       가능하므로 증거 자료와 함께 신고하는 것이 좋습니다.
                     </p>
                   </article>
 
                   <article className="max-w-sm px-6 py-6 text-base rounded-lg border border-gray-300 shadow-lg bg-white">
                     <h3 className="text-lg font-semibold text-gray-800">
-                      먹튀신고 소식 편집 및 전달
+                      먹튀제보 소식 편집 및 전달
                     </h3>
                     <p className="text-gray-600">
-                      토이소는 2018년부터 먹튀사이트 피해 소식을 편집하여
-                      상세하게 전달합니다. 주요 증거 사진을 가공해 업로드하고,
+                      토이소는 2018년부터 먹튀사이트 제보 소식을 편집하여
+                      상세하게 전달합니다. 주요 증거 사진을 첨부해 업로드하고,
                       관련 FAQ를 안내합니다.
                     </p>
                   </article>
@@ -54,17 +55,17 @@ function HomeDescription2() {
                     </h3>
                     <p className="text-gray-600">
                       예비 이용처에 대한 먹튀 위험성 확인을 요청받고 있습니다.
-                      이를 통해 추천된 사설토토 사이트의 안전 점수를 확인할 수
+                      이를 통해 추천된 사설 토토사이트의 안전 점수를 확인할 수
                       있습니다.
                     </p>
                   </article>
 
                   <article className="max-w-sm px-6 py-6 text-base rounded-lg border border-gray-300 shadow-lg bg-white">
                     <h3 className="text-lg font-semibold text-gray-800">
-                      놀이터 이용 시 숙지사항 정리
+                      안전놀이터 이용 시 숙지사항 정리
                     </h3>
                     <p className="text-gray-600">
-                      사설놀이터 시장의 위험 요소를 다루고, 입문자와 숙련자가
+                      토토사이트 시장의 위험 요소를 다루고, 입문자와 숙련자가
                       알아두면 좋은 사설토토 팁을 정리하여 제공합니다.
                     </p>
                   </article>
