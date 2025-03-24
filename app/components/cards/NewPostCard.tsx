@@ -22,12 +22,18 @@ const fetchBoardList = async (typeList: number[]) => {
   }
 
   const data = await response.json();
-  return data.data.content as BoardItem[]; // Cast to BoardItem array
+  return data.data.content as BoardItem[];
 };
 
 const NewPostCard = async () => {
+  //    1.파트너
+  //    2.해외축구분석 3.아시아축구분석 4.MLB분석 5.KBO/NPB분석 6.NBA분석 7.국내외농구분석 8.배구분석
+  //    9.안구정화 10.유머이슈 11.나는분석왕 12.자유게시판 13.스포츠뉴스
+  //    14.이벤트 15.포인트교환신청
+  //    16.일반홍보 17.꽁머니홍보 18.구인구직
+  //    19.공지사항 20.1:1문의 21.먹튀사이트
   const boardList = await fetchBoardList([
-    2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18,
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 21,
   ]);
 
   return (
