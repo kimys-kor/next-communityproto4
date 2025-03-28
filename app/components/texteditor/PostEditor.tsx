@@ -76,10 +76,16 @@ const MenuBar = ({ editor, uploadImagesToServer }: any) => {
   ): Promise<{ width: number; height: number }> => {
     return new Promise((resolve) => {
       const img = new Image();
+      const objectUrl = URL.createObjectURL(file);
       img.onload = () => {
+        URL.revokeObjectURL(objectUrl);
         resolve({ width: img.width, height: img.height });
       };
-      img.src = URL.createObjectURL(file);
+      img.onerror = () => {
+        URL.revokeObjectURL(objectUrl);
+        resolve({ width: 0, height: 0 });
+      };
+      img.src = objectUrl;
     });
   };
 
@@ -302,12 +308,12 @@ const Tiptap = ({ value, onChange }: TipTapProps) => {
     files: FileList,
     editorInstance: any
   ) => {
-    const images = Array.from(files);
+    const fileArray = Array.from(files);
     const imageDimensions = await Promise.all(
-      images.map((file) => getImageDimensions(file))
+      fileArray.map((file) => getImageDimensions(file))
     );
 
-    const uploadedImageUrls = await uploadImagesToServer(images);
+    const uploadedImageUrls = await uploadImagesToServer(fileArray);
     uploadedImageUrls.forEach((url: string, index: number) => {
       const { width } = imageDimensions[index];
       editorInstance
@@ -323,10 +329,16 @@ const Tiptap = ({ value, onChange }: TipTapProps) => {
   ): Promise<{ width: number; height: number }> => {
     return new Promise((resolve) => {
       const img = new Image();
+      const objectUrl = URL.createObjectURL(file);
       img.onload = () => {
+        URL.revokeObjectURL(objectUrl);
         resolve({ width: img.width, height: img.height });
       };
-      img.src = URL.createObjectURL(file);
+      img.onerror = () => {
+        URL.revokeObjectURL(objectUrl);
+        resolve({ width: 0, height: 0 });
+      };
+      img.src = objectUrl;
     });
   };
 

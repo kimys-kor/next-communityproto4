@@ -39,7 +39,11 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlContent, "text/html");
     const imgTag = doc.querySelector("img");
-    return imgTag ? imgTag.getAttribute("src") : null;
+    const thumbnail = imgTag ? imgTag.getAttribute("src") : null;
+
+    // 메모리 해제를 위해 참조 해제
+    doc.documentElement.innerHTML = "";
+    return thumbnail;
   };
 
   const saveContent = async () => {

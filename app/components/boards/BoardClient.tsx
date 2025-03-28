@@ -50,6 +50,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
         throw new Error("Failed to fetch board list");
       }
       const data = await response.json();
+      setBoardList([]);
       setBoardList(data.data.content);
       setTotalElements(data.data.totalElements);
     } catch (error) {
@@ -149,8 +150,9 @@ const BoardClient: React.FC<BoardClientProps> = ({
         throw new Error("게시글삭제 실패");
       }
 
-      await fetchData(page, keyword);
-
+      setBoardList((prevBoardList) =>
+        prevBoardList.filter((item) => !selectedItems.includes(item.id))
+      );
       setSelectedItems([]);
       setSelectAll(false);
       toast.success("선택한 게시물이 성공적으로 삭제되었습니다.");

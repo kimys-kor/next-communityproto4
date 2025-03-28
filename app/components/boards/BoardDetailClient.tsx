@@ -12,8 +12,9 @@ import DOMPurify from "isomorphic-dompurify";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
 import EditPost from "./EditPost";
 import CommentPageClient from "./CommentClient";
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface BoardDetailClientPropsWithComments extends BoardDetailClientProps {
   boardId: string;
@@ -28,6 +29,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
   const pathname = usePathname();
   const basePath = pathname?.split("/").slice(0, -1).join("/") || "";
   const [isEditing, setIsEditing] = useState(false);
+  const router = useRouter();
 
   const sanitizedData = useMemo(() => {
     const contentHtml = content.content || "";
@@ -54,22 +56,29 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
       );
 
       if (response.ok) {
-        const currentPath = window.location.pathname;
-        const basePath = currentPath.split("/").slice(0, -1).join("/");
-
-        // 삭제 후 게시글 목록 페이지로 리디렉션
-        window.location.href = `${window.location.origin}${basePath}`;
+        router.push(basePath);
       } else {
         throw new Error("게시물 삭제 실패");
       }
     } catch (error) {
       toast.error("게시글 삭제에 문제가 발생했습니다");
     }
-  }, [content.id]);
+  }, [content.id, basePath, router]);
 
   const handleEditClick = () => {
     setIsEditing(true);
   };
+
+  // 컴포넌트 언마운트 시 정리
+  useEffect(() => {
+    return () => {
+      // 메모리 정리
+      setIsEditing(false);
+      if (sanitizedData.__html) {
+        sanitizedData.__html = "";
+      }
+    };
+  }, [sanitizedData]);
 
   if (isEditing) {
     return (
