@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { BoardItem } from "../../types";
 import Paging from "@/app/components/Paging";
@@ -29,6 +29,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const { userInfo } = useUserStore();
   const [boardList, setBoardList] = useState<BoardItem[]>(initialItems);
@@ -39,6 +40,18 @@ const BoardClient: React.FC<BoardClientProps> = ({
   const [showTransferPopup, setShowTransferPopup] = useState(false);
 
   const totalPages = Math.ceil(totalElements / size);
+
+  // URL 쿼리 파라미터에서 페이지 정보 가져오기
+  useEffect(() => {
+    const currentPage = searchParams.get("page");
+    if (currentPage) {
+      const pageNum = parseInt(currentPage);
+      if (!isNaN(pageNum) && pageNum !== page) {
+        setPage(pageNum);
+        fetchData(pageNum, keyword);
+      }
+    }
+  }, [searchParams]);
 
   const fetchData = async (pageNumber: number, keyword: string) => {
     try {
@@ -70,9 +83,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
   };
 
   const handlePageChange = (newPage: number) => {
-    router.replace(`${pathname}?page=${newPage}`);
-    setPage(newPage);
-    fetchData(newPage, keyword);
+    router.push(`${pathname}?page=${newPage}`);
   };
 
   const handleSelectItem = (id: number) => {
