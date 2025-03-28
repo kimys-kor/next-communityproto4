@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUploadAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
@@ -41,6 +41,13 @@ const ImageUploader: React.FC<ImageUploaderProps> = () => {
     setPreviewUrls((prevPreviews) => [...prevPreviews, ...previews]);
   }, []);
 
+  // 컴포넌트 언마운트 시 URL 해제
+  useEffect(() => {
+    return () => {
+      previewUrls.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, [previewUrls]);
+
   const handleUpload = async () => {
     setUploading(true);
     try {
@@ -72,7 +79,10 @@ const ImageUploader: React.FC<ImageUploaderProps> = () => {
 
   const handleRemoveImage = (index: number) => {
     setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
-    setPreviewUrls((prevUrls) => prevUrls.filter((_, i) => i !== index));
+    setPreviewUrls((prevUrls) => {
+      URL.revokeObjectURL(prevUrls[index]);
+      return prevUrls.filter((_, i) => i !== index);
+    });
   };
 
   return (

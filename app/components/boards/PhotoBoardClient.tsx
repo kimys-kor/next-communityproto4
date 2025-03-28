@@ -39,6 +39,9 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
   const keyword = searchParams.get("keyword") || "";
 
   const fetchData = async (page: number) => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     try {
       const response = await fetch(
         `/api/board/photoList?typ=${typ}&keyword=${keyword}&page=${page - 1}&size=${size}`,
@@ -46,6 +49,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           cache: "no-store",
+          signal,
         }
       );
 
@@ -57,13 +61,23 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
       setBoardList(data.data.content);
       setTotalElements(data.data.totalElements);
       setTotalPages(data.data.totalPages);
-    } catch (error) {
+    } catch (error: any) {
+      if (error.name === "AbortError") {
+        return;
+      }
       toast.error("포토 게시글 리스트에 문제가 발생했습니다");
     }
+
+    return () => controller.abort();
   };
 
   useEffect(() => {
-    fetchData(currentPage);
+    const cleanup = fetchData(currentPage);
+    return () => {
+      cleanup.then((cleanupFn) => {
+        if (cleanupFn) cleanupFn();
+      });
+    };
   }, [currentPage, typ, keyword]);
 
   const handlePageChange = (newPage: number) => {
