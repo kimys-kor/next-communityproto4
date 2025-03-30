@@ -41,21 +41,37 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
 
   const fetchData = useCallback(
     async (pageNumber: number, keyword: string) => {
+      const controller = new AbortController();
+      const signal = controller.signal;
+
       try {
         const response = await fetch(
           `/api/board/list?typ=${typ}&keyword=${keyword}&page=${pageNumber - 1}&size=${size}`,
-          { cache: "no-store" }
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            cache: "no-store",
+            signal,
+          }
         );
         if (!response.ok) {
           throw new Error("Failed to fetch board list");
         }
         const data = await response.json();
+        // 이전 데이터 정리
         setBoardList([]);
         setBoardList(data.data.content);
         setTotalElements(data.data.totalElements);
+        setTotalPages(data.data.totalPages);
       } catch (error) {
         toast.error("Failed to fetch board list");
       }
+
+      return () => {
+        controller.abort();
+        // 메모리 정리
+        setBoardList([]);
+      };
     },
     [typ, size]
   );
@@ -158,6 +174,27 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
     }
   };
 
+  // 컴포넌트 언마운트 시 정리
+  useEffect(() => {
+    return () => {
+      setBoardList([]);
+      setSelectedItems([]);
+      setSelectAll(false);
+      setShowTransferPopup(false);
+    };
+  }, []);
+
+  // 이미지 로딩 최적화
+  const handleImageLoad = useCallback(
+    (event: React.SyntheticEvent<HTMLImageElement>) => {
+      const img = event.target as HTMLImageElement;
+      if (img.complete) {
+        URL.revokeObjectURL(img.src);
+      }
+    },
+    []
+  );
+
   return (
     <section className="flex flex-col mt-3">
       <div className="w-full">
@@ -229,6 +266,10 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
                   className="w-[477px] h-[141px] rounded-lg object-cover transition-transform duration-300 ease-in-out transform hover:scale-110"
                   src={item.thumbNail || "/images/default-thumbnail.jpg"}
                   alt={item.title}
+                  onLoad={handleImageLoad}
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQtJSAyVC08MTY3LjIyOUVBNTlBNi1RQD47Pj5GRkpLUlJSUlJSUlJSUlL/2wBDAR4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAb/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                 />
               </Link>
             </div>

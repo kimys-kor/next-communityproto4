@@ -59,6 +59,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
         }
 
         const data = await response.json();
+        setBoardList([]);
         setBoardList(data.data.content);
         setTotalElements(data.data.totalElements);
         setTotalPages(data.data.totalPages);
@@ -69,7 +70,10 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
         toast.error("포토 게시글 리스트에 문제가 발생했습니다");
       }
 
-      return () => controller.abort();
+      return () => {
+        controller.abort();
+        setBoardList([]);
+      };
     },
     [typ, size]
   );
@@ -84,6 +88,15 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
       }
     }
   }, [searchParams, keyword, fetchData]);
+
+  useEffect(() => {
+    return () => {
+      setBoardList([]);
+      setSelectedItems([]);
+      setSelectAll(false);
+      setShowTransferPopup(false);
+    };
+  }, []);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
@@ -172,6 +185,16 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
     }
   };
 
+  const handleImageLoad = useCallback(
+    (event: React.SyntheticEvent<HTMLImageElement>) => {
+      const img = event.target as HTMLImageElement;
+      if (img.complete) {
+        URL.revokeObjectURL(img.src);
+      }
+    },
+    []
+  );
+
   return (
     <section className="flex flex-col gap-1 mt-3">
       <div className="w-full">
@@ -237,6 +260,10 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
                   className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-110"
                   src={item.thumbNail || "/images/default-thumbnail.jpg"}
                   alt={item.title}
+                  onLoad={handleImageLoad}
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQtJSAyVC08MTY3LjIyOUVBNTlBNi1RQD47Pj5GRkpLUlJSUlJSUlJSUlL/2wBDAR4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAb/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                 />
               </Link>
             </div>
