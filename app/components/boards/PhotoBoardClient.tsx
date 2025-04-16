@@ -9,6 +9,7 @@ import { FaTrash, FaArrowRight } from "react-icons/fa";
 import TransferPopup from "@/app/components/boards/TransferPopup";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+import { formatDate } from "@/app/utils";
 
 interface PhotoBoardClientProps {
   initialData: {
@@ -59,7 +60,6 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
         }
 
         const data = await response.json();
-        setBoardList([]);
         setBoardList(data.data.content);
         setTotalElements(data.data.totalElements);
         setTotalPages(data.data.totalPages);
@@ -72,10 +72,9 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
 
       return () => {
         controller.abort();
-        setBoardList([]);
       };
     },
-    [typ, size]
+    [typ, size, keyword]
   );
 
   useEffect(() => {
@@ -185,16 +184,6 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
     }
   };
 
-  const handleImageLoad = useCallback(
-    (event: React.SyntheticEvent<HTMLImageElement>) => {
-      const img = event.target as HTMLImageElement;
-      if (img.complete) {
-        URL.revokeObjectURL(img.src);
-      }
-    },
-    []
-  );
-
   return (
     <section className="flex flex-col gap-1 mt-3">
       <div className="w-full">
@@ -248,36 +237,32 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
               {userInfo?.sck && (
                 <input
                   type="checkbox"
-                  className="absolute top-2 left-2 z-10 h-4 w-4"
                   checked={selectedItems.includes(item.id)}
                   onChange={() => handleSelectItem(item.id)}
+                  className="absolute top-2 left-2 z-10 h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer"
+                  onClick={(e) => e.stopPropagation()}
                 />
               )}
-              <Link href={`${pathname}/${item.id}`}>
+              <Link href={`/community/${item.id}?typ=9`}>
                 <Image
-                  width={326}
-                  height={230}
-                  className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-110"
                   src={item.thumbNail || "/images/default-thumbnail.jpg"}
                   alt={item.title}
-                  onLoad={handleImageLoad}
-                  loading="lazy"
-                  placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQtJSAyVC08MTY3LjIyOUVBNTlBNi1RQD47Pj5GRkpLUlJSUlJSUlJSUlL/2wBDAR4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAb/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                  fill
+                  style={{ objectFit: "cover" }}
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                  priority={boardList.slice(0, 6).includes(item)}
                 />
               </Link>
             </div>
-            <section className="w-full flex flex-col justify-center px-2 py-4">
-              <p className="w-full text-center font-semibold text-purple-500 text-base truncate">
+            <div className="p-3">
+              <h3 className="font-semibold text-base mb-1 truncate">
                 {item.title}
-              </p>
-              <p className="w-full text-center truncate text-base font-medium text-semiblack">
-                {item.changedcreatedDt}
-              </p>
-              <p className="w-full text-center truncate text-base text-subtext">
-                {item.nickname}
-              </p>
-            </section>
+              </h3>
+              <div className="text-gray-500 text-sm flex items-center justify-between">
+                <span>{item.nickname}</span>
+                <span>{formatDate(item.createdDt.toString())}</span>
+              </div>
+            </div>
           </li>
         ))}
       </ul>

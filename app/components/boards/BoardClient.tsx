@@ -41,15 +41,35 @@ const BoardClient: React.FC<BoardClientProps> = ({
 
   const totalPages = Math.ceil(totalElements / size);
 
-  // URL 쿼리 파라미터에서 페이지 정보 가져오기
+  const [keyword, setKeyword] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchField, setSearchField] = useState<string>("all");
+
   useEffect(() => {
-    const currentPage = searchParams.get("page");
-    if (currentPage) {
-      const pageNum = parseInt(currentPage);
-      if (!isNaN(pageNum) && pageNum !== page) {
-        setPage(pageNum);
-        fetchData(pageNum, keyword);
+    const currentPageQuery = searchParams.get("page");
+    const currentKeywordQuery = searchParams.get("keyword") || "";
+
+    let pageNum = 1;
+    if (currentPageQuery) {
+      const parsedPage = parseInt(currentPageQuery);
+      if (!isNaN(parsedPage)) {
+        pageNum = parsedPage;
       }
+    }
+
+    let shouldFetch = false;
+    if (pageNum !== page) {
+      setPage(pageNum);
+      shouldFetch = true;
+    }
+    if (currentKeywordQuery !== keyword) {
+      setKeyword(currentKeywordQuery);
+      setSearchQuery(currentKeywordQuery);
+      shouldFetch = true;
+    }
+
+    if (shouldFetch) {
+      fetchData(pageNum, currentKeywordQuery);
     }
   }, [searchParams]);
 
@@ -63,7 +83,6 @@ const BoardClient: React.FC<BoardClientProps> = ({
         throw new Error("Failed to fetch board list");
       }
       const data = await response.json();
-      setBoardList([]);
       setBoardList(data.data.content);
       setTotalElements(data.data.totalElements);
     } catch (error) {
@@ -71,19 +90,17 @@ const BoardClient: React.FC<BoardClientProps> = ({
     }
   };
 
-  const [keyword, setKeyword] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchField, setSearchField] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-
   const handleSearch = () => {
-    setCurrentPage(1);
-    setKeyword(searchQuery);
-    fetchData(1, searchQuery);
+    const newKeyword = searchQuery;
+    setKeyword(newKeyword);
+    setPage(1);
+    router.push(`${pathname}?page=1&keyword=${encodeURIComponent(newKeyword)}`);
   };
 
   const handlePageChange = (newPage: number) => {
-    router.push(`${pathname}?page=${newPage}`);
+    router.push(
+      `${pathname}?page=${newPage}&keyword=${encodeURIComponent(keyword)}`
+    );
   };
 
   const handleSelectItem = (id: number) => {

@@ -13,7 +13,7 @@ export async function GET(request: Request) {
       {
         method: "GET",
         credentials: "include",
-        cache: "no-store",
+        next: { revalidate: 60 },
       }
     );
 

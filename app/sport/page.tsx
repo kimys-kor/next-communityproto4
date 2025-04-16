@@ -16,13 +16,17 @@ export default function Page() {
     <div className="flex flex-col gap-3 max-w-[1300px]">
       <SubMenu />
       <ThreeBanner />
-      <Image
-        className=""
-        src={sportMain}
-        width={1024}
-        height={177}
-        alt={"스포츠분석"}
-      />
+      <div className="relative w-full h-auto aspect-[1024/177]">
+        <Image
+          className=""
+          src={sportMain}
+          alt={"스포츠분석"}
+          fill
+          style={{ objectFit: "contain" }}
+          sizes="100vw"
+          priority
+        />
+      </div>
 
       <Breadcrumb breadcrumbData={breadcrumbItems} />
       <BoardContainer typ={2} page={1} size={15} />

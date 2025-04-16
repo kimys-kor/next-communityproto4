@@ -69,27 +69,6 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
     setIsEditing(true);
   };
 
-  // 컴포넌트 언마운트 시 정리
-  useEffect(() => {
-    return () => {
-      setIsEditing(false);
-      if (sanitizedData.__html) {
-        sanitizedData.__html = "";
-      }
-    };
-  }, [sanitizedData]);
-
-  // 이미지 로딩 최적화
-  const handleImageLoad = useCallback(
-    (event: React.SyntheticEvent<HTMLImageElement>) => {
-      const img = event.target as HTMLImageElement;
-      if (img.complete) {
-        URL.revokeObjectURL(img.src);
-      }
-    },
-    []
-  );
-
   if (isEditing) {
     return (
       <EditPost
