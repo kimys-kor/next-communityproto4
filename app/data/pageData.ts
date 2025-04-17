@@ -80,7 +80,18 @@ export const pageData: PageData = {
     description:
       "꽁머니팡과 파트너사들이 제공하는 다양한 이벤트 정보를 확인하고 풍성한 혜택을 받아가세요.",
   },
-  // promotion 경로는 페이지 구조상 Title 적용이 어려워 제외
-  // guide 경로는 페이지 구조상 Title 적용이 어려워 제외
+  promotion: {
+    title: "토토사이트 홍보",
+    description:
+      "꽁머니팡에서 추천하는 최고의 토토사이트 홍보 정보를 확인하세요.",
+  },
+  guide: {
+    title: "토토사이트 이용가이드",
+    description: "안전한 토토사이트 이용을 위한 꽁머니팡 필수 가이드라인.",
+  },
+  promotionHunting: {
+    title: "구인구직 관련 홍보",
+    description: "꽁머니팡에서 다양한 구인구직 홍보 정보를 확인하세요.",
+  },
   // customer 경로는 페이지 구조상 Title 적용이 어려워 제외
 };

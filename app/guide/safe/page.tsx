@@ -1,4 +1,3 @@
-import Ggmp from "../(components)/Ggmp";
 import Image from "next/image";
 import safe from "/public/images/safe.png";
 import search from "/public/images/search.png";
@@ -10,7 +9,6 @@ function page() {
     <div className="w-full pt-36">
       <SubMenu />
       <main>
-        <Ggmp />
         <section className="flex flex-col justify-center items-center py-20">
           <Image alt="토이소 소개" width={248} height={255} src={safe}></Image>
           <div className="text-4xl font-semibold px-3">

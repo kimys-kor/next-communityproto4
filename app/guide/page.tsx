@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Ggmp from "./(components)/Ggmp";
+
 import question from "/public/images/question.png";
 import talkball from "/public/images/talkball.png";
 import advantage from "/public/images/advantage.png";
