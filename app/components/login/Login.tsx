@@ -69,7 +69,7 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className="max-w-128 bg-white p-8 rounded-lg w-full border border-solid border-gray-200 shadow-sm">
+    <>
       {loggedIn && userInfo ? (
         <Profile userInfo={userInfo} />
       ) : (
@@ -137,7 +137,7 @@ const Login: React.FC = () => {
           </section>
         </form>
       )}
-    </div>
+    </>
   );
 };
 
