@@ -29,7 +29,7 @@ export async function generateMetadata({
       openGraph: {
         title: "게시글을 찾을 수 없습니다",
         description: "유효하지 않은 게시글 ID입니다.",
-        url: `https://toiso777.com/sport/basket/${boardId}`,
+        url: `https://ggmoney.com/sport/basket/${boardId}`,
       },
       twitter: {
         card: "summary_large_image",
@@ -44,17 +44,20 @@ export async function generateMetadata({
 
     if (!boardContent) {
       return {
-        title: "게시글을 찾을 수 없습니다",
-        description: "유효하지 않은 게시글 ID입니다.",
+        title: "꽁머니팡 농구분석글",
+        description:
+          "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
         openGraph: {
-          title: "게시글을 찾을 수 없습니다",
-          description: "유효하지 않은 게시글 ID입니다.",
-          url: `https://toiso777.com/sport/basket/${boardId}`,
+          title: "꽁머니팡 농구분석글",
+          description:
+            "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+          url: `https://ggmoney.com/sport/basket/${boardId}`,
         },
         twitter: {
           card: "summary_large_image",
-          title: "게시글을 찾을 수 없습니다",
-          description: "유효하지 않은 게시글 ID입니다.",
+          title: "꽁머니팡 농구분석글",
+          description:
+            "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
         },
       };
     }
@@ -65,42 +68,45 @@ export async function generateMetadata({
 
     return {
       title:
-        "토이소 농구분석글: " + boardContent.title || "토이소 농구분석글: ",
+        "꽁머니팡 농구분석글: " + boardContent.title || "꽁머니팡 농구분석글: ",
       description:
-        description.length > 0
-          ? `${description}...`
-          : "토이소에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+        boardContent.summary ||
+        "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+      keywords: boardContent.keywords || [
+        "스포츠분석",
+        "농구분석",
+        "토토사이트",
+      ],
       openGraph: {
         type: "article",
         locale: "ko_KR",
-        siteName: "토이소: 스포츠 분석 및 커뮤니티",
+        siteName: "꽁머니팡: 스포츠 분석 및 커뮤니티",
         title:
-          "토이소 농구분석글: " + boardContent.title || "토이소 농구분석글: ",
+          "꽁머니팡 농구분석글: " + boardContent.title ||
+          "꽁머니팡 농구분석글: ",
         description:
-          description.length > 0
-            ? `${description}...`
-            : "토이소에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
-        url: `https://toiso777.com/sport/basket/${boardId}`,
+          boardContent.summary ||
+          "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+        url: `https://ggmoney.com/sport/basket/${boardId}`,
         images: [
           {
-            url: "/icon.ico",
+            url: boardContent.thumbnail || "/og-image.png",
+            width: 800,
+            height: 600,
+            alt: boardContent.title || "농구 분석 이미지",
           },
         ],
       },
       twitter: {
         card: "summary_large_image",
         title:
-          "토이소 농구분석글: " + boardContent.title || "토이소 농구분석글: ",
+          "꽁머니팡 농구분석글: " + boardContent.title ||
+          "꽁머니팡 농구분석글: ",
         description:
-          description.length > 0
-            ? `${description}...`
-            : "토이소에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
-        creator: "토이소",
-        images: [
-          {
-            url: "/icon.ico",
-          },
-        ],
+          boardContent.summary ||
+          "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+        images: [boardContent.thumbnail || "/twitter-image.png"],
+        creator: "꽁머니팡",
       },
     };
   } catch (error) {
@@ -110,7 +116,7 @@ export async function generateMetadata({
       openGraph: {
         title: "에러가 발생했습니다",
         description: "메타데이터를 생성하는 중 오류가 발생했습니다.",
-        url: `https://toiso777.com/sport/basket/${boardId}`,
+        url: `https://ggmoney.com/sport/basket/${boardId}`,
       },
       twitter: {
         card: "summary_large_image",

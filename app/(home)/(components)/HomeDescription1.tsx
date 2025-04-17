@@ -20,8 +20,8 @@ function HomeDescription1() {
             꽁머니와 안전한 스포츠토토 즐기기
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            토이소에서 추천하는 안전한 꽁머니사이트 정보를 확인하고, 금전적 부담
-            없이 스포츠토토와 다양한 혜택을 즐겨보세요. 확실한 먹튀검증은
+            꽁머니팡에서 추천하는 안전한 꽁머니사이트 정보를 확인하고, 금전적
+            부담 없이 스포츠토토와 다양한 혜택을 즐겨보세요. 확실한 먹튀검증은
             필수입니다!
           </p>
         </section>
@@ -47,13 +47,13 @@ function HomeDescription1() {
               <strong className="text-blue-600">토토사이트</strong>의 스포츠
               베팅을 시작할 수 있습니다. 하지만 가장 중요한 것은
               <strong className="text-red-500">먹튀검증</strong>!{" "}
-              <strong className="text-gray-900 font-semibold">토이소</strong>는
-              철저한 검증을 통과한 안전놀이터만을 추천하여 회원님의 소중한
+              <strong className="text-gray-900 font-semibold">꽁머니팡</strong>
+              는 철저한 검증을 통과한 안전놀이터만을 추천하여 회원님의 소중한
               자산을 보호합니다. SSL 보안, 출금 정책, 사용자 후기를 꼼꼼히
               확인하세요.
             </p>
             <ul className="list-disc list-inside text-gray-700 space-y-2">
-              <li>신뢰할 수 있는 먹튀검증 커뮤니티(토이소!) 확인</li>
+              <li>신뢰할 수 있는 먹튀검증 커뮤니티(꽁머니팡!) 확인</li>
               <li>사이트 보안(SSL) 및 개인정보 처리 방침 확인</li>
               <li>출금 조건 및 규정 명확히 인지</li>
               <li>다른 사용자들의 솔직한 후기 참고</li>
@@ -75,7 +75,7 @@ function HomeDescription1() {
               <p className="text-gray-600 leading-relaxed">
                 꽁머니 사용 전, 반드시{" "}
                 <strong className="text-red-500">먹튀검증</strong>을 거친
-                사이트인지 확인하세요. 토이소와 같은 신뢰도 높은
+                사이트인지 확인하세요. 꽁머니팡과 같은 신뢰도 높은
                 <strong className="text-blue-600">스포츠커뮤니티</strong>의{" "}
                 <strong className="text-green-500">토토사이트추천</strong>{" "}
                 목록을 참고하는 것이 안전합니다. 검증되지 않은 곳에서의 사용은
@@ -111,7 +111,9 @@ function HomeDescription1() {
                 A. 신규 가입이나 이벤트 참여 시{" "}
                 <strong className="text-blue-600">토토사이트</strong>에서
                 제공하는 무료 베팅 자금 또는 포인트입니다.{" "}
-                <strong className="text-gray-900 font-semibold">토이소</strong>
+                <strong className="text-gray-900 font-semibold">
+                  꽁머니팡
+                </strong>
                 가 추천하는 안전놀이터에서 받아보세요.
               </p>
             </div>
@@ -121,7 +123,7 @@ function HomeDescription1() {
               </h4>
               <p className="text-gray-600 mt-1">
                 A. <strong className="text-red-500">먹튀검증</strong>이 완료된
-                사이트, 특히 토이소의{" "}
+                사이트, 특히 꽁머니팡의{" "}
                 <strong className="text-green-500">토토사이트추천</strong>
                 목록에 있는 곳을 이용하는 것이 가장 중요합니다. 보안(SSL)과 출금
                 규정도 확인하세요.

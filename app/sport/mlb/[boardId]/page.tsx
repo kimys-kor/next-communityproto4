@@ -44,18 +44,9 @@ export async function generateMetadata({
 
     if (!boardContent) {
       return {
-        title: "게시글을 찾을 수 없습니다",
-        description: "유효하지 않은 게시글 ID입니다.",
-        openGraph: {
-          title: "게시글을 찾을 수 없습니다",
-          description: "유효하지 않은 게시글 ID입니다.",
-          url: `https://toiso777.com/sport/mlb/${boardId}`,
-        },
-        twitter: {
-          card: "summary_large_image",
-          title: "게시글을 찾을 수 없습니다",
-          description: "유효하지 않은 게시글 ID입니다.",
-        },
+        title: "꽁머니팡 mlb분석글",
+        description:
+          "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
       };
     }
 
@@ -64,42 +55,44 @@ export async function generateMetadata({
     const description = contentText.slice(0, 500);
 
     return {
-      title: "토이소 mlb분석글: " + boardContent.title || "토이소 mlb분석글: ",
+      title:
+        "꽁머니팡 mlb분석글: " + boardContent.title || "꽁머니팡 mlb분석글: ",
       description:
-        description.length > 0
-          ? `${description}...`
-          : "토이소에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+        boardContent.summary ||
+        "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+      keywords: boardContent.keywords || [
+        "스포츠분석",
+        "MLB분석",
+        "토토사이트",
+      ],
       openGraph: {
-        type: "article",
-        locale: "ko_KR",
-        siteName: "토이소: 스포츠 분석 및 커뮤니티",
         title:
-          "토이소 mlb분석글: " + boardContent.title || "토이소 mlb분석글: ",
+          "꽁머니팡 mlb분석글: " + boardContent.title || "꽁머니팡 mlb분석글: ",
         description:
-          description.length > 0
-            ? `${description}...`
-            : "토이소에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
-        url: `https://toiso777.com/sport/mlb/${boardId}`,
+          boardContent.summary ||
+          "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+        url: `https://ggmoney.com/sport/mlb/${boardId}`,
+        siteName: "꽁머니팡: 스포츠 분석 및 커뮤니티",
         images: [
           {
-            url: "/icon.ico",
+            url: boardContent.thumbnail || "/og-image.png",
+            width: 800,
+            height: 600,
+            alt: boardContent.title || "MLB 분석 이미지",
           },
         ],
+        locale: "ko_KR",
+        type: "article",
       },
       twitter: {
         card: "summary_large_image",
         title:
-          "토이소 mlb분석글: " + boardContent.title || "토이소 mlb분석글: ",
+          "꽁머니팡 mlb분석글: " + boardContent.title || "꽁머니팡 mlb분석글: ",
         description:
-          description.length > 0
-            ? `${description}...`
-            : "토이소에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
-        creator: "토이소",
-        images: [
-          {
-            url: "/icon.ico",
-          },
-        ],
+          boardContent.summary ||
+          "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+        images: [boardContent.thumbnail || "/twitter-image.png"],
+        creator: "꽁머니팡",
       },
     };
   } catch (error) {
