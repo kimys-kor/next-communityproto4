@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Paging from "@/app/components/Paging";
 import Link from "next/link";
 import Image from "next/image";
@@ -39,41 +39,37 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
   const typ = searchParams.get("typ") || "14";
   const keyword = searchParams.get("keyword") || "";
 
-  const fetchData = useCallback(
-    async (pageNumber: number, keyword: string) => {
-      try {
-        const response = await fetch(
-          `/api/board/list?typ=${typ}&keyword=${keyword}&page=${pageNumber - 1}&size=${size}`,
-          { cache: "no-store" }
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch board list");
+  const fetchData = async (page: number) => {
+    try {
+      const response = await fetch(
+        `/api/board/photoList?typ=${typ}&keyword=${keyword}&page=${page - 1}&size=${size}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-store",
         }
-        const data = await response.json();
-        setBoardList([]);
-        setBoardList(data.data.content);
-        setTotalElements(data.data.totalElements);
-      } catch (error) {
-        toast.error("Failed to fetch board list");
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch photo board data");
       }
-    },
-    [typ, size]
-  );
+
+      const data = await response.json();
+      setBoardList(data.data.content);
+      setTotalElements(data.data.totalElements);
+      setTotalPages(data.data.totalPages);
+    } catch (error) {
+      toast.error("포토 게시글 리스트에 문제가 발생했습니다");
+    }
+  };
 
   useEffect(() => {
-    const pageParam = searchParams.get("page");
-    if (pageParam) {
-      const pageNum = parseInt(pageParam);
-      if (!isNaN(pageNum)) {
-        setCurrentPage(pageNum);
-        fetchData(pageNum, keyword);
-      }
-    }
-  }, [searchParams, keyword, fetchData]);
+    fetchData(currentPage);
+  }, [currentPage, typ, keyword]);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
-    router.push(`${pathname}?page=${newPage}`);
+    router.replace(`${pathname}?page=${newPage}`);
   };
 
   const handleSelectAll = () => {
@@ -148,7 +144,7 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
         throw new Error("게시글삭제 실패");
       }
 
-      await fetchData(currentPage, keyword);
+      await fetchData(1);
 
       setSelectedItems([]);
       setSelectAll(false);

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { BoardItem } from "../../types";
 import Paging from "@/app/components/Paging";
@@ -29,7 +29,6 @@ const BoardClient: React.FC<BoardClientProps> = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   const { userInfo } = useUserStore();
   const [boardList, setBoardList] = useState<BoardItem[]>(initialItems);
@@ -41,18 +40,6 @@ const BoardClient: React.FC<BoardClientProps> = ({
 
   const totalPages = Math.ceil(totalElements / size);
 
-  // URL 쿼리 파라미터에서 페이지 정보 가져오기
-  useEffect(() => {
-    const currentPage = searchParams.get("page");
-    if (currentPage) {
-      const pageNum = parseInt(currentPage);
-      if (!isNaN(pageNum) && pageNum !== page) {
-        setPage(pageNum);
-        fetchData(pageNum, keyword);
-      }
-    }
-  }, [searchParams]);
-
   const fetchData = async (pageNumber: number, keyword: string) => {
     try {
       const response = await fetch(
@@ -63,7 +50,6 @@ const BoardClient: React.FC<BoardClientProps> = ({
         throw new Error("Failed to fetch board list");
       }
       const data = await response.json();
-      setBoardList([]);
       setBoardList(data.data.content);
       setTotalElements(data.data.totalElements);
     } catch (error) {
@@ -83,7 +69,9 @@ const BoardClient: React.FC<BoardClientProps> = ({
   };
 
   const handlePageChange = (newPage: number) => {
-    router.push(`${pathname}?page=${newPage}`);
+    router.replace(`${pathname}?page=${newPage}`);
+    setPage(newPage);
+    fetchData(newPage, keyword);
   };
 
   const handleSelectItem = (id: number) => {
@@ -161,9 +149,8 @@ const BoardClient: React.FC<BoardClientProps> = ({
         throw new Error("게시글삭제 실패");
       }
 
-      setBoardList((prevBoardList) =>
-        prevBoardList.filter((item) => !selectedItems.includes(item.id))
-      );
+      await fetchData(page, keyword);
+
       setSelectedItems([]);
       setSelectAll(false);
       toast.success("선택한 게시물이 성공적으로 삭제되었습니다.");

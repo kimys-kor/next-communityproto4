@@ -4,10 +4,10 @@ import question from "/public/images/question.png";
 import talkball from "/public/images/talkball.png";
 import advantage from "/public/images/advantage.png";
 import logo from "/public/images/logo.png";
-import SubMenu from "../(components)/SubMenu";
+import SubMenu from "@/app/guide/(components)/SubMenu";
 import { Metadata } from "next";
 import Breadcrumb from "@/app/components/BreadCrumb";
-import GuideContent from "../(components)/GuideContent";
+import GuideContent from "@/app/guide/(components)/GuideContent";
 import Title from "@/app/components/Title";
 import { pageData } from "@/app/data/pageData";
 
