@@ -71,7 +71,7 @@ export const metadata = {
     ],
   },
   verification: {
-    google: "xRWqX_Q8wtpu3uUT3L6viXLG-zfw1euzL1nXmTMsIm0",
+    google: "zUrRPXRwKAbdVJVGGRQDBa7UPmpatqnQiTDF2rbypJc",
   },
   icons: {
     icon: "/icon.ico",
