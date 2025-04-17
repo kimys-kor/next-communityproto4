@@ -38,6 +38,9 @@ const BoardClient: React.FC<BoardClientProps> = ({
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [showTransferPopup, setShowTransferPopup] = useState(false);
+  const [keyword, setKeyword] = useState<string>("");
+  const [searchField, setSearchField] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     const pageFromUrl = Number(searchParams.get("page")) || 1;
@@ -48,11 +51,11 @@ const BoardClient: React.FC<BoardClientProps> = ({
 
   const totalPages = Math.ceil(totalElements / size);
 
-  const fetchData = async (pageNumber: number, keyword: string) => {
+  const fetchData = async (pageNumber: number, fetchKeyword: string) => {
     const fetchPage = pageNumber > 0 ? pageNumber - 1 : 0;
     try {
       const response = await fetch(
-        `/api/board/list?typ=${typ}&keyword=${keyword}&page=${fetchPage}&size=${size}`,
+        `/api/board/list?typ=${typ}&keyword=${fetchKeyword}&page=${fetchPage}&size=${size}`,
         { cache: "no-store" }
       );
       if (!response.ok) {
@@ -66,15 +69,18 @@ const BoardClient: React.FC<BoardClientProps> = ({
     }
   };
 
-  const [keyword, setKeyword] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchField, setSearchField] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  useEffect(() => {
+    fetchData(page, keyword);
+  }, [page, keyword, typ, size]);
 
   const handleSearch = () => {
-    setCurrentPage(1);
     setKeyword(searchQuery);
-    fetchData(1, searchQuery);
+    if (page !== 1) {
+      setPage(1);
+      router.push(`${pathname}?page=1`);
+    } else {
+      fetchData(1, searchQuery);
+    }
   };
 
   const handlePageChange = (newPage: number) => {
