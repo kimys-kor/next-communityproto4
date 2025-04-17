@@ -5,22 +5,33 @@ import ProgressSliderPage from "@/app/components/ProgressSliderPage";
 import Breadcrumb from "@/app/components/BreadCrumb";
 import SubMenu from "../(component)/SubMenu";
 import BoardContainer from "@/app/components/boards/BoardContainer";
+import Title from "@/app/components/Title";
+import { pageData } from "@/app/data/pageData";
+import { Metadata } from "next";
 
-function page() {
+// 메타데이터 정의 (필요시 추가)
+// export const metadata: Metadata = { ... };
+
+function Page() {
   const breadcrumbItems = {
     title: "커뮤니티",
-    subMenu: "먹튀피해제보",
+    subMenu: "피해사례",
   };
 
   return (
     <div className="flex flex-col gap-3 max-w-[1300px]">
+      <Title
+        title={pageData.communityCase.title}
+        description={pageData.communityCase.description}
+      />
       <SubMenu />
       <ThreeBanner></ThreeBanner>
       <ProgressSliderPage></ProgressSliderPage>
       <Breadcrumb breadcrumbData={breadcrumbItems}></Breadcrumb>
+      <h2 className="text-xl font-semibold mt-6 mb-3">피해사례 게시글</h2>
       <BoardContainer writeBoolean={true} typ={13} page={1} size={15} />
     </div>
   );
 }
 
-export default page;
+export default Page;

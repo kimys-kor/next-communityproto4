@@ -1,11 +1,18 @@
+import React from "react";
 import ThreeBanner from "@/app/components/ThreeBanner";
 import sportMain from "/public/images/sportMain.png";
 import Image from "next/image";
 import Breadcrumb from "@/app/components/BreadCrumb";
 import SubMenu from "../(component)/SubMenu";
 import BoardContainer from "@/app/components/boards/BoardContainer";
+import Title from "@/app/components/Title";
+import { pageData } from "@/app/data/pageData";
+import { Metadata } from "next";
 
-export default function Page() {
+// 메타데이터 정의 (필요시 추가)
+// export const metadata: Metadata = { ... };
+
+function Page() {
   const breadcrumbItems = {
     title: "스포츠분석",
     subMenu: "MLB분석",
@@ -13,6 +20,10 @@ export default function Page() {
 
   return (
     <div className="flex flex-col gap-3 max-w-[1300px]">
+      <Title
+        title={pageData.sportMlb.title}
+        description={pageData.sportMlb.description}
+      />
       <SubMenu />
       <ThreeBanner />
       <div>
@@ -25,7 +36,10 @@ export default function Page() {
         />
       </div>
       <Breadcrumb breadcrumbData={breadcrumbItems}></Breadcrumb>
+      <h2 className="text-xl font-semibold mt-6 mb-3">MLB분석 게시글</h2>
       <BoardContainer typ={4} page={1} size={15} />
     </div>
   );
 }
+
+export default Page;

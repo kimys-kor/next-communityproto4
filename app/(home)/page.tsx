@@ -5,6 +5,7 @@ import HomeBanner from "./(components)/HomeBanner";
 import { Suspense } from "react";
 import HomeBannerSk from "../components/skeleton/HomeBannerSk";
 import HomeBoard from "./(components)/HomeBoard";
+import SportsDataTable from "./(components)/SportsDataTable";
 import Page from "../guide/page";
 import { Metadata } from "next";
 
@@ -76,7 +77,14 @@ export default function Home() {
           </div>
         </section>
 
-        <h2 className="text-xl font-bold text-center mt-4">
+        {/* <section className="mt-8">
+          <h2 className="text-xl font-bold text-center mb-4">
+            실시간 스포츠 정보
+          </h2>
+          <SportsDataTable />
+        </section> */}
+
+        <h2 className="text-xl font-bold text-center mt-8">
           주간/월간 베스트 게시글
         </h2>
         <HomeBoard></HomeBoard>

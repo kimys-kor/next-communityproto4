@@ -5,6 +5,8 @@ import Breadcrumb from "@/app/components/BreadCrumb";
 import SubMenu from "./(component)/SubMenu";
 import { Metadata } from "next";
 import PhotoBoard from "../components/boards/PhotoBoard";
+import Title from "@/app/components/Title";
+import { pageData } from "@/app/data/pageData";
 
 // 커뮤니티 페이지 메타데이터 정의 (SEO 최적화)
 export const metadata: Metadata = {
@@ -31,12 +33,10 @@ export default function Page() {
 
   return (
     <div className="flex flex-col gap-3 max-w-[1300px]">
-      {/* SEO: 페이지 제목(h1)과 설명(p) 추가 */}
-      <h1 className="text-2xl font-bold my-4">토이소 커뮤니티 - 안구정화</h1>
-      <p className="text-gray-600 mb-4">
-        지친 눈을 즐겁게 해줄 다양한 이미지들을 만나보세요! 토이소 안구정화
-        게시판에서 재미와 휴식을 찾으실 수 있습니다.
-      </p>
+      <Title
+        title={pageData.community.title}
+        description={pageData.community.description}
+      />
 
       <SubMenu />
       <ThreeBanner />

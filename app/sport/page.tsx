@@ -5,6 +5,8 @@ import Breadcrumb from "@/app/components/BreadCrumb";
 import SubMenu from "./(component)/SubMenu";
 import BoardContainer from "@/app/components/boards/BoardContainer";
 import { Metadata } from "next";
+import Title from "@/app/components/Title";
+import { pageData } from "@/app/data/pageData"; // 중앙 데이터 파일에서 import
 
 // 스포츠분석 페이지 메타데이터 정의
 export const metadata: Metadata = {
@@ -32,12 +34,11 @@ export default function Page() {
 
   return (
     <div className="flex flex-col gap-3 max-w-[1300px]">
-      <h1 className="text-2xl font-bold my-4">전문가 스포츠분석</h1>
-      <p className="text-gray-600 mb-4">
-        토이소의 전문가들이 제공하는 다양한 종목의 심층 스포츠분석 정보를 통해
-        경기 예측의 정확도를 높여보세요. 안전한 토토사이트 추천 정보도 함께
-        확인하실 수 있습니다.
-      </p>
+      {/* Title 컴포넌트에 중앙 데이터 파일에서 가져온 값 전달 */}
+      <Title
+        title={pageData.sport.title}
+        description={pageData.sport.description}
+      />
 
       <SubMenu />
       <ThreeBanner />

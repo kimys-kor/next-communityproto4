@@ -4,8 +4,14 @@ import Breadcrumb from "@/app/components/BreadCrumb";
 import PhotoBoard from "../components/boards/PhotoBoard";
 import ProgressSliderPage from "@/app/components/ProgressSliderPage";
 import SubMenu from "./(component)/SubMenu";
+import Title from "@/app/components/Title";
+import { pageData } from "@/app/data/pageData";
+import { Metadata } from "next";
 
-function page() {
+// 메타데이터 정의 (필요시 추가)
+// export const metadata: Metadata = { ... };
+
+function Page() {
   const breadcrumbItems = {
     title: "토이소",
     subMenu: "이벤트",
@@ -13,6 +19,10 @@ function page() {
 
   return (
     <div className="flex flex-col max-w-[1200px]">
+      <Title
+        title={pageData.event.title}
+        description={pageData.event.description}
+      />
       <SubMenu />
       <ThreeBanner></ThreeBanner>
       <ProgressSliderPage></ProgressSliderPage>
@@ -22,4 +32,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
