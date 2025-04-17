@@ -131,7 +131,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       {/* Header */}
       <section className="bg-mediumblue border-b-2 border-blue-600 w-full flex justify-between items-center p-2">
         <p className="text-white text-2xl">
-          토이소: 꽁머니 토토사이트 스포츠분석 안전놀이터
+          꽁머니팡: 꽁머니 토토사이트 스포츠분석 안전놀이터
         </p>
         <button className="p-2" onClick={handleClose}>
           <IoCloseSharp color="white" size={30} />

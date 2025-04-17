@@ -216,8 +216,8 @@ function HomeDescription2() {
                 </h4>
                 <p className="text-gray-600 leading-relaxed mb-3">
                   <strong className="text-green-500">메이저놀이터</strong>라고
-                  해서 영원히 안전한 것은 아닙니다. 토이소는 기존 보증 업체라도
-                  정기적인 재검증을 통해{" "}
+                  해서 영원히 안전한 것은 아닙니다. 꽁머니팡는 기존 보증
+                  업체라도 정기적인 재검증을 통해{" "}
                   <strong className="text-blue-600">토토사이트</strong>의
                   안정성을 지속적으로 관리하여{" "}
                   <strong className="text-red-500">먹튀</strong> 위험을
@@ -230,8 +230,8 @@ function HomeDescription2() {
                   </h5>
                   <p className="text-sm text-gray-600">
                     <strong>Q. 메이저놀이터 안전성 100% 보장?</strong> A. 완벽
-                    보장은 어렵지만, 토이소는 먹튀 보증금 제도를 통해 피해 발생
-                    시 책임지고 보상합니다.
+                    보장은 어렵지만, 꽁머니팡는 먹튀 보증금 제도를 통해 피해
+                    발생 시 책임지고 보상합니다.
                   </p>
                   <p className="text-sm text-gray-600 mt-1">
                     <strong>Q. 메이저가 먹튀로 변질?</strong> A. 가능성은 늘
@@ -252,13 +252,13 @@ function HomeDescription2() {
               />
               <div>
                 <h4 className="text-xl font-semibold text-gray-800 mb-3">
-                  최신 먹튀검증 트렌드, 토이소가 알려드립니다
+                  최신 먹튀검증 트렌드, 꽁머니팡가 알려드립니다
                 </h4>
                 <p className="text-gray-600 leading-relaxed mb-3">
                   변화하는 <strong className="text-red-500">먹튀</strong> 수법에
                   발맞춰
                   <strong className="text-gray-900 font-semibold">
-                    토이소
+                    꽁머니팡
                   </strong>
                   는 최신
                   <strong className="text-blue-600">먹튀검증</strong> 트렌드를

@@ -65,22 +65,23 @@ export async function generateMetadata({
 
     return {
       title:
-        "토이소 나도분석왕글: " + boardContent.title || "토이소 나도분석왕글: ",
+        "꽁머니팡 나도분석왕글: " + boardContent.title ||
+        "꽁머니팡 나도분석왕글: ",
       description:
         description.length > 0
           ? `${description}...`
-          : "토이소에서 다양한 유저들의 스포츠분석 정보를 확인해보세요.",
+          : "꽁머니팡에서 다양한 유저들의 스포츠분석 정보를 확인해보세요.",
       openGraph: {
         type: "article",
         locale: "ko_KR",
-        siteName: "토이소",
+        siteName: "꽁머니팡",
         title:
-          "토이소 나도분석왕글: " + boardContent.title ||
-          "토이소 나도분석왕글: ",
+          "꽁머니팡 나도분석왕글: " + boardContent.title ||
+          "꽁머니팡 나도분석왕글: ",
         description:
           description.length > 0
             ? `${description}...`
-            : "토이소에서 다양한 유저들의 스포츠분석 정보를 확인해보세요.",
+            : "꽁머니팡에서 다양한 유저들의 스포츠분석 정보를 확인해보세요.",
         url: `https://toiso777.com/community/pickster/${boardId}`,
         images: [
           {
@@ -91,13 +92,13 @@ export async function generateMetadata({
       twitter: {
         card: "summary_large_image",
         title:
-          "토이소 나도분석왕글: " + boardContent.title ||
-          "토이소 나도분석왕글: ",
+          "꽁머니팡 나도분석왕글: " + boardContent.title ||
+          "꽁머니팡 나도분석왕글: ",
         description:
           description.length > 0
             ? `${description}...`
-            : "토이소에서 다양한 유저들의 스포츠분석 정보를 확인해보세요.",
-        creator: "토이소",
+            : "꽁머니팡에서 다양한 유저들의 스포츠분석 정보를 확인해보세요.",
+        creator: "꽁머니팡",
         images: [
           {
             url: "/icon.ico",

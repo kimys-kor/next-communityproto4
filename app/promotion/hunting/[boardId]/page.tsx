@@ -34,7 +34,7 @@ export async function generateMetadata({
     }
 
     return {
-      title: boardContent.title || "토이소: 구인구직 게시판",
+      title: boardContent.title || "꽁머니팡: 구인구직 게시판",
       description: "구인구직",
     };
   } catch (error) {

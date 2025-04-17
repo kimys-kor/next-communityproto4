@@ -8,12 +8,12 @@ function Direction() {
   return (
     <article>
       <section className="flex flex-col justify-center items-center py-8 md:py-10">
-        <Image alt="토이소 소개" width={248} height={255} src={safe} />
+        <Image alt="꽁머니팡 소개" width={248} height={255} src={safe} />
         <div className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mt-4">
           <span className="text-blue">구인구직 게시판 </span>이용 방법
         </div>
         <p className="w-full max-w-[900px] px-4 sm:px-5 pt-4 text-xs sm:text-sm md:text-base text-description leading-6 text-center">
-          토이소 에서는 구인구직 게시판을 운영하고 있습니다. 구인구직 페이지를
+          꽁머니팡 에서는 구인구직 게시판을 운영하고 있습니다. 구인구직 페이지를
           운영하는 이유는 많은 분들이 다양한 방식으로 소통할 수 있도록 돕기
           위해서입니다. 특히, 토토사이트를 이용하는 유저들이 갖추고 있는
           역량이나 재능이 각기 다르기 때문에 구인구직 사이트를 통하여 역량을
@@ -28,7 +28,7 @@ function Direction() {
               <p className="text-lg md:text-2xl">구인구직 홍보 게시판</p>
               <p className="text-lg md:text-2xl">이용 주의사항</p>
             </div>
-            <Image alt="토이소 소개" width={248} height={255} src={search} />
+            <Image alt="꽁머니팡 소개" width={248} height={255} src={search} />
           </section>
 
           <section className="w-full flex flex-col items-center gap-4 sm:gap-5">

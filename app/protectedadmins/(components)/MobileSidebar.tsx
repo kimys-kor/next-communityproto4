@@ -36,7 +36,7 @@ export default function MobileSidebar() {
         <button onClick={toggleSidebar} className="p-2">
           <FiMenu size={24} />
         </button>
-        <p className="ml-4 text-lg font-semibold">토이소 관리자</p>
+        <p className="ml-4 text-lg font-semibold">꽁머니팡 관리자</p>
       </header>
 
       <aside

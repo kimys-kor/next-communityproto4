@@ -8,7 +8,7 @@ function Direction() {
   return (
     <article>
       <section className="flex flex-col justify-center items-center py-8 md:py-10">
-        <Image alt="토이소 소개" width={248} height={255} src={major} />
+        <Image alt="꽁머니팡 소개" width={248} height={255} src={major} />
 
         <div className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mt-4">
           <span className="text-blue">일반 홍보 게시판</span> 이용 방법
@@ -27,7 +27,7 @@ function Direction() {
               <p className="text-lg md:text-2xl">일반 홍보 게시판</p>
               <p className="text-lg md:text-2xl">이용 주의사항</p>
             </div>
-            <Image alt="토이소 소개" width={248} height={255} src={search} />
+            <Image alt="꽁머니팡 소개" width={248} height={255} src={search} />
           </section>
 
           <section className="w-full flex flex-col items-center gap-4 sm:gap-5">

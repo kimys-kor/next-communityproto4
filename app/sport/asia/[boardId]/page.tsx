@@ -65,23 +65,23 @@ export async function generateMetadata({
 
     return {
       title:
-        "토이소 아시아축구분석글: " + boardContent.title ||
-        "토이소 아시아축구분석글: ",
+        "꽁머니팡 아시아축구분석글: " + boardContent.title ||
+        "꽁머니팡 아시아축구분석글: ",
       description:
         description.length > 0
           ? `${description}...`
-          : "토이소에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+          : "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
       openGraph: {
         type: "article",
         locale: "ko_KR",
-        siteName: "토이소: 스포츠 분석 및 커뮤니티",
+        siteName: "꽁머니팡: 스포츠 분석 및 커뮤니티",
         title:
-          "토이소 아시아축구분석글: " + boardContent.title ||
-          "토이소 아시아축구분석글: ",
+          "꽁머니팡 아시아축구분석글: " + boardContent.title ||
+          "꽁머니팡 아시아축구분석글: ",
         description:
           description.length > 0
             ? `${description}...`
-            : "토이소에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+            : "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
         url: `https://toiso777.com/sport/asia/${boardId}`,
         images: [
           {
@@ -92,13 +92,13 @@ export async function generateMetadata({
       twitter: {
         card: "summary_large_image",
         title:
-          "토이소 아시아축구분석글: " + boardContent.title ||
-          "토이소 아시아축구분석글: ",
+          "꽁머니팡 아시아축구분석글: " + boardContent.title ||
+          "꽁머니팡 아시아축구분석글: ",
         description:
           description.length > 0
             ? `${description}...`
-            : "토이소에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
-        creator: "토이소",
+            : "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
+        creator: "꽁머니팡",
         images: [
           {
             url: "/icon.ico",

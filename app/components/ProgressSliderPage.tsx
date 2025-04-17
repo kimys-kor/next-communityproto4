@@ -25,7 +25,7 @@ export default function ProgressSliderPage() {
             src={main_top.src}
             width={1024}
             height={270}
-            alt={"토이소 배너"}
+            alt={"꽁머니팡 배너"}
           />
         </div>
       </div>

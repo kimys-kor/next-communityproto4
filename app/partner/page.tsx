@@ -14,7 +14,7 @@ interface ImgContent {
 
 function Page() {
   const breadcrumbItems = {
-    title: "토이소",
+    title: "꽁머니팡",
     subMenu: "파트너",
   };
 

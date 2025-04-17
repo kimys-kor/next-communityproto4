@@ -34,7 +34,7 @@ export async function generateMetadata({
     }
 
     return {
-      title: boardContent.title || "토이소: 꽁머니 홍보 게시판",
+      title: boardContent.title || "꽁머니팡: 꽁머니 홍보 게시판",
       description: "꽁머니 홍보 게시판",
     };
   } catch (error) {

@@ -69,7 +69,7 @@ export default function Page() {
         src="/images/sportMain.png" // 이미지 경로는 실제 이미지에 맞게 확인 필요
         width={1024}
         height={177}
-        alt={"토이소 커뮤니티 안구정화 섹션 대표 이미지"} // 구체적인 alt 텍스트
+        alt={"꽁머니팡 커뮤니티 안구정화 섹션 대표 이미지"} // 구체적인 alt 텍스트
       />
 
       <Breadcrumb breadcrumbData={breadcrumbItems} />

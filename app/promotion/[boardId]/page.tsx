@@ -34,8 +34,8 @@ export async function generateMetadata({
     }
 
     return {
-      title: boardContent.title || "토이소: 일반홍보 게시판",
-      description: "토이소에서 홍보 게시판에서 다양한 정보를 확인해보세요.",
+      title: boardContent.title || "꽁머니팡: 일반홍보 게시판",
+      description: "꽁머니팡에서 홍보 게시판에서 다양한 정보를 확인해보세요.",
     };
   } catch (error) {
     console.error("Failed to generate metadata:", error);

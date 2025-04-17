@@ -87,7 +87,7 @@ const SignUpForm: React.FC = () => {
           </Link>
         </div>
         <div className="w-80 pt-5 text-lg font-medium text-blue flex justify-center items-center">
-          <h1 className="text-3xl">토이소 회원가입하기</h1>
+          <h1 className="text-3xl">꽁머니팡 회원가입하기</h1>
         </div>
       </article>
       <form

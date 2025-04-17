@@ -10,7 +10,12 @@ function page() {
       <SubMenu />
       <main>
         <section className="flex flex-col justify-center items-center py-20">
-          <Image alt="토이소 소개" width={248} height={255} src={major}></Image>
+          <Image
+            alt="꽁머니팡 소개"
+            width={248}
+            height={255}
+            src={major}
+          ></Image>
           <div className="text-4xl font-semibold px-3">
             <span className="text-blue">메이저 놀이터 </span>란?
           </div>
@@ -32,7 +37,7 @@ function page() {
                 <p className="text-2xl ">특징과 주의사항</p>
               </div>
               <Image
-                alt="토이소 소개"
+                alt="꽁머니팡 소개"
                 width={248}
                 height={255}
                 src={search}
@@ -96,7 +101,7 @@ function page() {
                 <article className="w-full max-w-80 h-36 relative px-5 py-5 text-sm rounded-lg  border border-solid border-[#EEEEEE] flex items-center justify-center">
                   <div>
                     <p className="">
-                      메이저 업체인지 헷갈릴 때에는 토이소 의 사용자 리뷰와
+                      메이저 업체인지 헷갈릴 때에는 꽁머니팡 의 사용자 리뷰와
                       평가를 참고하세요. 프로토와 파워볼과 같은 다양한 게임이
                       제공되는지, 그리고 배당과 관련된 서비스가 만족스러운지
                       등을 고려해야 합니다.
@@ -117,7 +122,7 @@ function page() {
               <p>
                 메이저 놀이터 추천 업체는 메이저 놀이터 순위를 제공하지만, 이를
                 활용하기 전에 먹튀검증, 이용자들의 후기, 피해사례등 정확성을
-                충분히 확인하는 것이 중요합니다. 토이소 에서는 신뢰할 수 있는
+                충분히 확인하는 것이 중요합니다. 꽁머니팡 에서는 신뢰할 수 있는
                 정보를 바탕으로 매일 매일 정기적으로 광고글인지 실제 이용자들의
                 진솔한 후기 인지를 판단하여 최신 정보를 유지 하고 있습니다.
               </p>
