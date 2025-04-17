@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { BoardItem } from "../../types";
 import Paging from "@/app/components/Paging";
@@ -12,7 +12,6 @@ import TransferPopup from "@/app/components/boards/TransferPopup";
 
 interface BoardClientProps {
   initialItems: BoardItem[];
-  initialPage: number;
   totalElements: number;
   size: number;
   typ: number;
@@ -22,28 +21,32 @@ interface BoardClientProps {
 const BoardClient: React.FC<BoardClientProps> = ({
   writeBoolean,
   initialItems,
-  initialPage,
   totalElements: initialTotalElements,
   size,
   typ,
 }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const { userInfo } = useUserStore();
   const [boardList, setBoardList] = useState<BoardItem[]>(initialItems);
-  const [page, setPage] = useState(initialPage || 1);
   const [totalElements, setTotalElements] = useState(initialTotalElements);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [showTransferPopup, setShowTransferPopup] = useState(false);
+  const [keyword, setKeyword] = useState<string>("");
+  const [searchField, setSearchField] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const currentPage = Number(searchParams.get("page")) || 1;
 
   const totalPages = Math.ceil(totalElements / size);
 
-  const fetchData = async (pageNumber: number, keyword: string) => {
+  const fetchData = async (pageNumber: number, searchKeyword: string) => {
     try {
       const response = await fetch(
-        `/api/board/list?typ=${typ}&keyword=${keyword}&page=${pageNumber - 1}&size=${size}`,
+        `/api/board/list?typ=${typ}&keyword=${searchKeyword}&page=${pageNumber - 1}&size=${size}`,
         { cache: "no-store" }
       );
       if (!response.ok) {
@@ -53,25 +56,26 @@ const BoardClient: React.FC<BoardClientProps> = ({
       setBoardList(data.data.content);
       setTotalElements(data.data.totalElements);
     } catch (error) {
-      toast.error("Failed to fetch board list");
+      toast.error("게시글 목록을 불러오는데 실패했습니다.");
     }
   };
 
-  const [keyword, setKeyword] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchField, setSearchField] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  useEffect(() => {
+    fetchData(currentPage, keyword);
+  }, [currentPage, keyword, typ, size]);
 
   const handleSearch = () => {
-    setCurrentPage(1);
+    const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
+    params.set("keyword", searchQuery);
+    router.replace(`${pathname}?${params.toString()}`);
     setKeyword(searchQuery);
-    fetchData(1, searchQuery);
   };
 
   const handlePageChange = (newPage: number) => {
-    router.replace(`${pathname}?page=${newPage}`);
-    setPage(newPage);
-    fetchData(newPage, keyword);
+    const params = new URLSearchParams(searchParams);
+    params.set("page", newPage.toString());
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   const handleSelectItem = (id: number) => {
@@ -149,7 +153,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
         throw new Error("게시글삭제 실패");
       }
 
-      await fetchData(page, keyword);
+      await fetchData(currentPage, keyword);
 
       setSelectedItems([]);
       setSelectAll(false);
@@ -207,8 +211,10 @@ const BoardClient: React.FC<BoardClientProps> = ({
           </div>
           <div className="text-[#555555] text-sm">
             {"("}
-            <span className="text-[#2C4AB6] font-semibold">{page}</span> /{" "}
-            <span>{totalPages}</span> 페이지{")"}
+            <span className="text-[#2C4AB6] font-semibold">
+              {currentPage}
+            </span>{" "}
+            / <span>{totalPages}</span> 페이지{")"}
           </div>
         </div>
         {userInfo?.sck && (
@@ -365,7 +371,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
           )}
 
       <Paging
-        page={page}
+        page={currentPage}
         size={size}
         totalElements={totalElements}
         setPage={handlePageChange}
