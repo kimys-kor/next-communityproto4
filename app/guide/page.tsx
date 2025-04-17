@@ -6,9 +6,9 @@ import advantage from "/public/images/advantage.png";
 import logo from "/public/images/logo.png";
 import SubMenu from "./(components)/SubMenu";
 import { Metadata } from "next";
-import Breadcrumb from "@/app/components/layout/Breadcrumb";
+import Breadcrumb from "@/app/components/BreadCrumb";
 import GuideContent from "./(components)/GuideContent";
-import { Title } from "@/app/components/Title";
+import Title from "@/app/components/Title";
 import { pageData } from "../data/pageData";
 
 export const metadata: Metadata = {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "토토사이트 이용가이드 | 꽁머니팡",
     description:
       "꽁머니팡과 함께 안전한 토토사이트 이용 시작하기. 먹튀 걱정 없는 안전놀이터 선택부터 꽁머니 100% 활용법까지, 당신의 성공적인 베팅을 위한 가이드.",
-    url: "https://ggmoney.com/guide",
+    url: "https://ggongpang.com.com/guide",
     siteName: "꽁머니팡: 토토사이트 이용가이드",
     type: "website",
     images: [
@@ -51,10 +51,10 @@ export const metadata: Metadata = {
   },
 };
 
-const breadcrumbItems = [
-  { label: "홈", path: "/" },
-  { label: "이용가이드", path: "/guide" },
-];
+const breadcrumbData = {
+  title: "이용가이드",
+  subMenu: "이용가이드",
+};
 
 function GuidePage() {
   return (
@@ -64,7 +64,7 @@ function GuidePage() {
         description={pageData.guide.description}
       />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex-grow py-12">
-        <Breadcrumb items={breadcrumbItems} />
+        <Breadcrumb breadcrumbData={breadcrumbData} />
         <GuideContent />
       </div>
     </main>

@@ -72,7 +72,7 @@ export async function generateMetadata({
         description:
           boardContent.summary ||
           "꽁머니팡에서 스포츠 분석과 관련된 다양한 정보를 확인해보세요.",
-        url: `https://ggmoney.com/sport/volley/${boardId}`,
+        url: `https://ggongpang.com.com/sport/volley/${boardId}`,
         siteName: "꽁머니팡: 스포츠 분석 및 커뮤니티",
         images: [
           {

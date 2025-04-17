@@ -29,10 +29,10 @@ export const metadata: Metadata = {
     title: "꽁머니팡 홈 | 먹튀검증, 토토사이트추천 No.1 스포츠커뮤니티",
     description:
       "가장 안전한 토토사이트 추천과 먹튀검증은 꽁머니팡에서! 꽁머니, 스포츠분석 정보를 지금 확인하세요.",
-    url: "https://ggmoney.com/",
+    url: "https://ggongpang.com.com/",
     images: [
       {
-        url: "https://ggmoney.com/og-home.png",
+        url: "https://ggongpang.com.com/og-home.png",
         width: 1200,
         height: 630,
         alt: "꽁머니팡 홈페이지",

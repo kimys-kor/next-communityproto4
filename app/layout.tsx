@@ -19,7 +19,7 @@ const pretendard = localFont({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://ggmoney.com"),
+  metadataBase: new URL("https://ggongpang.com.com"),
   title: {
     default:
       "꽁머니팡 | 먹튀검증, 토토사이트추천, 꽁머니, 스포츠분석 스포츠커뮤니티",
@@ -38,10 +38,10 @@ export const metadata = {
       "꽁머니팡 | 먹튀검증, 토토사이트추천, 꽁머니, 스포츠분석 스포츠커뮤니티",
     description:
       "안전한 토토사이트추천, 확실한 먹튀검증은 스포츠커뮤니티 꽁머니팡에서! 꽁머니, 스포츠분석, 안전놀이터 정보를 한눈에 확인하세요.",
-    url: "https://ggmoney.com/",
+    url: "https://ggongpang.com.com/",
     images: [
       {
-        url: "https://ggmoney.com/og-image.png",
+        url: "https://ggongpang.com.com/og-image.png",
         width: 1200,
         height: 630,
         alt: "꽁머니팡 먹튀검증 토토사이트추천",
@@ -50,13 +50,13 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@ggmoney",
+    site: "@ggongpang.com",
     title:
       "꽁머니팡 | 먹튀검증, 토토사이트추천, 꽁머니, 스포츠분석 스포츠커뮤니티",
     description:
       "안전한 토토사이트추천, 확실한 먹튀검증은 스포츠커뮤니티 꽁머니팡에서! 꽁머니, 스포츠분석, 안전놀이터 정보를 한눈에 확인하세요.",
-    images: ["https://ggmoney.com/twitter-image.png"],
-    creator: "@ggmoney",
+    images: ["https://ggongpang.com.com/twitter-image.png"],
+    creator: "@ggongpang.com",
   },
   itemprop: {
     name: "꽁머니팡: 토토사이트 꽁머니 파워볼 먹튀검증 커뮤니티 안전놀이터",
@@ -66,7 +66,7 @@ export const metadata = {
       "꽁머니팡,꽁머니,먹튀검증,토토사이트,메이저놀이터,메이저사이트,안전한놀이터,먹튀사이트,프로토,승무패,스포츠토토,파워볼",
     images: [
       {
-        url: "https://ggmoney.com/icon.ico",
+        url: "https://ggongpang.com.com/icon.ico",
       },
     ],
   },

@@ -29,7 +29,7 @@ export async function generateMetadata({
       openGraph: {
         title: "게시글을 찾을 수 없습니다",
         description: "유효하지 않은 게시글 ID입니다.",
-        url: `https://toiso777.com/community/${boardId}`,
+        url: `https://ggongpang.com.com/community/${boardId}`,
       },
       twitter: {
         card: "summary_large_image",
@@ -44,63 +44,52 @@ export async function generateMetadata({
 
     if (!boardContent) {
       return {
-        title: "게시글을 찾을 수 없습니다",
-        description: "유효하지 않은 게시글 ID입니다.",
-        openGraph: {
-          title: "게시글을 찾을 수 없습니다",
-          description: "유효하지 않은 게시글 ID입니다.",
-          url: `https://toiso777.com/community/${boardId}`,
-        },
-        twitter: {
-          card: "summary_large_image",
-          title: "게시글을 찾을 수 없습니다",
-          description: "유효하지 않은 게시글 ID입니다.",
-        },
+        title: "꽁머니팡 커뮤니티 게시글",
+        description: "꽁머니팡 커뮤니티에서 다양한 주제의 글들을 확인해보세요.",
       };
     }
 
-    // boardContent.content에서 HTML 태그를 제거하고 첫 500글자만 추출
     const contentText = stripHtmlTags(boardContent.content);
     const description = contentText.slice(0, 500);
 
     return {
-      title:
-        "토이소: 커뮤니티글:" + boardContent.title || "토이소: 커뮤니티글:",
+      title: `꽁머니팡 커뮤니티: ${boardContent.title || "게시글"}`,
       description:
-        description.length > 0
-          ? `${description}...`
-          : "토이소에서 다양한 미디어 콘텐츠 정보를 확인해보세요.",
+        boardContent.summary ||
+        "꽁머니팡 커뮤니티에서 유용한 정보와 재미있는 이야기를 나눠보세요.",
+      keywords: boardContent.keywords || [
+        "스포츠커뮤니티",
+        "토토커뮤니티",
+        "꽁머니팡",
+        "자유게시판",
+        "유머",
+      ],
       openGraph: {
-        type: "article",
-        locale: "ko_KR",
-        siteName: "토이소",
-        title:
-          "토이소: 커뮤니티글:" + boardContent.title || "토이소: 커뮤니티글:",
+        title: `꽁머니팡 커뮤니티: ${boardContent.title || "게시글"}`,
         description:
-          description.length > 0
-            ? `${description}...`
-            : "토이소에서 다양한 미디어 콘텐츠 정보를 확인해보세요.",
-        url: `https://toiso777.com/community/${boardId}`,
+          boardContent.summary ||
+          "꽁머니팡 커뮤니티에서 유용한 정보와 재미있는 이야기를 나눠보세요.",
+        url: `https://ggongpang.com.com/community/${boardId}`,
+        siteName: "꽁머니팡: 스포츠 분석 및 커뮤니티",
         images: [
           {
-            url: "/icon.ico",
+            url: boardContent.thumbnail || "/og-image.png",
+            width: 800,
+            height: 600,
+            alt: boardContent.title || "커뮤니티 게시글 이미지",
           },
         ],
+        locale: "ko_KR",
+        type: "article",
       },
       twitter: {
         card: "summary_large_image",
-        title:
-          "토이소: 커뮤니티글:" + boardContent.title || "토이소: 커뮤니티글:",
+        title: `꽁머니팡 커뮤니티: ${boardContent.title || "게시글"}`,
         description:
-          description.length > 0
-            ? `${description}...`
-            : "토이소에서 다양한 미디어 콘텐츠 정보를 확인해보세요.",
-        creator: "토이소",
-        images: [
-          {
-            url: "/icon.ico",
-          },
-        ],
+          boardContent.summary ||
+          "꽁머니팡 커뮤니티에서 유용한 정보와 재미있는 이야기를 나눠보세요.",
+        images: [boardContent.thumbnail || "/twitter-image.png"],
+        creator: "꽁머니팡",
       },
     };
   } catch (error) {
@@ -110,7 +99,7 @@ export async function generateMetadata({
       openGraph: {
         title: "에러가 발생했습니다",
         description: "메타데이터를 생성하는 중 오류가 발생했습니다.",
-        url: `https://toiso777.com/community/${boardId}`,
+        url: `https://ggongpang.com.com/community/${boardId}`,
       },
       twitter: {
         card: "summary_large_image",

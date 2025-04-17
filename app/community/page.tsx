@@ -8,21 +8,44 @@ import PhotoBoard from "../components/boards/PhotoBoard";
 import Title from "@/app/components/Title";
 import { pageData } from "@/app/data/pageData";
 
-// 커뮤니티 페이지 메타데이터 정의 (SEO 최적화)
+// 커뮤니티 페이지 메타데이터 정의
 export const metadata: Metadata = {
-  title: "안구정화 | 토이소 커뮤니티 - 즐거운 이미지 공유",
+  title: "꽁머니팡 커뮤니티 | 토토커뮤니티, 유머, 자유게시판",
   description:
-    "토이소 커뮤니티의 안구정화 게시판입니다. 재미있고 시선을 사로잡는 다양한 이미지를 확인하고 공유하세요. 안전 토토사이트 정보도 함께 제공합니다.",
+    "꽁머니팡 커뮤니티에서 다양한 주제로 소통하세요. 스포츠 이야기, 유머, 토토사이트 정보, 자유로운 대화까지 모두 가능합니다. 안전놀이터 정보도 확인하세요.",
   keywords: [
-    "안구정화",
-    "커뮤니티",
-    "이미지공유",
-    "유머이미지",
     "스포츠커뮤니티",
-    "토토사이트추천",
-    "토이소",
+    "토토커뮤니티",
+    "꽁머니팡",
+    "유머게시판",
+    "자유게시판",
+    "먹튀검증",
+    "안전놀이터",
+    "꽁머니",
   ],
-  // OpenGraph, Twitter 메타데이터도 필요시 추가
+  openGraph: {
+    title: "꽁머니팡 커뮤니티 - 함께 나누는 즐거움",
+    description:
+      "꽁머니팡 커뮤니티: 유머, 스포츠 분석, 자유로운 소통이 있는 공간. 지금 바로 참여하여 다양한 정보와 재미를 공유하세요!",
+    url: "https://ggongpang.com.com/community",
+    siteName: "꽁머니팡 커뮤니티",
+    type: "website",
+    images: [
+      {
+        url: "/images/opengraph-community.jpg",
+        width: 1200,
+        height: 630,
+        alt: "꽁머니팡 커뮤니티",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "꽁머니팡 커뮤니티 | 유머부터 정보 공유까지",
+    description:
+      "지금 꽁머니팡 커뮤니티에 참여하여 최신 유머, 스포츠 정보, 다양한 이야기를 나누세요!",
+    images: ["/images/twitter-community.jpg"],
+  },
 };
 
 export default function Page() {
