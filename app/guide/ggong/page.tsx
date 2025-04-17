@@ -9,7 +9,7 @@ import { Metadata } from "next";
 import Breadcrumb from "@/app/components/BreadCrumb";
 import GuideContent from "../(components)/GuideContent";
 import Title from "@/app/components/Title";
-import { pageData } from "../../data/pageData";
+import { pageData } from "@/app/data/pageData";
 
 export const metadata: Metadata = {
   title: "토토사이트 이용가이드 | 꽁머니팡",

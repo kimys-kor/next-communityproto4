@@ -12,6 +12,7 @@ import TransferPopup from "@/app/components/boards/TransferPopup";
 
 interface BoardClientProps {
   initialItems: BoardItem[];
+  initialPage: number;
   totalElements: number;
   size: number;
   typ: number;
@@ -21,6 +22,7 @@ interface BoardClientProps {
 const BoardClient: React.FC<BoardClientProps> = ({
   writeBoolean,
   initialItems,
+  initialPage,
   totalElements: initialTotalElements,
   size,
   typ,
@@ -31,16 +33,25 @@ const BoardClient: React.FC<BoardClientProps> = ({
 
   const { userInfo } = useUserStore();
   const [boardList, setBoardList] = useState<BoardItem[]>(initialItems);
-  const [page, setPage] = useState(() => {
-    const pageParam = searchParams.get("page");
-    return Number(pageParam) || 1;
-  });
+  const [page, setPage] = useState(initialPage || 1);
   const [totalElements, setTotalElements] = useState(initialTotalElements);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [showTransferPopup, setShowTransferPopup] = useState(false);
 
   const totalPages = Math.ceil(totalElements / size);
+
+  // URL 쿼리 파라미터에서 페이지 정보 가져오기
+  useEffect(() => {
+    const currentPage = searchParams.get("page");
+    if (currentPage) {
+      const pageNum = parseInt(currentPage);
+      if (!isNaN(pageNum) && pageNum !== page) {
+        setPage(pageNum);
+        fetchData(pageNum, keyword);
+      }
+    }
+  }, [searchParams]);
 
   const fetchData = async (pageNumber: number, keyword: string) => {
     try {
@@ -52,36 +63,27 @@ const BoardClient: React.FC<BoardClientProps> = ({
         throw new Error("Failed to fetch board list");
       }
       const data = await response.json();
+      setBoardList([]);
       setBoardList(data.data.content);
       setTotalElements(data.data.totalElements);
-      setPage(pageNumber);
     } catch (error) {
       toast.error("Failed to fetch board list");
     }
   };
 
-  useEffect(() => {
-    const pageParam = searchParams.get("page");
-    const currentPageFromUrl = Number(pageParam) || 1;
-    if (currentPageFromUrl !== page) {
-      setPage(currentPageFromUrl);
-    }
-  }, [searchParams, page]);
-
   const [keyword, setKeyword] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchField, setSearchField] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleSearch = () => {
-    setPage(1);
+    setCurrentPage(1);
     setKeyword(searchQuery);
-    router.replace(`${pathname}?page=1`);
     fetchData(1, searchQuery);
   };
 
   const handlePageChange = (newPage: number) => {
-    router.replace(`${pathname}?page=${newPage}`);
-    fetchData(newPage, keyword);
+    router.push(`${pathname}?page=${newPage}`);
   };
 
   const handleSelectItem = (id: number) => {
@@ -159,8 +161,9 @@ const BoardClient: React.FC<BoardClientProps> = ({
         throw new Error("게시글삭제 실패");
       }
 
-      await fetchData(page, keyword);
-
+      setBoardList((prevBoardList) =>
+        prevBoardList.filter((item) => !selectedItems.includes(item.id))
+      );
       setSelectedItems([]);
       setSelectAll(false);
       toast.success("선택한 게시물이 성공적으로 삭제되었습니다.");
