@@ -85,6 +85,11 @@ export const pageData: PageData = {
     description:
       "꽁머니팡에서 추천하는 최고의 토토사이트 홍보 정보를 확인하세요.",
   },
+  promotionHunting: {
+    title: "구인구직 게시판",
+    description:
+      "꽁머니팡의 구인구직 게시판입니다. 다양한 일자리와 인재 정보를 찾아보세요.",
+  },
   guide: {
     title: "토토사이트 이용가이드",
     description: "안전한 토토사이트 이용을 위한 꽁머니팡 필수 가이드라인.",
