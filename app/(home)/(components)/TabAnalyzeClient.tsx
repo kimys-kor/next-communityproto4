@@ -23,6 +23,8 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
   useEffect(() => {
     const fetchBoardList = async (typ: number) => {
       try {
+        setBoardList([]);
+
         const response = await fetch(
           `/api/board/list?typ=${typ}&keyword=&page=0&size=10`,
           {

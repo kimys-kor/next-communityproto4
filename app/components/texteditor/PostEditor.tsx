@@ -19,26 +19,7 @@ import {
   faAlignRight,
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
-import { useCallback, useRef, useState, useEffect } from "react";
-import { toast } from "react-hot-toast";
-
-const getImageDimensions = (
-  file: File
-): Promise<{ width: number; height: number }> => {
-  return new Promise((resolve) => {
-    const img = new Image();
-    const objectUrl = URL.createObjectURL(file);
-    img.onload = () => {
-      URL.revokeObjectURL(objectUrl);
-      resolve({ width: img.width, height: img.height });
-    };
-    img.onerror = () => {
-      URL.revokeObjectURL(objectUrl);
-      resolve({ width: 0, height: 0 });
-    };
-    img.src = objectUrl;
-  });
-};
+import { useCallback, useRef, useState } from "react";
 
 const FontSize = TextStyle.extend({
   addOptions() {
@@ -72,15 +53,6 @@ const MenuBar = ({ editor, uploadImagesToServer }: any) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [linkUrl, setLinkUrl] = useState<string>("");
 
-  useEffect(() => {
-    return () => {
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
-      setLinkUrl("");
-    };
-  }, []);
-
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const files = Array.from(e.target.files);
@@ -96,6 +68,18 @@ const MenuBar = ({ editor, uploadImagesToServer }: any) => {
         .focus()
         .setImage({ src: url, style: `width: ${width}px;` })
         .run();
+    });
+  };
+
+  const getImageDimensions = (
+    file: File
+  ): Promise<{ width: number; height: number }> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        resolve({ width: img.width, height: img.height });
+      };
+      img.src = URL.createObjectURL(file);
     });
   };
 
@@ -238,17 +222,6 @@ const MenuBar = ({ editor, uploadImagesToServer }: any) => {
 // 팁탭
 const Tiptap = ({ value, onChange }: TipTapProps) => {
   const [loading, setLoading] = useState(false);
-  const editorRef = useRef<any>(null);
-  const abortControllerRef = useRef<AbortController | null>(null);
-
-  useEffect(() => {
-    abortControllerRef.current = new AbortController();
-    return () => {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-      }
-    };
-  }, []);
 
   const editor = useEditor({
     editorProps: {
@@ -275,103 +248,66 @@ const Tiptap = ({ value, onChange }: TipTapProps) => {
         history: false,
         bulletList: { keepMarks: true, keepAttributes: false },
         orderedList: { keepMarks: true, keepAttributes: false },
+        heading: { levels: [1, 2, 3] },
+        paragraph: {
+          HTMLAttributes: {
+            class: "text-base md:text-base min-h-[16px] md:min-h-[16px]",
+          },
+        },
       }),
       FontSize,
+      TextStyle,
       TextAlign.configure({
-        types: ["heading", "paragraph"],
+        types: ["heading", "paragraph", "image"],
+        defaultAlignment: "left",
       }),
       Link.configure({
         openOnClick: false,
+        autolink: true,
+        defaultProtocol: "https",
         HTMLAttributes: {
+          target: "_blank",
           rel: "noopener noreferrer",
-          class: "text-blue-500 hover:text-blue-700",
+          class: "text-blue",
         },
       }),
       ImageExtension,
       ImageResize,
       Color,
     ],
-    content: value,
     onUpdate: ({ editor }) => {
-      onChange(editor.getHTML());
+      if (!loading) {
+        onChange(editor.getHTML());
+      }
     },
+    content: value,
+    immediatelyRender: false,
   });
-
-  useEffect(() => {
-    editorRef.current = editor;
-  }, [editor]);
-
-  useEffect(() => {
-    return () => {
-      if (editorRef.current) {
-        editorRef.current.destroy();
-        editorRef.current = null;
-      }
-      setLoading(false);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleDragOver = (e: DragEvent) => {
-      e.preventDefault();
-    };
-
-    const handleDrop = (e: DragEvent) => {
-      e.preventDefault();
-      if (e.dataTransfer?.files) {
-        handleMultipleImagesUpload(e.dataTransfer.files, editor);
-      }
-    };
-
-    document.addEventListener("dragover", handleDragOver);
-    document.addEventListener("drop", handleDrop);
-
-    return () => {
-      document.removeEventListener("dragover", handleDragOver);
-      document.removeEventListener("drop", handleDrop);
-    };
-  }, [editor]);
 
   const uploadImagesToServer = async (files: File[]): Promise<string[]> => {
     const formData = new FormData();
-    files.forEach((file) => {
-      formData.append("files", file);
+    files.forEach((file) => formData.append("files", file));
+
+    const response = await fetch("/api/images", {
+      method: "POST",
+      body: formData,
     });
+    if (!response.ok) throw new Error("Failed to upload images.");
 
-    try {
-      const response = await fetch("/api/board/upload", {
-        method: "POST",
-        body: formData,
-        signal: abortControllerRef.current?.signal,
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to upload images");
-      }
-
-      const data = await response.json();
-      return data.urls;
-    } catch (error) {
-      if (error instanceof Error && error.name === "AbortError") {
-        console.log("Upload cancelled");
-        return [];
-      }
-      console.error("Error uploading images:", error);
-      toast.error("이미지 업로드에 문제가 발생했습니다");
-      return [];
-    }
+    const result = await response.json();
+    return result.data;
   };
 
   const handleMultipleImagesUpload = async (
     files: FileList,
     editorInstance: any
   ) => {
-    const fileArray = Array.from(files);
+    const images = Array.from(files);
     const imageDimensions = await Promise.all(
-      fileArray.map((file) => getImageDimensions(file))
+      images.map((file) => getImageDimensions(file))
     );
 
-    const uploadedImageUrls = await uploadImagesToServer(fileArray);
+    const uploadedImageUrls = await uploadImagesToServer(images);
     uploadedImageUrls.forEach((url: string, index: number) => {
       const { width } = imageDimensions[index];
       editorInstance
@@ -382,12 +318,37 @@ const Tiptap = ({ value, onChange }: TipTapProps) => {
     });
   };
 
-  if (!editor) return null;
+  const getImageDimensions = (
+    file: File
+  ): Promise<{ width: number; height: number }> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        resolve({ width: img.width, height: img.height });
+      };
+      img.src = URL.createObjectURL(file);
+    });
+  };
+
+  const handleCompleteWriting = async () => {
+    if (loading) return;
+
+    setLoading(true);
+    try {
+      alert("게시글 저장중입니다.");
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="w-full">
+    <div className="flex flex-col border border-solid border-gray-200">
       <MenuBar editor={editor} uploadImagesToServer={uploadImagesToServer} />
-      <EditorContent editor={editor} />
+      <EditorContent
+        className="min-h-[200px] sm:min-h-[400px]"
+        editor={editor}
+      />
     </div>
   );
 };
