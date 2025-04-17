@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { BoardItem } from "../../types";
 import Paging from "@/app/components/Paging";
@@ -29,6 +29,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const { userInfo } = useUserStore();
   const [boardList, setBoardList] = useState<BoardItem[]>(initialItems);
@@ -39,6 +40,38 @@ const BoardClient: React.FC<BoardClientProps> = ({
   const [showTransferPopup, setShowTransferPopup] = useState(false);
 
   const totalPages = Math.ceil(totalElements / size);
+
+  const [keyword, setKeyword] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchField, setSearchField] = useState<string>("all");
+
+  useEffect(() => {
+    const currentPageQuery = searchParams.get("page");
+    const currentKeywordQuery = searchParams.get("keyword") || "";
+
+    let pageNum = 1;
+    if (currentPageQuery) {
+      const parsedPage = parseInt(currentPageQuery);
+      if (!isNaN(parsedPage)) {
+        pageNum = parsedPage;
+      }
+    }
+
+    let shouldFetch = false;
+    if (pageNum !== page) {
+      setPage(pageNum);
+      shouldFetch = true;
+    }
+    if (currentKeywordQuery !== keyword) {
+      setKeyword(currentKeywordQuery);
+      setSearchQuery(currentKeywordQuery);
+      shouldFetch = true;
+    }
+
+    if (shouldFetch) {
+      fetchData(pageNum, currentKeywordQuery);
+    }
+  }, [searchParams]);
 
   const fetchData = async (pageNumber: number, keyword: string) => {
     try {
@@ -57,21 +90,17 @@ const BoardClient: React.FC<BoardClientProps> = ({
     }
   };
 
-  const [keyword, setKeyword] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchField, setSearchField] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-
   const handleSearch = () => {
-    setCurrentPage(1);
-    setKeyword(searchQuery);
-    fetchData(1, searchQuery);
+    const newKeyword = searchQuery;
+    setKeyword(newKeyword);
+    setPage(1);
+    router.push(`${pathname}?page=1&keyword=${encodeURIComponent(newKeyword)}`);
   };
 
   const handlePageChange = (newPage: number) => {
-    router.replace(`${pathname}?page=${newPage}`);
-    setPage(newPage);
-    fetchData(newPage, keyword);
+    router.push(
+      `${pathname}?page=${newPage}&keyword=${encodeURIComponent(keyword)}`
+    );
   };
 
   const handleSelectItem = (id: number) => {
@@ -149,8 +178,9 @@ const BoardClient: React.FC<BoardClientProps> = ({
         throw new Error("게시글삭제 실패");
       }
 
-      await fetchData(page, keyword);
-
+      setBoardList((prevBoardList) =>
+        prevBoardList.filter((item) => !selectedItems.includes(item.id))
+      );
       setSelectedItems([]);
       setSelectAll(false);
       toast.success("선택한 게시물이 성공적으로 삭제되었습니다.");

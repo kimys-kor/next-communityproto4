@@ -6,12 +6,11 @@ export async function GET(request: Request) {
 
   try {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_API_URL + `/guest/content?boardId${boardId}`,
+      process.env.NEXT_PUBLIC_API_URL + `/guest/content?boardId=${boardId}`,
       {
         method: "GET",
         credentials: "include",
-        // next: { revalidate: 300 },
-        cache: "no-store",
+        next: { revalidate: 300 },
       }
     );
 

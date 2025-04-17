@@ -1,6 +1,6 @@
 "use client";
 import PostEditor from "@/app/components/texteditor/PostEditor";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { postSaveServerAction } from "@/app/api/authAction";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
@@ -39,8 +39,21 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlContent, "text/html");
     const imgTag = doc.querySelector("img");
-    return imgTag ? imgTag.getAttribute("src") : null;
+    const thumbnail = imgTag ? imgTag.getAttribute("src") : null;
+
+    // 메모리 해제를 위해 참조 해제
+    doc.documentElement.innerHTML = "";
+    return thumbnail;
   };
+
+  // 컴포넌트 언마운트 시 정리
+  useEffect(() => {
+    return () => {
+      setContent("");
+      setPostTitle("");
+      setNotification(false);
+    };
+  }, []);
 
   const saveContent = async () => {
     if (!postTitle.trim() || !content.trim()) {
@@ -68,7 +81,6 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
         toast.error(result.message || "포인트가 부족합니다.");
       } else {
         toast.error("로그인을 해주세요.");
-        // window.location.href = "/";
       }
     } catch (error) {
       console.error(error);

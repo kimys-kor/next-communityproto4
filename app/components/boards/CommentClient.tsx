@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import Paging from "../Paging";
 import { Comment } from "@/app/types";
 import { useAuthStore } from "@/app/globalStatus/useAuthStore";
@@ -16,6 +16,96 @@ interface CommentPageClientProps {
   };
   boardId: string;
 }
+
+interface CommentItemProps {
+  item: Comment;
+  userInfo: any;
+  editingCommentId: number | null;
+  editedContent: string;
+  selectedComments: number[];
+  handleSelectComment: (id: number) => void;
+  startEditingComment: (id: number, content: string) => void;
+  setEditedContent: (content: string) => void;
+  handleEditComment: () => void;
+  handleDeleteComment: (id: string) => void;
+  setEditingCommentId: (id: number | null) => void;
+}
+
+const CommentItem = memo<CommentItemProps>(
+  ({
+    item,
+    userInfo,
+    editingCommentId,
+    editedContent,
+    selectedComments,
+    handleSelectComment,
+    startEditingComment,
+    setEditedContent,
+    handleEditComment,
+    handleDeleteComment,
+    setEditingCommentId,
+  }) => {
+    const canEditOrDelete =
+      userInfo?.sck || userInfo?.username === item.username;
+
+    return (
+      <div key={item.id} className="py-5 flex flex-col gap-3 text-subtext">
+        <div className="py-4 px-3 flex justify-between items-center bg-[#f8f9fa] border-t border-solid border-[#ddd]">
+          <div className="flex gap-2 items-center">
+            {userInfo?.sck && (
+              <input
+                type="checkbox"
+                checked={selectedComments.includes(item.id)}
+                onChange={() => handleSelectComment(item.id)}
+                className="h-4 w-4 mr-2"
+              />
+            )}
+            <p>{item.nickname}</p>
+          </div>
+          <div className="flex gap-3 items-center">
+            {canEditOrDelete && (
+              <div className="flex gap-2">
+                {editingCommentId === item.id ? (
+                  <button
+                    onClick={handleEditComment}
+                    className="text-green-600 hover:text-green-800"
+                  >
+                    저장
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => startEditingComment(item.id, item.content)}
+                    className="text-blue hover:text-deepblue"
+                  >
+                    수정
+                  </button>
+                )}
+                <button
+                  onClick={() => handleDeleteComment(item.id.toString())}
+                  className="text-red-700 hover:text-red-900"
+                >
+                  삭제
+                </button>
+              </div>
+            )}
+            <p>{new Date(item.createdDt).toLocaleString()}</p>
+          </div>
+        </div>
+        {editingCommentId === item.id ? (
+          <textarea
+            value={editedContent}
+            onChange={(e) => setEditedContent(e.target.value)}
+            className="w-full p-2 border rounded"
+            rows={3}
+          />
+        ) : (
+          <div className="text-textmain break-all px-3">{item.content}</div>
+        )}
+      </div>
+    );
+  }
+);
+CommentItem.displayName = "CommentItem";
 
 const CommentPageClient: React.FC<CommentPageClientProps> = ({
   initialData,
@@ -91,54 +181,6 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
     }
   };
 
-  const startEditingComment = (id: number, content: string) => {
-    setEditingCommentId(id);
-    setEditedContent(content);
-  };
-
-  const handleEditComment = async () => {
-    try {
-      const response = await fetch("/api/board/editComment", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: editingCommentId, content: editedContent }),
-      });
-      if (response.ok) {
-        fetchComments(currentPage);
-        setEditingCommentId(null);
-        setEditedContent("");
-      } else {
-        throw new Error("Failed to edit comment");
-      }
-    } catch (error) {
-      toast.error("댓글 수정에 문제가 발생했습니다");
-    }
-  };
-
-  const handleDeleteComment = async (commentId: string) => {
-    const confirmed = window.confirm("정말 삭제하시겠습니까?");
-    if (!confirmed) return;
-
-    try {
-      const response = await fetch(
-        `/api/board/deleteMyComment?commentId=${commentId}`,
-        {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      if (response.ok) {
-        alert("댓글이 성공적으로 삭제되었습니다");
-        window.location.href = `/${basePath}/${boardId}`;
-      } else {
-        throw new Error("댓글 삭제 실패");
-      }
-    } catch (error) {
-      toast.error("댓글삭제에 문제가 발생했습니다");
-    }
-  };
-
   const handleSelectAll = () => {
     if (selectAll) {
       setSelectedComments([]);
@@ -188,6 +230,56 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
     }
   };
 
+  const startEditingComment = (id: number, content: string) => {
+    setEditingCommentId(id);
+    setEditedContent(content);
+  };
+
+  const handleEditComment = async () => {
+    if (!editingCommentId) return;
+    try {
+      const response = await fetch("/api/board/editComment", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: editingCommentId, content: editedContent }),
+      });
+      if (response.ok) {
+        fetchComments(currentPage);
+        setEditingCommentId(null);
+        setEditedContent("");
+        toast.success("댓글이 수정되었습니다.");
+      } else {
+        throw new Error("Failed to edit comment");
+      }
+    } catch (error) {
+      toast.error("댓글 수정에 문제가 발생했습니다");
+    }
+  };
+
+  const handleDeleteComment = async (commentId: string) => {
+    const confirmed = window.confirm("정말 삭제하시겠습니까?");
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(
+        `/api/board/deleteMyComment?commentId=${commentId}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (response.ok) {
+        toast.success("댓글이 성공적으로 삭제되었습니다");
+        fetchComments(currentPage);
+      } else {
+        throw new Error("댓글 삭제 실패");
+      }
+    } catch (error) {
+      toast.error("댓글삭제에 문제가 발생했습니다");
+    }
+  };
+
   return (
     <div>
       <section className="px-3 py-5 flex flex-col gap-5">
@@ -220,84 +312,37 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
           )}
         </div>
 
-        {comments.map((item) => {
-          const canEditOrDelete =
-            userInfo?.sck || userInfo?.username === item.username;
-
-          return (
-            <div
-              key={item.id}
-              className="py-5 flex flex-col gap-3 text-subtext"
-            >
-              <div className="py-4 px-3 flex justify-between items-center bg-[#f8f9fa] border-t border-solid border-[#ddd]">
-                <div className="flex gap-2 items-center">
-                  {userInfo?.sck && (
-                    <input
-                      type="checkbox"
-                      checked={selectedComments.includes(item.id)}
-                      onChange={() => handleSelectComment(item.id)}
-                      className="h-4 w-4 mr-2"
-                    />
-                  )}
-                  <p>{item.nickname}</p>
-                </div>
-                <div className="flex gap-3 items-center">
-                  {canEditOrDelete && (
-                    <div className="flex gap-2">
-                      {/* <button
-                      onClick={() => startEditingComment(item.id, item.content)}
-                      className="text-blue hover:text-deepblue"
-                    >
-                      수정
-                    </button> */}
-                      <button
-                        onClick={() => handleDeleteComment(item.id.toString())}
-                        className="text-red-500 hover:text-red-700"
-                      >
-                        삭제
-                      </button>
-                    </div>
-                  )}
-                  <div className="flex gap-2">
-                    <p>{item.createdDt}</p>
-                  </div>
-                </div>
-              </div>
-              {editingCommentId === item.id ? (
-                <div className="flex flex-col gap-2">
-                  <textarea
-                    value={editedContent}
-                    onChange={(e) => setEditedContent(e.target.value)}
-                    className="p-2 bg-white w-full h-16 resize-none border-[#DDDDDD] border border-solid focus:outline-none"
-                  />
-                  <div className="w-full flex justify-end">
-                    <button
-                      onClick={handleEditComment}
-                      className="w-28 h-10 bg-blue hover:bg-deepblue text-white font-bold rounded focus:outline-none"
-                    >
-                      저장
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div className="px-3">{item.content}</div>
-              )}
-            </div>
-          );
-        })}
+        {comments.map((item) => (
+          <CommentItem
+            key={item.id}
+            item={item}
+            userInfo={userInfo}
+            editingCommentId={editingCommentId}
+            editedContent={editedContent}
+            selectedComments={selectedComments}
+            handleSelectComment={handleSelectComment}
+            startEditingComment={startEditingComment}
+            setEditedContent={setEditedContent}
+            handleEditComment={handleEditComment}
+            handleDeleteComment={handleDeleteComment}
+            setEditingCommentId={setEditingCommentId}
+          />
+        ))}
 
         {isLoggedIn ? (
-          <div className="py-6 px-4 bg-[#F8F9FA] flex gap-2 rounded-md">
+          <div className="mt-5 flex flex-col gap-2 px-3">
             <textarea
-              className="p-2 bg-white w-10/12 h-16 resize-none border-[#DDDDDD] border border-solid focus:outline-none"
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
-            ></textarea>
+              placeholder="댓글을 입력하세요"
+              className="w-full p-2 border rounded"
+              rows={3}
+            />
             <button
               onClick={handleCommentSubmit}
-              className="w-2/12 bg-blue text-white font-bold rounded focus:outline-none"
+              className="bg-blue text-white px-4 py-2 rounded self-end hover:bg-deepblue"
             >
-              등록
+              댓글 작성
             </button>
           </div>
         ) : (
@@ -313,7 +358,7 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
         size={size}
         totalElements={totalElements}
         setPage={handlePageChange}
-        scroll={"bottom"}
+        scroll="top"
       />
     </div>
   );

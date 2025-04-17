@@ -73,7 +73,7 @@ const EditPost: React.FC<EditPostProps> = ({
 
       if (response.ok) {
         toast.success("게시물이 성공적으로 수정되었습니다!");
-        window.location.href = window.location.pathname;
+        router.push(window.location.pathname);
       } else {
         const result = await response.json();
         toast.error(result.error || "게시물 수정에 실패했습니다.");

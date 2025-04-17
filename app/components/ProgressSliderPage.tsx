@@ -16,10 +16,16 @@ export default function ProgressSliderPage() {
 
   return (
     <div className="relative h-32 md:h-48 flex flex-col justify-center bg-transparent overflow-hidden">
-      <div className="max-w-6xl mx-auto py-3">
-        <div className="mt-3 flex justify-center bg-[#F2F7FF]">
+      <div className="max-w-6xl mx-auto py-3 w-full h-full">
+        <div className="mt-3 flex justify-center bg-[#F2F7FF] w-full h-full relative">
           {/* <ProgressSlider items={items} /> */}
-          <Image src={main_top} width={1024} height={270} alt={"토이소 배너"} />
+          <Image
+            src={main_top}
+            alt={"토이소 배너"}
+            fill
+            style={{ objectFit: "cover" }}
+            priority
+          />
         </div>
       </div>
     </div>

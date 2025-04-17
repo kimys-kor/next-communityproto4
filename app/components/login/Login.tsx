@@ -78,63 +78,62 @@ const Login: React.FC = () => {
             e.preventDefault();
             handleLogin();
           }}
-          className="space-y-4"
         >
-          <div className="relative">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-              <Image
-                src="/images/idIcon.png"
-                width={16}
-                height={16}
-                alt="ID Icon"
-                className="text-gray-400"
-              />
-            </span>
+          <div className="relative mb-4 max">
             <input
-              type="text"
+              type="string"
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm transition duration-150 ease-in-out"
+              className="truncate appearance-none border rounded w-full pl-9 py-2 px-3 font-normal text-sm text-gray-700 leading-tight focus:outline-none"
               placeholder="아이디"
               required
             />
+            <img
+              src="/images/idIcon.png"
+              width={17}
+              height={17}
+              alt="Id Icon"
+              className="absolute top-2 left-2"
+            />
           </div>
-          <div className="relative">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-              <Image
-                src="/images/passIcon.png"
-                width={16}
-                height={16}
-                alt="Password Icon"
-                className="text-gray-400"
-              />
-            </span>
+          <div className="relative mb-4">
             <input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm transition duration-150 ease-in-out"
+              className="truncate appearance-none border rounded w-full pl-9 py-2 px-3 font-normal text-sm text-gray-700 leading-tight focus:outline-none"
               placeholder="비밀번호"
               required
             />
+            <img
+              src="/images/passIcon.png"
+              width={17}
+              height={17}
+              alt="Password Icon"
+              className="absolute top-2 left-2"
+            />
           </div>
-          <section className="flex flex-col space-y-3 pt-2">
-            <button
-              type="submit"
-              className="py-3 px-4 bg-blue hover:bg-[#2250f5] text-white font-semibold w-full rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ease-in-out"
-            >
-              로그인
-            </button>
-            <Link className="w-full" href={"/signup"}>
+          <section className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2 items-center justify-between">
               <button
-                type="button"
-                className="py-3 px-4 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold w-full rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ease-in-out"
+                type="submit"
+                className="py-3 px-4 bg-blue hover:bg-[#2250f5] text-white font-bold w-full rounded focus:outline-none"
               >
-                회원가입
+                로그인
               </button>
-            </Link>
+            </div>
+            <div className="flex flex-col gap-2 items-center justify-between">
+              <Link className="w-full" href={"/signup"}>
+                <button
+                  type="button"
+                  className="py-3 px-4 bg-[#6870e9] hover:bg-[#525dee] text-white font-bold w-full rounded focus:outline-none"
+                >
+                  회원가입
+                </button>
+              </Link>
+            </div>
           </section>
         </form>
       )}

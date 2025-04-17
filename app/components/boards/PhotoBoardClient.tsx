@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Paging from "@/app/components/Paging";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import { FaTrash, FaArrowRight } from "react-icons/fa";
 import TransferPopup from "@/app/components/boards/TransferPopup";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+import { formatDate } from "@/app/utils";
 
 interface PhotoBoardClientProps {
   initialData: {
@@ -38,51 +39,67 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
   const typ = searchParams.get("typ") || "9";
   const keyword = searchParams.get("keyword") || "";
 
-  const fetchData = async (page: number) => {
-    const controller = new AbortController();
-    const signal = controller.signal;
+  const fetchData = useCallback(
+    async (pageNumber: number, keyword: string) => {
+      const controller = new AbortController();
+      const signal = controller.signal;
 
-    try {
-      const response = await fetch(
-        `/api/board/photoList?typ=${typ}&keyword=${keyword}&page=${page - 1}&size=${size}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          cache: "no-store",
-          signal,
+      try {
+        const response = await fetch(
+          `/api/board/photoList?typ=${typ}&keyword=${keyword}&page=${pageNumber - 1}&size=${size}`,
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            cache: "no-store",
+            signal,
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch photo board data");
         }
-      );
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch photo board data");
+        const data = await response.json();
+        setBoardList(data.data.content);
+        setTotalElements(data.data.totalElements);
+        setTotalPages(data.data.totalPages);
+      } catch (error: any) {
+        if (error.name === "AbortError") {
+          return;
+        }
+        toast.error("포토 게시글 리스트에 문제가 발생했습니다");
       }
 
-      const data = await response.json();
-      setBoardList(data.data.content);
-      setTotalElements(data.data.totalElements);
-      setTotalPages(data.data.totalPages);
-    } catch (error: any) {
-      if (error.name === "AbortError") {
-        return;
-      }
-      toast.error("포토 게시글 리스트에 문제가 발생했습니다");
-    }
-
-    return () => controller.abort();
-  };
+      return () => {
+        controller.abort();
+      };
+    },
+    [typ, size, keyword]
+  );
 
   useEffect(() => {
-    const cleanup = fetchData(currentPage);
+    const pageParam = searchParams.get("page");
+    if (pageParam) {
+      const pageNum = parseInt(pageParam);
+      if (!isNaN(pageNum)) {
+        setCurrentPage(pageNum);
+        fetchData(pageNum, keyword);
+      }
+    }
+  }, [searchParams, keyword, fetchData]);
+
+  useEffect(() => {
     return () => {
-      cleanup.then((cleanupFn) => {
-        if (cleanupFn) cleanupFn();
-      });
+      setBoardList([]);
+      setSelectedItems([]);
+      setSelectAll(false);
+      setShowTransferPopup(false);
     };
-  }, [currentPage, typ, keyword]);
+  }, []);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
-    router.replace(`${pathname}?page=${newPage}`);
+    router.push(`${pathname}?page=${newPage}`);
   };
 
   const handleSelectAll = () => {
@@ -157,7 +174,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
         throw new Error("게시글삭제 실패");
       }
 
-      await fetchData(1);
+      await fetchData(1, keyword);
 
       setSelectedItems([]);
       setSelectAll(false);
@@ -220,32 +237,32 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
               {userInfo?.sck && (
                 <input
                   type="checkbox"
-                  className="absolute top-2 left-2 z-10 h-4 w-4"
                   checked={selectedItems.includes(item.id)}
                   onChange={() => handleSelectItem(item.id)}
+                  className="absolute top-2 left-2 z-10 h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer"
+                  onClick={(e) => e.stopPropagation()}
                 />
               )}
-              <Link href={`${pathname}/${item.id}`}>
+              <Link href={`/community/${item.id}?typ=9`}>
                 <Image
-                  width={326}
-                  height={230}
-                  className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-110"
                   src={item.thumbNail || "/images/default-thumbnail.jpg"}
                   alt={item.title}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                  priority={boardList.slice(0, 6).includes(item)}
                 />
               </Link>
             </div>
-            <section className="w-full flex flex-col justify-center px-2 py-4">
-              <p className="w-full text-center font-semibold text-purple-500 text-base truncate">
+            <div className="p-3">
+              <h3 className="font-semibold text-base mb-1 truncate">
                 {item.title}
-              </p>
-              <p className="w-full text-center truncate text-base font-medium text-semiblack">
-                {item.changedcreatedDt}
-              </p>
-              <p className="w-full text-center truncate text-base text-subtext">
-                {item.nickname}
-              </p>
-            </section>
+              </h3>
+              <div className="text-gray-500 text-sm flex items-center justify-between">
+                <span>{item.nickname}</span>
+                <span>{formatDate(item.createdDt.toString())}</span>
+              </div>
+            </div>
           </li>
         ))}
       </ul>

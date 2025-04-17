@@ -3,9 +3,9 @@ import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   try {
-    if (typeof window !== "undefined") {
-      sessionStorage.clear();
-    }
+    // if (typeof window !== "undefined") { // 서버 환경에서는 실행되지 않으므로 제거
+    //   sessionStorage.clear();
+    // }
     const cookieStore = cookies();
     const allCookies = cookieStore.getAll();
     allCookies.forEach((cookie) => cookieStore.delete(cookie.name));

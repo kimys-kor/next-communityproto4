@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Paging from "@/app/components/Paging";
 import Link from "next/link";
 import Image from "next/image";
@@ -39,51 +39,57 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
   const typ = searchParams.get("typ") || "14";
   const keyword = searchParams.get("keyword") || "";
 
-  const fetchData = async (page: number) => {
-    const controller = new AbortController();
-    const signal = controller.signal;
+  const fetchData = useCallback(
+    async (pageNumber: number, keyword: string) => {
+      const controller = new AbortController();
+      const signal = controller.signal;
 
-    try {
-      const response = await fetch(
-        `/api/board/photoList?typ=${typ}&keyword=${keyword}&page=${page - 1}&size=${size}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          cache: "no-store",
-          signal,
+      try {
+        const response = await fetch(
+          `/api/board/list?typ=${typ}&keyword=${keyword}&page=${pageNumber - 1}&size=${size}`,
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            cache: "no-store",
+            signal,
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch board list");
         }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch photo board data");
+        const data = await response.json();
+        // 이전 데이터 정리
+        setBoardList([]);
+        setBoardList(data.data.content);
+        setTotalElements(data.data.totalElements);
+        setTotalPages(data.data.totalPages);
+      } catch (error) {
+        toast.error("Failed to fetch board list");
       }
 
-      const data = await response.json();
-      setBoardList(data.data.content);
-      setTotalElements(data.data.totalElements);
-      setTotalPages(data.data.totalPages);
-    } catch (error: any) {
-      if (error.name === "AbortError") {
-        return;
-      }
-      toast.error("포토 게시글 리스트에 문제가 발생했습니다");
-    }
-
-    return () => controller.abort();
-  };
+      return () => {
+        controller.abort();
+        // 메모리 정리
+        setBoardList([]);
+      };
+    },
+    [typ, size]
+  );
 
   useEffect(() => {
-    const cleanup = fetchData(currentPage);
-    return () => {
-      cleanup.then((cleanupFn) => {
-        if (cleanupFn) cleanupFn();
-      });
-    };
-  }, [currentPage, typ, keyword]);
+    const pageParam = searchParams.get("page");
+    if (pageParam) {
+      const pageNum = parseInt(pageParam);
+      if (!isNaN(pageNum)) {
+        setCurrentPage(pageNum);
+        fetchData(pageNum, keyword);
+      }
+    }
+  }, [searchParams, keyword, fetchData]);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
-    router.replace(`${pathname}?page=${newPage}`);
+    router.push(`${pathname}?page=${newPage}`);
   };
 
   const handleSelectAll = () => {
@@ -158,7 +164,7 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
         throw new Error("게시글삭제 실패");
       }
 
-      await fetchData(1);
+      await fetchData(currentPage, keyword);
 
       setSelectedItems([]);
       setSelectAll(false);
@@ -167,6 +173,27 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
       toast.error("게시글 리스트 삭제에 문제가 발생했습니다");
     }
   };
+
+  // 컴포넌트 언마운트 시 정리
+  useEffect(() => {
+    return () => {
+      setBoardList([]);
+      setSelectedItems([]);
+      setSelectAll(false);
+      setShowTransferPopup(false);
+    };
+  }, []);
+
+  // 이미지 로딩 최적화
+  const handleImageLoad = useCallback(
+    (event: React.SyntheticEvent<HTMLImageElement>) => {
+      const img = event.target as HTMLImageElement;
+      if (img.complete) {
+        URL.revokeObjectURL(img.src);
+      }
+    },
+    []
+  );
 
   return (
     <section className="flex flex-col mt-3">
@@ -239,6 +266,10 @@ const EventBoardClient: React.FC<EventBoardClientProps> = ({ initialData }) => {
                   className="w-[477px] h-[141px] rounded-lg object-cover transition-transform duration-300 ease-in-out transform hover:scale-110"
                   src={item.thumbNail || "/images/default-thumbnail.jpg"}
                   alt={item.title}
+                  onLoad={handleImageLoad}
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQtJSAyVC08MTY3LjIyOUVBNTlBNi1RQD47Pj5GRkpLUlJSUlJSUlJSUlL/2wBDAR4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAb/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                 />
               </Link>
             </div>
