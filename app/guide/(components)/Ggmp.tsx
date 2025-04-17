@@ -16,14 +16,14 @@ function Ggmp() {
           </div> */}
           <div className="w-80 pt-5 text-lg font-medium text-blue flex justify-center items-center">
             <p>
-              토이소는 스포츠분석글과 피해사례 및 꽁머니 정보등 다양한 정보를
+              꽁머니팡은 스포츠분석글과 피해사례 및 꽁머니 정보등 다양한 정보를
               가지고 있는 스포츠 커뮤니티 입니다.
             </p>
           </div>
         </article>
         <article className="w-full lg:w-1/2 px-5">
           <p className="pt-10 text-deepsky text-sm">
-            토이소 에서는 실시간 스포츠분석 및 스포츠토토 사이트에 대한 종합
+            꽁머니팡에서는 실시간 스포츠분석 및 스포츠토토 사이트에 대한 종합
             정보를 제공합니다. 꽁머니 제공과 먹튀검증이 포함되어 있어,
             사용자들에게 신뢰할 수 있는 안전한놀이터를 추천합니다. 또한, 다양한
             이벤트 및 토토사이트의 메이저놀이터와 메이저사이트뿐만 아니라
