@@ -61,7 +61,7 @@ function GuidePage() {
     <div className="w-full pt-36">
       <SubMenu />
 
-      <main className="min-h-screen flex flex-col">
+      <main className="min-h-screen flex flex-col items-center">
         <Title
           title={pageData.guide.title}
           description={pageData.guide.description}
