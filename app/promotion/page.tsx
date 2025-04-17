@@ -8,7 +8,9 @@ import Direction from "./(component)/Directionnormal";
 import Title from "@/app/components/Title";
 import { pageData } from "@/app/data/pageData";
 
-function Page() {
+function Page({ searchParams }: { searchParams?: { page?: string } }) {
+  const currentPage = Number(searchParams?.page) || 1;
+
   const breadcrumbItems = {
     title: "홍보센터",
     subMenu: "일반홍보",
@@ -26,7 +28,12 @@ function Page() {
       {/* <Breadcrumb breadcrumbData={breadcrumbItems}></Breadcrumb> */}
       <Breadcrumb breadcrumbData={breadcrumbItems}></Breadcrumb>
       <h2 className="text-xl font-semibold mt-6 mb-3">토토사이트 홍보</h2>
-      <BoardContainer writeBoolean={true} typ={16} page={1} size={15} />
+      <BoardContainer
+        writeBoolean={true}
+        typ={16}
+        page={currentPage}
+        size={15}
+      />
       <Direction />
     </div>
   );

@@ -60,20 +60,16 @@ export default function Page() {
         title={pageData.community.title}
         description={pageData.community.description}
       />
-
       <SubMenu />
       <ThreeBanner />
-      {/* SEO: Image 컴포넌트 사용 및 alt 텍스트 개선 -> img 태그로 변경 */}
       <img
         className=""
-        src="/images/sportMain.png" // 이미지 경로는 실제 이미지에 맞게 확인 필요
+        src="/images/sportMain.png"
         width={1024}
         height={177}
-        alt={"꽁머니팡 커뮤니티 안구정화 섹션 대표 이미지"} // 구체적인 alt 텍스트
+        alt={"꽁머니팡 커뮤니티 안구정화 섹션 대표 이미지"}
       />
-
       <Breadcrumb breadcrumbData={breadcrumbItems} />
-      {/* SEO: 콘텐츠 섹션 제목(h2) 추가 */}
       <h2 className="text-xl font-semibold mt-6 mb-3">안구정화 게시물</h2>
       <PhotoBoard postType={9} />
     </div>

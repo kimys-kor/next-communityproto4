@@ -11,7 +11,10 @@ import { Metadata } from "next";
 // 메타데이터 정의 (필요시 추가)
 // export const metadata: Metadata = { ... };
 
-function Page() {
+function Page({ searchParams }: { searchParams?: { page?: string } }) {
+  // page 쿼리 파라미터 가져오기 (기본값 1)
+  const currentPage = Number(searchParams?.page) || 1;
+
   const breadcrumbItems = {
     title: "커뮤니티",
     subMenu: "유머 & 이슈",
@@ -28,7 +31,12 @@ function Page() {
       <ProgressSliderPage></ProgressSliderPage>
       <Breadcrumb breadcrumbData={breadcrumbItems}></Breadcrumb>
       <h2 className="text-xl font-semibold mt-6 mb-3">유머 & 이슈 게시글</h2>
-      <BoardContainer writeBoolean={true} typ={10} page={1} size={15} />
+      <BoardContainer
+        writeBoolean={true}
+        typ={10}
+        page={currentPage}
+        size={15}
+      />
     </div>
   );
 }

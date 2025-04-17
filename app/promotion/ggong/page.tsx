@@ -25,7 +25,10 @@ export const metadata: Metadata = {
   // OpenGraph, Twitter 메타데이터도 필요시 추가
 };
 
-function Page() {
+function Page({ searchParams }: { searchParams?: { page?: string } }) {
+  // page 쿼리 파라미터 가져오기 (기본값 1)
+  const currentPage = Number(searchParams?.page) || 1;
+
   const breadcrumbItems = {
     title: "홍보센터",
     subMenu: "꽁머니홍보",
@@ -44,7 +47,12 @@ function Page() {
       <ProgressSliderPage></ProgressSliderPage>
       <Breadcrumb breadcrumbData={breadcrumbItems}></Breadcrumb>
       <h2 className="text-xl font-semibold mt-6 mb-3">꽁머니 홍보 게시판</h2>
-      <BoardContainer writeBoolean={true} typ={17} page={1} size={15} />
+      <BoardContainer
+        writeBoolean={true}
+        typ={17}
+        page={currentPage}
+        size={15}
+      />
       <Direction />
     </div>
   );

@@ -12,6 +12,7 @@ import TransferPopup from "@/app/components/boards/TransferPopup";
 
 interface BoardClientProps {
   initialItems: BoardItem[];
+  initialPage: number;
   totalElements: number;
   size: number;
   typ: number;
@@ -21,6 +22,7 @@ interface BoardClientProps {
 const BoardClient: React.FC<BoardClientProps> = ({
   writeBoolean,
   initialItems,
+  initialPage,
   totalElements: initialTotalElements,
   size,
   typ,
@@ -31,22 +33,26 @@ const BoardClient: React.FC<BoardClientProps> = ({
 
   const { userInfo } = useUserStore();
   const [boardList, setBoardList] = useState<BoardItem[]>(initialItems);
+  const [page, setPage] = useState(initialPage + 1 || 1);
   const [totalElements, setTotalElements] = useState(initialTotalElements);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [showTransferPopup, setShowTransferPopup] = useState(false);
-  const [keyword, setKeyword] = useState<string>("");
-  const [searchField, setSearchField] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const currentPage = Number(searchParams.get("page")) || 1;
+  useEffect(() => {
+    const pageFromUrl = Number(searchParams.get("page")) || 1;
+    if (pageFromUrl !== page) {
+      setPage(pageFromUrl);
+    }
+  }, [searchParams]);
 
   const totalPages = Math.ceil(totalElements / size);
 
-  const fetchData = async (pageNumber: number, searchKeyword: string) => {
+  const fetchData = async (pageNumber: number, keyword: string) => {
+    const fetchPage = pageNumber > 0 ? pageNumber - 1 : 0;
     try {
       const response = await fetch(
-        `/api/board/list?typ=${typ}&keyword=${searchKeyword}&page=${pageNumber - 1}&size=${size}`,
+        `/api/board/list?typ=${typ}&keyword=${keyword}&page=${fetchPage}&size=${size}`,
         { cache: "no-store" }
       );
       if (!response.ok) {
@@ -56,26 +62,24 @@ const BoardClient: React.FC<BoardClientProps> = ({
       setBoardList(data.data.content);
       setTotalElements(data.data.totalElements);
     } catch (error) {
-      toast.error("게시글 목록을 불러오는데 실패했습니다.");
+      toast.error("Failed to fetch board list");
     }
   };
 
-  useEffect(() => {
-    fetchData(currentPage, keyword);
-  }, [currentPage, keyword, typ, size]);
+  const [keyword, setKeyword] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchField, setSearchField] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleSearch = () => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", "1");
-    params.set("keyword", searchQuery);
-    router.replace(`${pathname}?${params.toString()}`);
+    setCurrentPage(1);
     setKeyword(searchQuery);
+    fetchData(1, searchQuery);
   };
 
   const handlePageChange = (newPage: number) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", newPage.toString());
-    router.replace(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?page=${newPage}`);
+    setPage(newPage);
   };
 
   const handleSelectItem = (id: number) => {
@@ -153,7 +157,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
         throw new Error("게시글삭제 실패");
       }
 
-      await fetchData(currentPage, keyword);
+      await fetchData(page, keyword);
 
       setSelectedItems([]);
       setSelectAll(false);
@@ -211,10 +215,8 @@ const BoardClient: React.FC<BoardClientProps> = ({
           </div>
           <div className="text-[#555555] text-sm">
             {"("}
-            <span className="text-[#2C4AB6] font-semibold">
-              {currentPage}
-            </span>{" "}
-            / <span>{totalPages}</span> 페이지{")"}
+            <span className="text-[#2C4AB6] font-semibold">{page}</span> /{" "}
+            <span>{totalPages}</span> 페이지{")"}
           </div>
         </div>
         {userInfo?.sck && (
@@ -371,9 +373,9 @@ const BoardClient: React.FC<BoardClientProps> = ({
           )}
 
       <Paging
-        page={currentPage}
-        size={size}
+        page={page}
         totalElements={totalElements}
+        size={size}
         setPage={handlePageChange}
         scroll="top"
       />
