@@ -38,10 +38,18 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
   const typ = searchParams.get("typ") || "9";
   const keyword = searchParams.get("keyword") || "";
 
+  useEffect(() => {
+    const pageFromUrl = Number(searchParams.get("page")) || 1;
+    if (pageFromUrl !== currentPage) {
+      setCurrentPage(pageFromUrl);
+    }
+  }, [searchParams]);
+
   const fetchData = async (page: number) => {
+    const fetchPage = page > 0 ? page - 1 : 0;
     try {
       const response = await fetch(
-        `/api/board/photoList?typ=${typ}&keyword=${keyword}&page=${page - 1}&size=${size}`,
+        `/api/board/photoList?typ=${typ}&keyword=${keyword}&page=${fetchPage}&size=${size}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -64,11 +72,11 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
 
   useEffect(() => {
     fetchData(currentPage);
-  }, [currentPage, typ, keyword]);
+  }, [currentPage]);
 
   const handlePageChange = (newPage: number) => {
+    router.push(`${pathname}?page=${newPage}`);
     setCurrentPage(newPage);
-    router.replace(`${pathname}?page=${newPage}`);
   };
 
   const handleSelectAll = () => {
@@ -248,8 +256,8 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
 
       <Paging
         page={currentPage}
-        size={size}
         totalElements={totalElements}
+        size={size}
         setPage={handlePageChange}
         scroll="top"
       />
