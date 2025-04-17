@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 
 import Button from "../Button";
@@ -31,19 +31,10 @@ const Modal: React.FC<ModalProps> = ({
   secondaryActionLabel,
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
-  const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setShowModal(isOpen);
   }, [isOpen]);
-
-  useEffect(() => {
-    return () => {
-      if (timeoutIdRef.current) {
-        clearTimeout(timeoutIdRef.current);
-      }
-    };
-  }, []);
 
   const handleClose = useCallback(() => {
     if (disabled) {
@@ -51,12 +42,8 @@ const Modal: React.FC<ModalProps> = ({
     }
 
     setShowModal(false);
-    if (timeoutIdRef.current) {
-      clearTimeout(timeoutIdRef.current);
-    }
-    timeoutIdRef.current = setTimeout(() => {
+    setTimeout(() => {
       onClose();
-      timeoutIdRef.current = null;
     }, 300);
   }, [onClose, disabled]);
 

@@ -12,8 +12,6 @@ import {
 
 import { Banner, BoardItem, Member, MemberDataResponse } from "./types";
 import { BoardItem2 } from "./types";
-import Link from "next/link";
-import Image from "next/image";
 
 export const categoryMap: { [key: number]: string } = {
   2: "축구분석",
@@ -432,68 +430,43 @@ export const tabsCommunity = [
     label: "안구정화",
     typ: 9,
     icon: (
-      <Link href="/eventboard">
-        <div className="flex items-center cursor-pointer">
-          <Image
-            src="/images/icon/photoIcon.png"
-            width={20}
-            height={20}
-            alt="menuIcon"
-          />
-          <span className="ml-2">안구정화</span>
-        </div>
-      </Link>
+      <img
+        src="/images/icon/photoIcon.png"
+        width={20}
+        height={20}
+        alt="menuIcon"
+      />
     ),
   },
   {
     label: "유머 & 이슈",
     typ: 10,
     icon: (
-      <Link href="/eventboard">
-        <div className="flex items-center cursor-pointer">
-          <Image
-            src="/images/icon/event.png"
-            width={20}
-            height={20}
-            alt="menuIcon"
-          />
-          <span className="ml-2">유머 & 이슈</span>
-        </div>
-      </Link>
+      <img src="/images/icon/event.png" width={20} height={20} alt="menuIcon" />
     ),
   },
   {
     label: "나는분석왕",
     typ: 11,
     icon: (
-      <Link href="/eventboard">
-        <div className="flex items-center cursor-pointer">
-          <Image
-            src="/images/icon/gameIcon.png"
-            width={20}
-            height={20}
-            alt="menuIcon"
-          />
-          <span className="ml-2">나는분석왕</span>
-        </div>
-      </Link>
+      <img
+        src="/images/icon/gameIcon.png"
+        width={20}
+        height={20}
+        alt="menuIcon"
+      />
     ),
   },
   {
     label: "자유게시판",
     typ: 12,
     icon: (
-      <Link href="/eventboard">
-        <div className="flex items-center cursor-pointer">
-          <Image
-            src="/images/icon/freeBoardIcon.png"
-            width={20}
-            height={20}
-            alt="freeBoardIcon"
-          />
-          <span className="ml-2">자유게시판</span>
-        </div>
-      </Link>
+      <img
+        src="/images/icon/freeBoardIcon.png"
+        width={20}
+        height={20}
+        alt="freeBoardIcon"
+      />
     ),
   },
 ];
@@ -502,92 +475,68 @@ export const tabsAnalyze = [
   {
     label: "해외축구분석",
     icon: (
-      <div className="flex items-center mr-1">
-        <Image
-          src="/images/icon/Msoccer.png"
-          width={14}
-          height={14}
-          alt="menuIcon"
-        />
-      </div>
+      <img
+        src="/images/icon/Msoccer.png"
+        width={14}
+        height={14}
+        alt="menuIcon"
+      />
     ),
   },
   {
     label: "아시아축구분석",
     icon: (
-      <div className="flex items-center mr-1">
-        <Image
-          src="/images/icon/Msoccer.png"
-          width={14}
-          height={14}
-          alt="menuIcon"
-        />
-      </div>
+      <img
+        src="/images/icon/Msoccer.png"
+        width={14}
+        height={14}
+        alt="menuIcon"
+      />
     ),
   },
   {
     label: "MLB분석",
     icon: (
-      <div className="flex items-center mr-1">
-        <Image
-          src="/images/icon/Mbase.png"
-          width={14}
-          height={14}
-          alt="menuIcon"
-        />
-      </div>
+      <img src="/images/icon/Mbase.png" width={14} height={14} alt="menuIcon" />
     ),
   },
   {
     label: "KBO/NPB분석",
     icon: (
-      <div className="flex items-center mr-1">
-        <Image
-          src="/images/icon/Mbase.png"
-          width={14}
-          height={14}
-          alt="menuIcon"
-        />
-      </div>
+      <img src="/images/icon/Mbase.png" width={14} height={14} alt="menuIcon" />
     ),
   },
   {
     label: "NBA분석",
     icon: (
-      <div className="flex items-center mr-1">
-        <Image
-          src="/images/icon/Mbasketball.png"
-          width={14}
-          height={14}
-          alt="menuIcon"
-        />
-      </div>
+      <img
+        src="/images/icon/Mbasketball.png"
+        width={14}
+        height={14}
+        alt="menuIcon"
+      />
     ),
   },
   {
     label: "국내외농구분석",
     icon: (
-      <div className="flex items-center mr-1">
-        <Image
-          src="/images/icon/Mbasketball.png"
-          width={14}
-          height={14}
-          alt="menuIcon"
-        />
-      </div>
+      <img
+        src="/images/icon/Mbasketball.png"
+        width={14}
+        height={14}
+        alt="menuIcon"
+      />
     ),
   },
   {
     label: "배구분석",
     icon: (
-      <div className="flex items-center mr-1">
-        <Image
-          src="/images/icon/Mvolleyball.png"
-          width={14}
-          height={14}
-          alt="menuIcon"
-        />
-      </div>
+      <img
+        src="/images/icon/Mvolleyball.png"
+        width={14}
+        height={14}
+        alt="menuIcon"
+      />
     ),
   },
 ];

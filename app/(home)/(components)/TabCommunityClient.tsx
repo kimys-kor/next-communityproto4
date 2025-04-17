@@ -5,13 +5,27 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import NewIcon from "@/app/components/NewIcon";
 import { getPostUrl, tabsCommunity } from "@/app/utils";
-import { BoardItem3 } from "@/app/types";
+import { BoardItem } from "@/app/types";
 
-type TabContent = BoardItem3[];
+type TabContent = {
+  id: number;
+  postType: number;
+  username: string;
+  nickname: string;
+  userIp: string;
+  title: string;
+  thumbNail: string | null;
+  hit: number;
+  hate: number;
+  likes: number;
+  replyNum: number;
+  createdDt: string;
+  changedcreatedDt: string;
+}[];
 
 interface TabACommunityClientProps {
   initialTab: number;
-  initialData: BoardItem3[];
+  initialData: any[];
 }
 
 // Custom hook for screen size detection
@@ -36,12 +50,13 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
   initialData,
 }) => {
   const [activeTab, setActiveTab] = useState(initialTab);
-  const [tabContent, setTabContent] = useState<BoardItem3[]>(initialData);
+  const [tabContent, setTabContent] = useState<any[]>(initialData);
   const isMobile = useResponsiveSize();
 
   useEffect(() => {
     const fetchTabContent = async (typ: number, size: number) => {
       try {
+        setTabContent([]);
         const response = await fetch(
           `/api/board/list?typ=${typ}&keyword=&page=0&size=${size}`,
           {
@@ -56,7 +71,7 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
         }
 
         const data = await response.json();
-        let content: BoardItem3[] = data.data.content;
+        let content = data.data.content;
 
         setTabContent(content);
       } catch (error) {
@@ -95,7 +110,7 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
         <div className="text-sm w-full">
           {activeTab === 0 ? (
             <div className="grid grid-cols-4 gap-4 py-3">
-              {tabContent.slice(0, 8).map((item) => (
+              {(tabContent as TabContent).slice(0, 8).map((item) => (
                 <Link
                   key={item.id}
                   href={`/community/${item.id}`}
@@ -129,7 +144,7 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
               ))}
             </div>
           ) : (
-            tabContent.map((item, index) => (
+            (tabContent as TabContent).map((item, index) => (
               <Link key={item.id} href={getPostUrl(item.postType, item.id)}>
                 <div
                   className={`px-3 flex justify-between items-center hover:bg-slate-200 hover:cursor-pointer ${

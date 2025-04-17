@@ -1,86 +1,114 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Image from "next/image";
+import { useState, useRef, useEffect } from "react";
+import { Transition } from "@headlessui/react";
 
-interface SliderItem {
-  img: string;
+interface Item {
+  img: string; // Change this to string for the URL
   desc: string;
 }
 
-interface ProgressSliderProps {
-  items: SliderItem[];
-}
-
-const ProgressSlider: React.FC<ProgressSliderProps> = ({ items }) => {
-  const [progress, setProgress] = useState(0);
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    beforeChange: (current: number, next: number) => {
-      setProgress(0); // Reset progress when slide changes
-    },
-    appendDots: (dots: React.ReactNode) => (
-      <div style={{ bottom: "10px" }}>
-        <ul style={{ margin: "0px" }}>
-          {dots}
-          <div
-            style={{
-              position: "absolute",
-              bottom: "0",
-              left: "0",
-              height: "4px",
-              background: "blue",
-              width: `${progress}%`,
-              transition: "width 0.1s linear",
-            }}
-          />
-        </ul>
-      </div>
-    ),
-  };
+export default function ProgressSlider({ items }: { items: Item[] }) {
+  const duration: number = 5000;
+  const itemsRef = useRef<HTMLDivElement>(null);
+  const frame = useRef<number>(0);
+  const firstFrameTime = useRef(performance.now());
+  const [active, setActive] = useState<number>(0);
+  const [progress, setProgress] = useState<number>(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((oldProgress) => {
-        if (oldProgress === 100) {
-          return 0;
-        }
-        // Assuming autoplaySpeed is 3000ms
-        const diff = 100 / (3000 / 100); // Calculate progress increment per 100ms
-        return Math.min(oldProgress + diff, 100);
-      });
-    }, 100); // Update progress every 100ms
-
+    firstFrameTime.current = performance.now();
+    frame.current = requestAnimationFrame(animate);
     return () => {
-      clearInterval(timer);
+      cancelAnimationFrame(frame.current);
     };
-  }, []);
+  }, [active]);
+
+  const animate = (now: number) => {
+    let timeFraction = (now - firstFrameTime.current) / duration;
+    if (timeFraction <= 1) {
+      setProgress(timeFraction * 100);
+      frame.current = requestAnimationFrame(animate);
+    } else {
+      timeFraction = 1;
+      setProgress(0);
+      setActive((active + 1) % items.length);
+    }
+  };
+
+  const handleNext = () => {
+    setActive((active + 1) % items.length);
+    setProgress(0);
+  };
+
+  const handlePrev = () => {
+    setActive(active === 0 ? items.length - 1 : active - 1);
+    setProgress(0);
+  };
 
   return (
-    <Slider {...settings}>
-      {items.map((item, index) => (
-        <div key={index} style={{ outline: "none" }}>
-          <Image
-            src={item.img}
-            width={1024}
-            height={270}
-            alt={item.desc}
-            priority={index === 0}
-          />
-        </div>
-      ))}
-    </Slider>
-  );
-};
+    <div className="w-full max-w-[1200px] mx-auto text-center">
+      {/* Item image */}
+      <div className="relative flex flex-col" ref={itemsRef}>
+        {items.map((item, index) => (
+          <Transition
+            key={index}
+            show={active === index}
+            enter="transition ease-in-out duration-500 delay-200 order-first"
+            enterFrom="opacity-0 scale-105"
+            enterTo="opacity-100 scale-100"
+            leave="transition ease-in-out duration-100 absolute"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <img src={item.img} width={1024} height={270} alt={item.desc} />
+          </Transition>
+        ))}
+      </div>
 
-export default ProgressSlider;
+      {/* Buttons */}
+      <button
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full focus:outline-none focus-visible:ring focus-visible:ring-indigo-300"
+        onClick={handlePrev}
+      >
+        {/* Left arrow icon */}
+        {/* You can replace the placeholder below with your actual left arrow icon */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-gray-700"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+      <button
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full focus:outline-none focus-visible:ring focus-visible:ring-indigo-300"
+        onClick={handleNext}
+      >
+        {/* Right arrow icon */}
+        {/* You can replace the placeholder below with your actual right arrow icon */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-gray-700"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
+    </div>
+  );
+}
