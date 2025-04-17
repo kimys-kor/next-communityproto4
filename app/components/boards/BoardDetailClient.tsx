@@ -1,8 +1,6 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import masterIcon from "/public/images/masterIcon.png";
 import { BiCommentDetail } from "react-icons/bi";
 import { GrView } from "react-icons/gr";
 import { LiaThumbsUp, LiaThumbsDown } from "react-icons/lia";
@@ -89,7 +87,12 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
         <article className="mt-3 w-full px-3 py-2 flex items-center justify-between gap-1 bg-semiblue">
           <div className="flex items-center gap-1">
             {content.username === "master" && (
-              <Image src={masterIcon} width={25} height={25} alt="adminIcon" />
+              <img
+                src="/images/icon/masterIcon.png"
+                width={25}
+                height={25}
+                alt="adminIcon"
+              />
             )}
             <p className="font-semibold">{content.nickname}</p>
           </div>

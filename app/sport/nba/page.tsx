@@ -1,7 +1,5 @@
 import React from "react";
 import ThreeBanner from "@/app/components/ThreeBanner";
-import sportMain from "/public/images/sportMain.png";
-import Image from "next/image";
 import Breadcrumb from "@/app/components/BreadCrumb";
 import SubMenu from "../(component)/SubMenu";
 import BoardContainer from "@/app/components/boards/BoardContainer";
@@ -27,9 +25,9 @@ export default function Page() {
       <SubMenu />
       <ThreeBanner />
       <div>
-        <Image
+        <img
           className=""
-          src={sportMain}
+          src="/images/sportMain.png"
           width={1024}
           height={177}
           alt={"스포츠분석"}

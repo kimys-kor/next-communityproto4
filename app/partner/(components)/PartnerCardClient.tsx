@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -239,7 +238,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
                 />
               )}
               <Link href={`/partner/${item.id}`}>
-                <Image
+                <img
                   width={250}
                   height={140}
                   className="w-full h-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-105"

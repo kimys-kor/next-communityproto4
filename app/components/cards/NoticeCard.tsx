@@ -1,13 +1,12 @@
 import Link from "next/link";
-import Image from "next/image";
-import noticeIcon from "/public/images/icon/noticeIcon.png";
 import { BoardItem } from "@/app/types";
 
 const fetchBoardList = async () => {
   const typ = 19;
 
   const response = await fetch(
-    process.env.NEXT_PUBLIC_API_URL + `/guest/list?typ=${typ}&keyword=&page=0&size=5`,
+    process.env.NEXT_PUBLIC_API_URL +
+      `/guest/list?typ=${typ}&keyword=&page=0&size=5`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -30,7 +29,12 @@ const NoticeCard = async () => {
     <div className="w-full rounded-md bg-white font-semibold border-solid border-slate-200 border">
       <div className="h-11 px-3 leading-8 flex justify-between items-center border-solid border-b border-gray-200">
         <div className="flex gap-2 justify-center items-center">
-          <Image src={noticeIcon} width={27} height={27} alt="menuIcon" />
+          <img
+            src="/images/icon/noticeIcon.png"
+            width={27}
+            height={27}
+            alt="menuIcon"
+          />
           <p className="text-lg font-bold">공지사항</p>
         </div>
       </div>

@@ -1,14 +1,15 @@
-import Image from "next/image";
 import React from "react";
-import talkball from "/public/images/talkball.png";
-import search from "/public/images/search.png";
-import safe from "/public/images/safe.png";
 
 function Direction() {
   return (
     <article>
       <section className="flex flex-col justify-center items-center py-8 md:py-10">
-        <Image alt="꽁머니팡 소개" width={248} height={255} src={safe} />
+        <img
+          alt="꽁머니팡 소개"
+          width={248}
+          height={255}
+          src="/images/safe.png"
+        />
         <div className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mt-4">
           <span className="text-blue">구인구직 게시판 </span>이용 방법
         </div>
@@ -28,14 +29,19 @@ function Direction() {
               <p className="text-lg md:text-2xl">구인구직 홍보 게시판</p>
               <p className="text-lg md:text-2xl">이용 주의사항</p>
             </div>
-            <Image alt="꽁머니팡 소개" width={248} height={255} src={search} />
+            <img
+              alt="꽁머니팡 소개"
+              width={248}
+              height={255}
+              src="/images/search.png"
+            />
           </section>
 
           <section className="w-full flex flex-col items-center gap-4 sm:gap-5">
             {[
               "구인 / 구직 카테고리 선택하기 구인 / 구직 중 원하는 상태를 선택합니다. 정확하게 구인 / 구직을 선택해야 빠른 소통과 정보 공유가 가능해집니다.",
-              "구인구직 내용을 게시할 때는 직관적이고 구체적인 제목을 사용하는 것이 좋습니다. 예를 들어 ‘구인 모집합니다’와 같은 제목보다는 ‘총판, 파트너 모집합니다’와 같은 제목을 사용하는 것이 도움이 됩니다.",
-              "구인, 구직 내용이 아닌 홍보를 목적으로 한 게시글은 통보 없이 삭제될 수 있음으로 주의합니다. 홍보를 목적으로 한다면 ‘일반홍보’게시판을 이용해 주시기 바랍니다.",
+              "구인구직 내용을 게시할 때는 직관적이고 구체적인 제목을 사용하는 것이 좋습니다. 예를 들어 '구인 모집합니다'와 같은 제목보다는 '총판, 파트너 모집합니다'와 같은 제목을 사용하는 것이 도움이 됩니다.",
+              "구인, 구직 내용이 아닌 홍보를 목적으로 한 게시글은 통보 없이 삭제될 수 있음으로 주의합니다. 홍보를 목적으로 한다면 '일반홍보'게시판을 이용해 주시기 바랍니다.",
               "다른 사이트나 사람을 비방할 목적으로 해당 게시판을 이용할 수 없습니다.",
               "사실이 아닌 내용을 올려서는 안 되며, 허위 구인 구직 게시글로 인지될 경우 통보 없이 게시글이 삭제될 수 있습니다.",
               "다른 사람의 의견이나 게시글을 비방하거나 악의적인 욕설을 하지 않습니다.",
@@ -51,8 +57,8 @@ function Direction() {
         </div>
 
         <article className="w-full flex flex-col sm:flex-row justify-center items-center pt-8 sm:pt-10 gap-3 px-4 sm:px-5 text-xs sm:text-sm">
-          <Image
-            src={talkball}
+          <img
+            src="/images/talkball.png"
             width={100}
             height={100}
             alt="sub description"

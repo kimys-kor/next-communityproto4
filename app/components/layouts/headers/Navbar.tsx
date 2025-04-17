@@ -3,10 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import partnerIcon from "/public/images/partnerIcon.png";
-import sportIcon from "/public/images/sportIcon.png";
-import commuIcon from "/public/images/commuIcon.png";
-import Image from "next/image";
 import { AiOutlineMenu } from "react-icons/ai";
 import Sidebar from "@/app/components/layouts/Sidebar";
 
@@ -26,7 +22,12 @@ const Navbar = () => {
       href: "/partner",
       label: "파트너",
       icon: (
-        <Image src={partnerIcon} width={33} height={33} alt="partnerIcon" />
+        <img
+          src="/images/partnerIcon.png"
+          width={33}
+          height={33}
+          alt="partnerIcon"
+        />
       ),
       // width: "w-14 md:w-24 lg:w-32",
     },
@@ -42,7 +43,14 @@ const Navbar = () => {
         { href: "/sport/basket", label: "국내외농구분석" },
         { href: "/sport/volley", label: "배구분석" },
       ],
-      icon: <Image src={sportIcon} width={33} height={33} alt="sportIcon" />,
+      icon: (
+        <img
+          src="/images/sportIcon.png"
+          width={33}
+          height={33}
+          alt="sportIcon"
+        />
+      ),
       // width: "w-14 md:w-24 lg:w-32",
     },
     {
@@ -55,7 +63,14 @@ const Navbar = () => {
         { href: "/community/free", label: "자유게시판" },
         { href: "/community/case", label: "먹튀피해제보" },
       ],
-      icon: <Image src={commuIcon} width={33} height={33} alt="commuIcon" />,
+      icon: (
+        <img
+          src="/images/commuIcon.png"
+          width={33}
+          height={33}
+          alt="commuIcon"
+        />
+      ),
       // width: "w-14 md:w-24 lg:w-32",
     },
     {

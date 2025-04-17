@@ -4,7 +4,6 @@ import Paging from "@/app/components/Paging";
 import { FaPlus, FaTrash, FaEdit } from "react-icons/fa";
 import toast from "react-hot-toast";
 import NewBannerForm from "./NewBannerForm";
-import Image from "next/image";
 import BannerDetail from "../../(components)/BannerDetail";
 
 export type Banner = {
@@ -199,7 +198,7 @@ function BannerList() {
                   {banner.partnerName}
                 </td>
                 <td className="py-2 px-4 border-b border-solid align-middle">
-                  <Image
+                  <img
                     src={banner.thumbNail}
                     width={150}
                     height={75}
