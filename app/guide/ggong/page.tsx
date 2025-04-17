@@ -58,19 +58,16 @@ const breadcrumbData = {
 
 function GuidePage() {
   return (
-    <div className="w-full pt-36">
-      <SubMenu />
-
-      <main className="min-h-screen flex flex-col items-center">
-        <Title
-          title={pageData.guide.title}
-          description={pageData.guide.description}
-        />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex-grow py-12">
-          <GuideContent />
-        </div>
-      </main>
-    </div>
+    <main className="min-h-screen flex flex-col">
+      <Title
+        title={pageData.guide.title}
+        description={pageData.guide.description}
+      />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex-grow py-12">
+        <Breadcrumb breadcrumbData={breadcrumbData} />
+        <GuideContent />
+      </div>
+    </main>
   );
 }
 

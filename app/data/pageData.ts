@@ -89,9 +89,5 @@ export const pageData: PageData = {
     title: "토토사이트 이용가이드",
     description: "안전한 토토사이트 이용을 위한 꽁머니팡 필수 가이드라인.",
   },
-  promotionHunting: {
-    title: "구인구직 관련 홍보",
-    description: "꽁머니팡에서 다양한 구인구직 홍보 정보를 확인하세요.",
-  },
   // customer 경로는 페이지 구조상 Title 적용이 어려워 제외
 };

@@ -27,7 +27,14 @@ export const metadata: Metadata = {
   // OpenGraph, Twitter 메타데이터도 필요시 추가
 };
 
-export default function Page() {
+export default function Page({
+  searchParams,
+}: {
+  searchParams?: { page?: string };
+}) {
+  // page 파라미터 읽기 (기본값 1)
+  const currentPage = Number(searchParams?.page) || 1;
+
   const breadcrumbItems = {
     title: "스포츠분석",
     subMenu: "해외축구분석",
@@ -53,7 +60,10 @@ export default function Page() {
 
       <Breadcrumb breadcrumbData={breadcrumbItems} />
       <h2 className="text-xl font-semibold mt-6 mb-3">해외축구분석 게시글</h2>
-      <BoardContainer typ={2} page={1} size={15} />
+      <BoardContainer typ={2} page={currentPage} size={15} />
+
+      {/* 페이지네이션 UI 컴포넌트 (추후 추가 또는 BoardContainer 내부 확인 필요) */}
+      {/* <Pagination currentPage={currentPage} totalPages={totalPages} /> */}
     </div>
   );
 }

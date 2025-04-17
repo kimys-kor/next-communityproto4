@@ -1,11 +1,7 @@
 import React from "react";
 import {
-  FaGift,
-  FaQuestionCircle,
   FaCheckCircle,
   FaExclamationTriangle,
-  FaSearchDollar,
-  FaUserShield,
   FaInfoCircle,
   FaUsers,
   FaShieldAlt,
@@ -13,141 +9,63 @@ import {
 
 function GuideContent() {
   return (
-    <div className="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8 space-y-16">
-      {/* Section 1: 꽁머니 정의 */}
-      <section className="p-8 border border-blue-200 rounded-xl shadow-md bg-gradient-to-br from-blue-50 to-white">
-        <div className="flex flex-col items-center text-center">
-          <FaGift className="text-6xl text-blue-500 mb-5" />
-          <h2 className="text-3xl font-extrabold text-gray-900 mb-4">
-            꽁머니, 그것이 궁금하다!
-          </h2>
-          <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
-            꽁머니는 <strong className="text-blue-600">토토사이트</strong>에서
-            새 친구들을 환영하거나 특별한 날을 기념하며 선물하는{" "}
-            <strong className="font-semibold text-indigo-700">
-              무료 포인트
-            </strong>
-            예요. 이걸로 내 돈을 쓰지 않고도 사이트의 재미난 게임들을 미리 맛볼
-            수 있답니다!
-          </p>
-        </div>
-      </section>
-
-      {/* Section 2: 꽁머니 얻는 법 & 사용법 (카드 UI) */}
+    <div className="space-y-12 mt-8">
+      {/* Section 1: 안전한 토토사이트 선택 */}
       <section>
-        <h2 className="text-center text-3xl font-extrabold text-gray-900 mb-10">
-          <FaSearchDollar className="inline-block text-green-500 mr-3 text-4xl align-middle" />
-          꽁머니, 어떻게 받고 어떻게 쓸까?
+        <h2 className="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+          <FaShieldAlt className="text-blue-600 mr-3" />
+          안전한 토토사이트 선택 방법
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {/* 얻는 법 카드 */}
-          <div className="bg-green-50 p-8 rounded-lg shadow-lg border border-green-200">
-            <div className="flex items-center mb-4">
-              <FaCheckCircle className="text-3xl text-green-500 mr-3" />
-              <h3 className="text-2xl font-bold text-green-800">
-                꽁머니 받는 방법
-              </h3>
-            </div>
-            <ul className="list-disc list-inside space-y-3 text-lg text-gray-700 pl-2">
-              <li>
-                <strong className="font-semibold">
-                  새싹 회원 환영 선물 🌱:
-                </strong>{" "}
-                사이트에 처음 가입하면 받아요.
-              </li>
-              <li>
-                <strong className="font-semibold">반짝 이벤트 참여 ✨:</strong>{" "}
-                출석체크, 친구 소개 등 깜짝 이벤트로 얻어요.
-              </li>
-              <li>
-                <strong className="font-semibold">레벨업 축하 보상 🏆:</strong>{" "}
-                사이트 활동으로 레벨이 오르면 받기도 해요.
-              </li>
-            </ul>
-          </div>
-
-          {/* 사용법 & 주의점 카드 */}
-          <div className="bg-red-50 p-8 rounded-lg shadow-lg border border-red-200">
-            <div className="flex items-center mb-4">
-              <FaExclamationTriangle className="text-3xl text-red-500 mr-3" />
-              <h3 className="text-2xl font-bold text-red-800">
-                꽁머니 사용, 이것만은 꼭!
-              </h3>
-            </div>
-            <ul className="list-disc list-inside space-y-3 text-lg text-gray-700 pl-2">
-              <li>
-                <strong className="font-semibold">미션! 롤링 조건 🎯:</strong>{" "}
-                받은 꽁머니의 몇 배를 베팅해야 출금 가능해요. (꼭 확인!)
-              </li>
-              <li>
-                <strong className="font-semibold">게임 선택권 제한 🎮:</strong>{" "}
-                특정 게임에만 쓸 수 있는지 확인해요.
-              </li>
-              <li>
-                <strong className="font-semibold">출금 상한선 확인 💰:</strong>{" "}
-                꽁머니 수익 중 얼마까지 뺄 수 있는지 알아봐요.
-              </li>
-              <li>
-                <strong className="font-semibold">사용 기한 체크 ⏳:</strong>{" "}
-                꽁머니를 언제까지 써야 하는지 놓치지 마세요.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 3: 안전하게 꽁머니 쓰기 (먹튀검증 강조) */}
-      <section className="p-10 rounded-xl shadow-lg bg-gray-100 border border-gray-200">
-        <div className="text-center mb-8">
-          <FaUserShield className="text-6xl text-blue-600 mb-4 mx-auto" />
-          <h2 className="text-3xl font-extrabold text-gray-900">
-            꽁머니보다 중요한 건? <span className="text-red-600">안전!</span> (
-            <span className="text-red-500">먹튀검증</span> 필수!)
-          </h2>
-          <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-            달콤한 꽁머니 제안도 좋지만,{" "}
-            <strong className="text-red-600">먹튀사이트</strong>라면 아무 소용
-            없어요. 꽁머니를 받기 전에, 그 사이트가 믿을 만한 곳인지{" "}
-            <strong className="font-semibold">꽁머니팡</strong>에서 꼭
-            확인하세요!
+        <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
+          <p>
+            안전한 <strong className="text-blue-600">토토사이트</strong> 이용은{" "}
+            <strong className="text-red-500">먹튀검증</strong>에서 시작됩니다.
+            꽁머니팡은 회원님들의 안전한 베팅 환경을 위해 다음과 같은 기준을
+            고려하여 사이트를 선택하시길 권장합니다.
           </p>
+          <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+            <h3 className="text-xl font-semibold text-blue-800 mb-3 flex items-center">
+              <FaCheckCircle className="text-green-500 mr-2" />
+              꽁머니팡 추천 및 검증 활용
+            </h3>
+            <ul className="list-disc list-inside space-y-2">
+              <li>
+                <strong className="font-semibold">꽁머니팡 보증 업체:</strong>{" "}
+                가장 확실한 방법은 꽁머니팡이 직접 검증하고 보증하는 업체를
+                이용하는 것입니다.
+              </li>
+              <li>
+                <strong className="font-semibold">먹튀검증 게시판 확인:</strong>{" "}
+                커뮤니티의 먹튀검증 게시판에서 다른 사용자들의 피해 사례나 검증
+                요청 글을 확인하세요.
+              </li>
+            </ul>
+          </div>
+          <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+            <h3 className="text-xl font-semibold text-yellow-800 mb-3 flex items-center">
+              <FaExclamationTriangle className="text-orange-500 mr-2" />
+              사이트 자체 확인 사항
+            </h3>
+            <ul className="list-disc list-inside space-y-2">
+              <li>
+                <strong className="font-semibold">보안 (SSL):</strong> 사이트
+                주소가 'https://'로 시작하는지 확인하여 데이터 전송 보안을
+                점검하세요.
+              </li>
+              <li>
+                <strong className="font-semibold">운영 기간 및 평판:</strong>{" "}
+                너무 신생이거나 평판이 좋지 않은 사이트는 피하는 것이 좋습니다.
+              </li>
+              <li>
+                <strong className="font-semibold">고객센터 응답 속도:</strong>{" "}
+                고객 지원이 원활한지 간단한 문의를 통해 확인해볼 수 있습니다.
+              </li>
+            </ul>
+          </div>
         </div>
-
-        <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow border border-blue-200">
-          <h4 className="text-xl font-bold text-blue-800 mb-4 flex items-center">
-            <FaQuestionCircle className="text-blue-500 mr-3" />
-            꽁머니팡 안전 체크리스트
-          </h4>
-          <ul className="list-disc list-inside space-y-3 text-lg text-gray-700">
-            <li>
-              <strong className="font-semibold text-green-600">
-                꽁머니팡 보증 마크 ✅:
-              </strong>{" "}
-              꽁머니팡이 "안전해요!" 도장을 찍은 곳인지 확인하세요.
-            </li>
-            <li>
-              <strong className="font-semibold text-purple-600">
-                커뮤니티 소식통 📢:
-              </strong>{" "}
-              먹튀검증, 피해사례 게시판에서 다른 분들의 생생한 후기를
-              들어보세요.
-            </li>
-            <li>
-              <strong className="font-semibold text-blue-600">
-                사이트 정보 꼼꼼히 🔍:
-              </strong>{" "}
-              꽁머니팡이 제공하는 사이트 정보를 미리 읽어보세요.
-            </li>
-          </ul>
-        </div>
-        <p className="text-center font-semibold text-red-700 mt-8 text-lg">
-          <FaExclamationTriangle className="inline-block mr-2" />
-          너~무 좋은 조건의 꽁머니, 혹은 듣도 보도 못한 새 사이트는 일단 의심!
-          또 의심!
-        </p>
       </section>
 
-      {/* Section 4: 꽁머니 활용 팁 */}
+      {/* Section 2: 꽁머니 활용 팁 */}
       <section>
         <h2 className="text-3xl font-bold text-gray-800 mb-6 flex items-center">
           <FaInfoCircle className="text-teal-500 mr-3" />
@@ -182,7 +100,7 @@ function GuideContent() {
         </div>
       </section>
 
-      {/* Section 5: 커뮤니티 활용법 */}
+      {/* Section 3: 커뮤니티 활용법 */}
       <section>
         <h2 className="text-3xl font-bold text-gray-800 mb-6 flex items-center">
           <FaUsers className="text-purple-500 mr-3" />
@@ -217,6 +135,19 @@ function GuideContent() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Section 4: 꽁머니팡의 약속 */}
+      <section className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-8 rounded-lg shadow-xl text-center">
+        <h2 className="text-3xl font-bold mb-4">꽁머니팡의 약속</h2>
+        <p className="text-xl leading-relaxed max-w-3xl mx-auto">
+          꽁머니팡은 항상 회원님들의 안전을 최우선으로 생각하며, 지속적인{" "}
+          <strong className="text-yellow-300">먹튀검증</strong>과{" "}
+          <strong className="text-yellow-300">안전놀이터</strong> 정보
+          업데이트를 통해 신뢰할 수 있는{" "}
+          <strong className="text-yellow-300">스포츠커뮤니티</strong> 환경을
+          제공하기 위해 노력하겠습니다.
+        </p>
       </section>
     </div>
   );

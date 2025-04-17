@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { BoardItem } from "../../types";
 import Paging from "@/app/components/Paging";
@@ -12,7 +12,6 @@ import TransferPopup from "@/app/components/boards/TransferPopup";
 
 interface BoardClientProps {
   initialItems: BoardItem[];
-  initialPage: number;
   totalElements: number;
   size: number;
   typ: number;
@@ -22,17 +21,20 @@ interface BoardClientProps {
 const BoardClient: React.FC<BoardClientProps> = ({
   writeBoolean,
   initialItems,
-  initialPage,
   totalElements: initialTotalElements,
   size,
   typ,
 }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const { userInfo } = useUserStore();
   const [boardList, setBoardList] = useState<BoardItem[]>(initialItems);
-  const [page, setPage] = useState(initialPage || 1);
+  const [page, setPage] = useState(() => {
+    const pageParam = searchParams.get("page");
+    return Number(pageParam) || 1;
+  });
   const [totalElements, setTotalElements] = useState(initialTotalElements);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
@@ -52,25 +54,33 @@ const BoardClient: React.FC<BoardClientProps> = ({
       const data = await response.json();
       setBoardList(data.data.content);
       setTotalElements(data.data.totalElements);
+      setPage(pageNumber);
     } catch (error) {
       toast.error("Failed to fetch board list");
     }
   };
 
+  useEffect(() => {
+    const pageParam = searchParams.get("page");
+    const currentPageFromUrl = Number(pageParam) || 1;
+    if (currentPageFromUrl !== page) {
+      setPage(currentPageFromUrl);
+    }
+  }, [searchParams, page]);
+
   const [keyword, setKeyword] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState(1);
   const [searchField, setSearchField] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleSearch = () => {
-    setCurrentPage(1);
+    setPage(1);
     setKeyword(searchQuery);
+    router.replace(`${pathname}?page=1`);
     fetchData(1, searchQuery);
   };
 
   const handlePageChange = (newPage: number) => {
     router.replace(`${pathname}?page=${newPage}`);
-    setPage(newPage);
     fetchData(newPage, keyword);
   };
 
