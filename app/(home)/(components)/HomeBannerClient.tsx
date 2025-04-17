@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import { Banner } from "@/app/types";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -56,7 +55,7 @@ const HomeBannerClient: React.FC<BannerListProps> = ({ banners }) => {
       <ul className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-1">
         {bannerList.map((banner) => (
           <li key={banner.id} className="grid-element">
-            <Image
+            <img
               src={banner.thumbNail}
               alt={banner.partnerName}
               width={318}
