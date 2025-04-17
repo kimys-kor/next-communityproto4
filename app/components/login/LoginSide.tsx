@@ -1,6 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import IdIcon from "/public/images/idIcon.png";
+import PassIcon from "/public/images/passIcon.png";
 import Link from "next/link";
+import Image from "next/image";
 import ProfileSk from "../skeleton/ProfileSk";
 import toast from "react-hot-toast";
 import { refreshUserInfo } from "@/app/api/authAction";
@@ -65,7 +68,7 @@ const LoginSide: React.FC = () => {
   }
 
   return (
-    <div className="max-w-128 bg-white p-8 rounded-lg w-full border-solid border-red-200 border">
+    <div className="max-w-128 bg-white p-8 rounded-lg w-full border-solid border-slate-200 border">
       {loggedIn && userInfo ? null : (
         <form
           onSubmit={(e) => {
@@ -83,8 +86,8 @@ const LoginSide: React.FC = () => {
               placeholder="아이디"
               required
             />
-            <img
-              src="/images/idIcon.png"
+            <Image
+              src={IdIcon}
               width={17}
               height={17}
               alt="Id Icon"
@@ -101,8 +104,8 @@ const LoginSide: React.FC = () => {
               placeholder="비밀번호"
               required
             />
-            <img
-              src="/images/passIcon.png"
+            <Image
+              src={PassIcon}
               width={17}
               height={17}
               alt="Password Icon"

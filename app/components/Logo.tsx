@@ -1,12 +1,15 @@
+import Image from "next/image";
+import logo from "/public/images/logo.png";
+
 const Logo = () => {
   return (
-    <img
+    <Image
       alt="logo"
       className="cursor-pointer"
       width={130}
       height={50}
-      src="/images/logo.png"
-    ></img>
+      src={logo}
+    ></Image>
   );
 };
 

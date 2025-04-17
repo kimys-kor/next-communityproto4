@@ -1,3 +1,7 @@
+import React from "react";
+import newBlue from "/public/images/new_blue_icon.png";
+import newPurple from "/public/images/new_purple_icon.png";
+import Image from "next/image";
 import HomeBoardWeekCard from "./HomeBoardWeekCard";
 import HomeBoardDayCard from "./HomeBoardDayCard";
 
@@ -7,12 +11,7 @@ function HomeBoard() {
       <article className="flex flex-col gap-2">
         <div className="font-bold text-lg flex justify-between items-center">
           <div className="flex items-center justify-between">
-            <img
-              src="/images/new_blue_icon.png"
-              width={40}
-              height={40}
-              alt="Id Icon"
-            />
+            <Image src={newBlue} width={40} height={40} alt="Id Icon" />
             <p className="text-lg font-bold">주간 베스트</p>
           </div>
           {/* <div className="group cursor-pointer bg-semiblue w-6 h-6 flex justify-center items-center rounded-full hover:bg-blue">
@@ -33,12 +32,7 @@ function HomeBoard() {
       <article className="flex flex-col gap-2">
         <div className="font-bold text-lg flex justify-between items-center">
           <div className="flex items-center justify-between">
-            <img
-              src="/images/new_purple_icon.png"
-              width={40}
-              height={40}
-              alt="Id Icon"
-            />
+            <Image src={newPurple} width={40} height={40} alt="Id Icon" />
             <p className="text-lg font-bold">월간 베스트</p>
           </div>
           {/* <div className="group cursor-pointer bg-semiblue w-6 h-6 flex justify-center items-center rounded-full hover:bg-blue">

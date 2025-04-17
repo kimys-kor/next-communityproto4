@@ -1,3 +1,13 @@
+import Image from "next/image";
+import photoIcon from "/public/images/icon/photoIcon.png";
+import event from "/public/images/icon/event.png";
+import gameIcon from "/public/images/icon/gameIcon.png";
+import freeBoardIcon from "/public/images/icon/freeBoardIcon.png";
+import analyze from "/public/images/icon/analyze.png";
+import SocIcon from "/public/images/icon/Msoccer.png";
+import BaseIcon from "/public/images/icon/Mbase.png";
+import BaskIcon from "/public/images/icon/Mbasketball.png";
+import VolleyIcon from "/public/images/icon/Mvolleyball.png";
 import {
   FaFootballBall,
   FaBaseballBall,
@@ -429,115 +439,60 @@ export const tabsCommunity = [
   {
     label: "안구정화",
     typ: 9,
-    icon: (
-      <img
-        src="/images/icon/photoIcon.png"
-        width={20}
-        height={20}
-        alt="menuIcon"
-      />
-    ),
+    icon: <Image src={photoIcon} width={20} height={20} alt="menuIcon" />,
   },
   {
     label: "유머 & 이슈",
     typ: 10,
-    icon: (
-      <img src="/images/icon/event.png" width={20} height={20} alt="menuIcon" />
-    ),
+    icon: <Image src={event} width={20} height={20} alt="menuIcon" />,
   },
   {
     label: "나는분석왕",
     typ: 11,
-    icon: (
-      <img
-        src="/images/icon/gameIcon.png"
-        width={20}
-        height={20}
-        alt="menuIcon"
-      />
-    ),
+    icon: <Image src={gameIcon} width={20} height={20} alt="menuIcon" />,
   },
   {
     label: "자유게시판",
     typ: 12,
     icon: (
-      <img
-        src="/images/icon/freeBoardIcon.png"
-        width={20}
-        height={20}
-        alt="freeBoardIcon"
-      />
+      <Image src={freeBoardIcon} width={20} height={20} alt="freeBoardIcon" />
     ),
+  },
+  {
+    label: "피해사례",
+    typ: 13,
+    icon: <Image src={analyze} width={20} height={20} alt="menuIcon" />,
   },
 ];
 
 export const tabsAnalyze = [
   {
     label: "해외축구분석",
-    icon: (
-      <img
-        src="/images/icon/Msoccer.png"
-        width={14}
-        height={14}
-        alt="menuIcon"
-      />
-    ),
+    icon: <Image src={SocIcon} width={14} height={14} alt="menuIcon" />,
   },
   {
     label: "아시아축구분석",
-    icon: (
-      <img
-        src="/images/icon/Msoccer.png"
-        width={14}
-        height={14}
-        alt="menuIcon"
-      />
-    ),
+    icon: <Image src={SocIcon} width={14} height={14} alt="menuIcon" />,
   },
   {
     label: "MLB분석",
-    icon: (
-      <img src="/images/icon/Mbase.png" width={14} height={14} alt="menuIcon" />
-    ),
+    icon: <Image src={BaseIcon} width={14} height={14} alt="menuIcon" />,
   },
   {
     label: "KBO/NPB분석",
-    icon: (
-      <img src="/images/icon/Mbase.png" width={14} height={14} alt="menuIcon" />
-    ),
+    icon: <Image src={BaseIcon} width={14} height={14} alt="menuIcon" />,
   },
   {
     label: "NBA분석",
-    icon: (
-      <img
-        src="/images/icon/Mbasketball.png"
-        width={14}
-        height={14}
-        alt="menuIcon"
-      />
-    ),
+    icon: <Image src={BaskIcon} width={14} height={14} alt="menuIcon" />,
   },
   {
     label: "국내외농구분석",
-    icon: (
-      <img
-        src="/images/icon/Mbasketball.png"
-        width={14}
-        height={14}
-        alt="menuIcon"
-      />
-    ),
+    icon: <Image src={BaskIcon} width={14} height={14} alt="menuIcon" />,
   },
   {
     label: "배구분석",
-    icon: (
-      <img
-        src="/images/icon/Mvolleyball.png"
-        width={14}
-        height={14}
-        alt="menuIcon"
-      />
-    ),
+    icon: <Image src={VolleyIcon} width={14} height={14} alt="menuIcon" />,
   },
 ];
 

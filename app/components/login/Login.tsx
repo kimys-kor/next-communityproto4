@@ -20,7 +20,6 @@ const Login: React.FC = () => {
   const [userInfo, setUserInfoState] = useState<UserInfo | null>(null);
   const { loggedIn, setLoggedIn } = useAuthStore();
   const { setUserInfo, clearUserInfo } = useUserStore();
-
   useEffect(() => {
     const initializeUser = async () => {
       const data = await refreshUserInfo();
@@ -69,7 +68,7 @@ const Login: React.FC = () => {
   }
 
   return (
-    <>
+    <div className="max-w-128 bg-white p-8 rounded-lg w-full border-solid border-slate-200 border">
       {loggedIn && userInfo ? (
         <Profile userInfo={userInfo} />
       ) : (
@@ -79,7 +78,7 @@ const Login: React.FC = () => {
             handleLogin();
           }}
         >
-          <div className="relative mb-4 max">
+          <div className="relative mb-4">
             <input
               type="string"
               id="username"
@@ -89,8 +88,8 @@ const Login: React.FC = () => {
               placeholder="아이디"
               required
             />
-            <img
-              src="/images/idIcon.png"
+            <Image
+              src={IdIcon}
               width={17}
               height={17}
               alt="Id Icon"
@@ -107,8 +106,8 @@ const Login: React.FC = () => {
               placeholder="비밀번호"
               required
             />
-            <img
-              src="/images/passIcon.png"
+            <Image
+              src={PassIcon}
               width={17}
               height={17}
               alt="Password Icon"
@@ -137,7 +136,7 @@ const Login: React.FC = () => {
           </section>
         </form>
       )}
-    </>
+    </div>
   );
 };
 

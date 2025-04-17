@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Headers></Headers>
       <div className="min-h-[100vh]">
         <Container>
-          <aside className="md:w-1/4 mt-40 hidden md:flex flex-col gap-8 max-w-[300px] h-full">
+          <aside className="md:w-1/4 mt-40 hidden md:flex flex-col gap-10 max-w-[300px] h-full">
             <Login></Login>
 
             <NoticeCard />

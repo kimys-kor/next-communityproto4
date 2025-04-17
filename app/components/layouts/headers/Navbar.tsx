@@ -24,21 +24,11 @@ const Navbar = () => {
   const links = [
     {
       href: "/partner",
-      label: "안전놀이터",
+      label: "파트너",
       icon: (
         <Image src={partnerIcon} width={33} height={33} alt="partnerIcon" />
       ),
       // width: "w-14 md:w-24 lg:w-32",
-    },
-    {
-      href: "/mtcase",
-      label: "먹튀사이트",
-      width: "w-14 md:w-24 lg:w-32",
-    },
-    {
-      href: "/majorplay",
-      label: "메이저놀이터",
-      width: "w-14 md:w-24 lg:w-32",
     },
     {
       href: "/sport",
@@ -63,19 +53,20 @@ const Navbar = () => {
         { href: "/community/humor", label: "유머 & 이슈" },
         { href: "/community/pickster", label: "나는분석왕" },
         { href: "/community/free", label: "자유게시판" },
+        { href: "/community/case", label: "먹튀피해제보" },
       ],
       icon: <Image src={commuIcon} width={33} height={33} alt="commuIcon" />,
       // width: "w-14 md:w-24 lg:w-32",
     },
-    // {
-    //   href: "/event",
-    //   label: "이벤트",
-    //   // width: "w-14 md:w-24 lg:w-32",
-    //   dropdown: [
-    //     { href: "/event", label: "이벤트" },
-    //     // { href: "/event/pointchange", label: "포인트교환" },
-    //   ],
-    // },
+    {
+      href: "/event",
+      label: "이벤트",
+      // width: "w-14 md:w-24 lg:w-32",
+      dropdown: [
+        { href: "/event", label: "이벤트" },
+        // { href: "/event/pointchange", label: "포인트교환" },
+      ],
+    },
     {
       href: "/promotion",
       label: "홍보센터",
@@ -85,6 +76,16 @@ const Navbar = () => {
         { href: "/promotion/hunting", label: "구인구직" },
       ],
       // width: "w-14 md:w-24 lg:w-32",
+    },
+    {
+      href: "/guide",
+      label: "가이드",
+      dropdown: [
+        { href: "/guide/ggong", label: "꽁머니" },
+        { href: "/guide/major", label: "메이저" },
+        { href: "/guide/safe", label: "안전놀이터" },
+      ],
+      // width: "w-14 md:w-24 lg:w-24",
     },
     {
       href: "/customer",
@@ -108,7 +109,7 @@ const Navbar = () => {
 
   const isActiveLink = (link: string) => {
     if (activeLink === link) return true;
-    if (link === "/majorplay" && activeLink.startsWith("/guide")) return true;
+    if (link === "/guide" && activeLink.startsWith("/guide")) return true;
     if (link === "/verify" && activeLink.startsWith("/verify")) return true;
     if (link === "/sport" && activeLink.startsWith("/sport")) return true;
     if (link === "/pickster" && activeLink.startsWith("/pickster")) return true;
@@ -139,7 +140,6 @@ const Navbar = () => {
               className="h-14 md:h-16 relative group cursor-pointer flex flex-col justify-center items-center box-border"
             >
               <Link
-                title="콘텐츠로 건너뛰기"
                 key={link.href}
                 href={link.href}
                 className={`relative 
@@ -159,7 +159,6 @@ const Navbar = () => {
                   >
                     {link.dropdown.map((sublink, index) => (
                       <Link
-                        title="콘텐츠로 건너뛰기"
                         key={sublink.href}
                         href={sublink.href}
                         className={`outline-white w-full block p-2 text-base lg:text-base hover:bg-gray-700 hover:text-white truncate
@@ -180,29 +179,24 @@ const Navbar = () => {
       <nav className="md:hidden w-full bg-blue font-medium text-sm text-white overflow-hidden">
         <div className="flex flex-wrap">
           <div className="flex flex-wrap items-center pl-3 divide-x divide-gray-300 w-full">
-            {/* 메뉴 버튼 */}
             <div
               className="cursor-pointer px-2 h-[48px] py-2 flex items-center justify-center transition-colors duration-200 hover:bg-indigo-600 hover:text-white"
               onClick={toggleSidebar}
             >
-              <AiOutlineMenu size={20} />
+              <AiOutlineMenu size={15} />
             </div>
-
-            {/* 네비게이션 항목 */}
             {links.map((link, index) => (
               <Link
                 key={index}
                 href={link.href}
-                className={`flex-1 h-[48px] py-2 flex items-center justify-center transition-colors duration-200 hover:bg-indigo-600 hover:text-white text-xs`}
+                className={`flex-1 h-[48px] py-2 flex items-center justify-center transition-colors duration-200 hover:bg-indigo-600 hover:text-white`}
                 style={{
-                  minWidth: link.icon ? "80px" : "70px", // 최소 너비
-                  maxWidth: "25%", // 최대 너비
-                  whiteSpace: "nowrap", // 텍스트가 한 줄로 유지되도록 함
+                  minWidth: link.icon ? "100px" : "70px",
+                  maxWidth: "25%",
                 }}
                 onClick={() => handleLinkClick(link.href)}
               >
-                <span className="truncate">{link.label}</span>{" "}
-                {/* 텍스트가 넘치지 않도록 처리 */}
+                {link.label}
                 <div>{link.icon ? link.icon : null}</div>
               </Link>
             ))}

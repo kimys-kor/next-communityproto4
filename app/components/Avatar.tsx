@@ -1,14 +1,17 @@
 "use client";
 
+import Image from "next/image";
+import Avatarimg from "/public/images/avatar.png";
+
 const Avatar = () => {
   return (
-    <img
+    <Image
       className="rounded-full"
-      src="/images/avatar.png"
+      src={Avatarimg}
       width={40}
       height={40}
       alt="avatar"
-    ></img>
+    ></Image>
   );
 };
 

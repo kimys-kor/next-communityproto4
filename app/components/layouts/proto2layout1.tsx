@@ -6,9 +6,10 @@ import Footer from "@/app/components/layouts/Footer";
 import NoticeCard from "@/app/components/cards/NoticeCard";
 import NewPostCard from "@/app/components/cards/NewPostCard";
 import NewPartnerCard from "@/app/components/cards/NewPartnerCard";
-import MobBottomNav from "@/app/components/MobBottomNav";
-import TabAnalyzePage from "@/app/(home)/(components)/TabAnalyzePage";
+import MobBottomNav from "@/app/components/MobBottomNav";import TabAnalyzePage from "@/app/(home)/(components)/TabAnalyzePage";
 import TabACommunityPage from "@/app/(home)/(components)/TabACommunityPage";
+
+
 
 export default function Proto2layout1({
   children,
@@ -29,9 +30,9 @@ export default function Proto2layout1({
         <section className="w-full mt-[153px] mmd:mt-28 md:mt-36 md:w-3/4">
           {children}
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <TabAnalyzePage />
-            <TabACommunityPage></TabACommunityPage>
-          </section>
+          <TabAnalyzePage />
+          <TabACommunityPage></TabACommunityPage>
+        </section>
         </section>
         <RightSideBanner></RightSideBanner>
       </Container>

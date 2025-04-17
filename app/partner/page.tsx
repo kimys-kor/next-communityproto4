@@ -1,7 +1,8 @@
+import React from "react";
 import PartnerCard from "./(components)/PartnerCard";
+import Paging from "../components/Paging";
 import ProgressSliderPage from "../components/ProgressSliderPage";
 import Breadcrumb from "../components/BreadCrumb";
-import PartnerDescription1 from "./(components)/PartnerDescription1";
 
 interface ImgContent {
   img: string;
@@ -11,8 +12,8 @@ interface ImgContent {
 
 function Page() {
   const breadcrumbItems = {
-    title: "안전놀이터",
-    subMenu: "안전놀이터",
+    title: "토이소",
+    subMenu: "파트너",
   };
 
   return (
@@ -20,7 +21,6 @@ function Page() {
       <ProgressSliderPage />
       <Breadcrumb breadcrumbData={breadcrumbItems} />
       <PartnerCard />
-      <PartnerDescription1 />
     </div>
   );
 }

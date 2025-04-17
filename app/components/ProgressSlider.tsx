@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image, { StaticImageData } from "next/image";
 import { Transition } from "@headlessui/react";
 
 interface Item {
-  img: string; // Change this to string for the URL
+  img: StaticImageData;
   desc: string;
 }
 
@@ -49,6 +50,7 @@ export default function ProgressSlider({ items }: { items: Item[] }) {
   return (
     <div className="w-full max-w-[1200px] mx-auto text-center">
       {/* Item image */}
+
       <div className="relative flex flex-col" ref={itemsRef}>
         {items.map((item, index) => (
           <Transition
@@ -61,7 +63,7 @@ export default function ProgressSlider({ items }: { items: Item[] }) {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <img src={item.img} width={1024} height={270} alt={item.desc} />
+            <Image src={item.img} width={1024} height={270} alt={item.desc} />
           </Transition>
         ))}
       </div>
