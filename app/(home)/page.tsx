@@ -1,7 +1,9 @@
 import TabAnalyzePage from "@/app/(home)/(components)/TabAnalyzePage";
 import TabACommunityPage from "@/app/(home)/(components)/TabACommunityPage";
 import ProgressSliderPage from "../components/ProgressSliderPage";
-import HomeBannerClient from "./(components)/HomeBannerClient";
+import HomeBanner from "./(components)/HomeBanner";
+import { Suspense } from "react";
+import HomeBannerSk from "../components/skeleton/HomeBannerSk";
 import HomeBoard from "./(components)/HomeBoard";
 import SportsDataTable from "./(components)/SportsDataTable";
 import Page from "../guide/page";
@@ -47,7 +49,7 @@ export default function Home() {
           꽁머니팡 - 먹튀검증 및 토토사이트 추천 스포츠커뮤니티
         </h1>
 
-        <HomeBannerClient />
+        <HomeBanner></HomeBanner>
 
         <ProgressSliderPage></ProgressSliderPage>
 

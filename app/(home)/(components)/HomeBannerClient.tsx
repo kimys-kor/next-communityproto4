@@ -4,7 +4,10 @@ import React, { useState, useEffect } from "react";
 import { Banner } from "@/app/types";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import HomeBannerSk from "@/app/components/skeleton/HomeBannerSk";
+
+interface BannerListProps {
+  banners: Banner[];
+}
 
 function shuffleArray(array: Banner[]) {
   return array
@@ -13,33 +16,14 @@ function shuffleArray(array: Banner[]) {
     .map(({ item }) => item);
 }
 
-const HomeBannerClient: React.FC = () => {
+const HomeBannerClient: React.FC<BannerListProps> = ({ banners }) => {
   const [bannerList, setBannerList] = useState<Banner[]>([]);
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const fetchBanners = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch("/api/banners");
-        if (!response.ok) {
-          throw new Error("Failed to fetch banners");
-        }
-        const data = await response.json();
-        const bannersData = Array.isArray(data) ? data : data.data || [];
-        const shuffledBanners = shuffleArray(bannersData);
-        setBannerList(shuffledBanners);
-      } catch (error) {
-        console.error("Error fetching banners:", error);
-        toast.error("배너를 불러오는데 실패했습니다.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBanners();
-  }, []);
+    const shuffledBanners = shuffleArray(banners);
+    setBannerList(shuffledBanners);
+  }, [banners]);
 
   const handleBannerClick = async (bannerId: number, partnerUrl: string) => {
     try {
@@ -53,7 +37,7 @@ const HomeBannerClient: React.FC = () => {
             ? partnerUrl
             : `https://${partnerUrl}`;
 
-        window.open(formattedUrl, "_blank", "noopener,noreferrer");
+        window.location.href = formattedUrl;
       } else {
         toast.error("Failed to register banner click.");
       }
@@ -61,10 +45,6 @@ const HomeBannerClient: React.FC = () => {
       toast.error("Error occurred while opening the banner.");
     }
   };
-
-  if (loading) {
-    return <HomeBannerSk />;
-  }
 
   if (bannerList.length === 0) {
     return null;
@@ -76,7 +56,6 @@ const HomeBannerClient: React.FC = () => {
         {bannerList.map((banner) => (
           <li key={banner.id} className="grid-element">
             <img
-              loading="lazy"
               src={banner.thumbNail}
               alt={banner.partnerName}
               width={318}
