@@ -216,7 +216,7 @@ function HomeDescription2() {
                 </h4>
                 <p className="text-gray-600 leading-relaxed mb-3">
                   <strong className="text-green-500">메이저놀이터</strong>라고
-                  해서 영원히 안전한 것은 아닙니다. 꽁머니팡는 기존 보증
+                  해서 영원히 안전한 것은 아닙니다. 꽁머니팡은 기존 보증
                   업체라도 정기적인 재검증을 통해{" "}
                   <strong className="text-blue-600">토토사이트</strong>의
                   안정성을 지속적으로 관리하여{" "}
@@ -230,7 +230,7 @@ function HomeDescription2() {
                   </h5>
                   <p className="text-sm text-gray-600">
                     <strong>Q. 메이저놀이터 안전성 100% 보장?</strong> A. 완벽
-                    보장은 어렵지만, 꽁머니팡는 먹튀 보증금 제도를 통해 피해
+                    보장은 어렵지만, 꽁머니팡은 먹튀 보증금 제도를 통해 피해
                     발생 시 책임지고 보상합니다.
                   </p>
                   <p className="text-sm text-gray-600 mt-1">
