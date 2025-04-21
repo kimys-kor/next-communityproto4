@@ -8,6 +8,7 @@ import HomeBoard from "./(components)/HomeBoard";
 import SportsDataTable from "./(components)/SportsDataTable";
 import Page from "../guide/page";
 import { Metadata } from "next";
+import Link from "next/link";
 
 // 홈페이지 메타데이터 정의
 export const metadata: Metadata = {
@@ -52,6 +53,17 @@ export default function Home() {
         <HomeBanner></HomeBanner>
 
         <ProgressSliderPage></ProgressSliderPage>
+
+        <section className="text-center mt-8">
+          <h2 className="text-xl font-bold mb-4">
+            꽁머니팡의 최신 꽁머니 지급 사이트 목록
+          </h2>
+          <Link href="/partner">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition duration-300 ease-in-out">
+              최신 꽁머니 사이트 확인하기
+            </button>
+          </Link>
+        </section>
 
         <h2 className="text-xl font-bold text-center mt-4">
           꽁머니팡 추천 토토사이트 및 최신 정보
