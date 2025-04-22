@@ -1,6 +1,3 @@
-import ThreeBanner from "@/app/components/ThreeBanner";
-// sportMain import는 현재 사용되지 않으므로 제거하거나, 필요시 다시 추가하세요.
-// import sportMain from "/public/images/sportMain.png";
 import Breadcrumb from "@/app/components/BreadCrumb";
 import SubMenu from "./(component)/SubMenu";
 import { Metadata } from "next";
