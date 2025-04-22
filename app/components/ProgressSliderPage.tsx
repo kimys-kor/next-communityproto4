@@ -19,10 +19,12 @@ export default function ProgressSliderPage() {
       <div className="max-w-6xl mx-auto w-full h-full">
         <div className=" flex justify-center bg-[#F2F7FF] w-full h-full">
           {/* <ProgressSlider items={items} /> */}
-          <Image
-            src={main_top}
-            className="w-full h-full object-contain"
-            alt={"꽁머니팡 배너"}
+          <img
+            className=""
+            src="/images/main_top.jpg"
+            alt={"메인 배너 이미지"}
+            width={1024}
+            height={177}
           />
         </div>
       </div>

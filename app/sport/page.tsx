@@ -52,8 +52,8 @@ export default function Page({
       <ThreeBanner />
       <img
         className=""
-        src={sportMain.src}
-        alt={"스포츠분석 메인 이미지"}
+        src="/images/main_top.jpg"
+        alt={"메인 배너 이미지"}
         width={1024}
         height={177}
       />

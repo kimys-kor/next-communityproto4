@@ -64,10 +64,10 @@ export default function Page() {
       <ThreeBanner />
       <img
         className=""
-        src="/images/sportMain.png"
+        src="/images/main_top.jpg"
+        alt={"메인 배너 이미지"}
         width={1024}
         height={177}
-        alt={"꽁머니팡 커뮤니티 안구정화 섹션 대표 이미지"}
       />
       <Breadcrumb breadcrumbData={breadcrumbItems} />
       <h2 className="text-xl font-semibold mt-6 mb-3">안구정화 게시물</h2>

@@ -27,10 +27,10 @@ function Page() {
       <div>
         <img
           className=""
-          src="/images/sportMain.png"
+          src="/images/main_top.jpg"
+          alt={"메인 배너 이미지"}
           width={1024}
           height={177}
-          alt={"스포츠분석"}
         />
       </div>
       <Breadcrumb breadcrumbData={breadcrumbItems}></Breadcrumb>
