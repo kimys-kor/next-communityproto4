@@ -56,6 +56,13 @@ const Login: React.FC = () => {
         setUserInfo(data);
         setUserInfoState(data);
       } else {
+        console.error("Login failed with status:", response.status);
+        try {
+          const errorData = await response.json();
+          console.error("Login error response body:", errorData);
+        } catch (e) {
+          console.error("Could not parse error response body as JSON.");
+        }
         toast.error("아이디와 비밀번호를 확인해주세요");
       }
     } catch (error) {

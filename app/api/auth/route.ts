@@ -12,20 +12,20 @@ export async function POST(request: Request) {
 
     const { username, password } = await request.json();
 
-    const apiResponse = await fetch(
-      process.env.NEXT_PUBLIC_API_URL + "/guest/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-      }
-    );
+    // Log the environment variable value right before using it
+    console.log("API_URL in /api/auth:", process.env.API_URL);
+
+    const apiResponse = await fetch(process.env.API_URL + "/guest/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
 
     if (apiResponse.ok) {
       const accessToken = apiResponse.headers.get("Authorization");
@@ -59,6 +59,18 @@ export async function POST(request: Request) {
       );
     }
   } catch (error) {
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    console.error("Error in /api/auth:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    const errorStack =
+      error instanceof Error ? error.stack : "No stack trace available";
+    return NextResponse.json(
+      {
+        error: "Server error",
+        details: errorMessage,
+        stack: process.env.NODE_ENV === "development" ? errorStack : undefined,
+      },
+      { status: 500 }
+    );
   }
 }
