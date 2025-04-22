@@ -1,6 +1,6 @@
-import main_top from "/public/images/main_top.png";
+import main_top from "/public/images/main_top.jpg";
 import ProgressSlider from "./ProgressSlider";
-// import Image from "next/image"; // Image import 제거
+import Image from "next/image";
 
 export default function ProgressSliderPage() {
   const items = [
@@ -15,16 +15,13 @@ export default function ProgressSliderPage() {
   ];
 
   return (
-    // 이전에 추가했던 부모 div 스타일 제거
     <div className="relative h-32 md:h-48 flex flex-col justify-center bg-transparent overflow-hidden">
-      <div className="max-w-6xl mx-auto py-3">
-        <div className="mt-3 flex justify-center bg-[#F2F7FF]">
+      <div className="max-w-6xl mx-auto w-full h-full">
+        <div className=" flex justify-center bg-[#F2F7FF] w-full h-full">
           {/* <ProgressSlider items={items} /> */}
-          {/* Image 컴포넌트를 img 태그로 변경, width/height 사용 */}
-          <img
-            src={main_top.src}
-            width={1024}
-            height={270}
+          <Image
+            src={main_top}
+            className="w-full h-full object-contain"
             alt={"꽁머니팡 배너"}
           />
         </div>

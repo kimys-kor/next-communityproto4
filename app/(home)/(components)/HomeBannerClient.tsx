@@ -58,9 +58,7 @@ const HomeBannerClient: React.FC<BannerListProps> = ({ banners }) => {
             <img
               src={banner.thumbNail}
               alt={banner.partnerName}
-              width={318}
-              height={133}
-              className="w-full h-auto rounded-md object-cover cursor-pointer"
+              className="w-full h-auto rounded-md cursor-pointer object-contain"
               onClick={() => handleBannerClick(banner.id, banner.partnerUrl)}
             />
           </li>
