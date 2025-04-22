@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import PhotoBoard from "../components/boards/PhotoBoard";
 import Title from "@/app/components/Title";
 import { pageData } from "@/app/data/pageData";
+import ThreeBanner from "../components/ThreeBanner";
 
 // 커뮤니티 페이지 메타데이터 정의
 export const metadata: Metadata = {
