@@ -1,10 +1,12 @@
+import ThreeBanner from "@/app/components/ThreeBanner";
+// sportMain import는 현재 사용되지 않으므로 제거하거나, 필요시 다시 추가하세요.
+// import sportMain from "/public/images/sportMain.png";
 import Breadcrumb from "@/app/components/BreadCrumb";
 import SubMenu from "./(component)/SubMenu";
 import { Metadata } from "next";
 import PhotoBoard from "../components/boards/PhotoBoard";
 import Title from "@/app/components/Title";
 import { pageData } from "@/app/data/pageData";
-import ThreeBanner from "../components/ThreeBanner";
 
 // 커뮤니티 페이지 메타데이터 정의
 export const metadata: Metadata = {

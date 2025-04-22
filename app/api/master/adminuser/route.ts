@@ -12,8 +12,8 @@ export async function GET(request: Request) {
 
   try {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_API_URL +
-        `/master/adiminUser?keyword=${keyword}&page=${page}&size=${size}`,
+      process.env.NEXT_PUBLIC_API_BASE_URL +
+        `/master/admin/findall?page=${page}&size=${size}&keyword=${encodeURIComponent(keyword || "")}`,
       {
         method: "GET",
         credentials: "include",

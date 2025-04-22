@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
     const requestBody = await request.json();
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/guest/join`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/join`,
       {
         method: "POST",
         headers: {

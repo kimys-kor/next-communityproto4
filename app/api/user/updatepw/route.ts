@@ -15,17 +15,20 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/update/mypw`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${accessToken}`,
-      },
-      body: JSON.stringify({
-        oldpassword,
-        newpassword,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/user/update/mypw`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${accessToken}`,
+        },
+        body: JSON.stringify({
+          oldpassword,
+          newpassword,
+        }),
+      }
+    );
 
     if (!response.ok) {
       const errorText = await response.text();

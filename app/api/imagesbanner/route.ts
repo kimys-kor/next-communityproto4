@@ -16,14 +16,16 @@ export async function POST(request: Request) {
       }
     });
 
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/admin/upload/banner", {
-      method: "POST",
-      body: uploadFormData,
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_API_BASE_URL + "/admin/upload/banner",
+      {
+        method: "POST",
+        body: uploadFormData,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
 
     if (!response.ok) {
       const errorText = await response.text();

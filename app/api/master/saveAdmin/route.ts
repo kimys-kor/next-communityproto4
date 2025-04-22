@@ -17,20 +17,23 @@ export async function POST(request: Request) {
     }
 
     // Send the data to the actual API endpoint
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/master/saveAdmin`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${accessToken}`,
-      },
-      body: JSON.stringify({
-        username,
-        password,
-        fullName,
-        phoneNum,
-        nickname,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/master/saveAdmin`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${accessToken}`,
+        },
+        body: JSON.stringify({
+          username,
+          password,
+          fullName,
+          phoneNum,
+          nickname,
+        }),
+      }
+    );
 
     // Check if the response from the backend API was successful
     if (!response.ok) {

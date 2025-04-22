@@ -60,7 +60,7 @@ export const fetchInitialBoardListData = async (
 ) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/guest/list?typ=${typ}&keyword=&page=${page}&size=${size}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/list?typ=${typ}&keyword=&page=${page}&size=${size}`,
       { cache: "no-store" }
     );
 
@@ -97,7 +97,7 @@ export const fetchInitialBoardListData = async (
 export async function fetchInitialPhotoData(postType: number) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/guest/photoList?postType=${postType}&page=0&size=12`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/photoList?postType=${postType}&page=0&size=12`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -134,7 +134,7 @@ export async function fetchInitialPhotoData(postType: number) {
 
 export const fetchInitialCommunityTabData = async () => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/guest/list?typ=9&keyword=&page=0&size=4`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/list?typ=9&keyword=&page=0&size=4`,
     { method: "GET" }
   );
   const data = await response.json();
@@ -144,7 +144,7 @@ export const fetchInitialCommunityTabData = async () => {
 export async function fetchInitialAnalyzeData(typ: number) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/guest/list?typ=${typ}&keyword=&page=0&size=5`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/list?typ=${typ}&keyword=&page=0&size=5`,
       { cache: "no-store" }
     );
 
@@ -163,7 +163,7 @@ export async function fetchInitialAnalyzeData(typ: number) {
 export async function fetchHomeBanner(): Promise<Banner[]> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/guest/bannerlist`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/bannerlist`,
       {
         method: "GET",
       }
@@ -185,7 +185,7 @@ export async function fetchHomeBanner(): Promise<Banner[]> {
 export async function fetchThreeBanner(): Promise<Banner[]> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/guest/threeBannerlist`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/threeBannerlist`,
       {
         method: "GET",
         cache: "no-store",
@@ -214,7 +214,7 @@ export async function fetchBoardDayContent(
 ): Promise<BoardItem2[]> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/guest/bestList?period=${period}&page=${page}&size=${size}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/bestList?period=${period}&page=${page}&size=${size}`,
       {
         method: "GET",
         credentials: "include",
@@ -240,7 +240,7 @@ export async function fetchBoardWeekContent(
 ): Promise<BoardItem2[]> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/guest/bestList?period=${period}&page=${page}&size=${size}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/bestList?period=${period}&page=${page}&size=${size}`,
       {
         method: "GET",
         credentials: "include",
@@ -261,7 +261,7 @@ export async function fetchBoardWeekContent(
 
 export async function fetchInitialPartnerData() {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/guest/partnerList?page=0&size=12`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/partnerList?page=0&size=12`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -284,7 +284,7 @@ export async function fetchInitialPartnerData() {
 export const fetchInitialBoardContent = async (id: string) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/guest/content?boardId=${id}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/content?boardId=${id}`,
       {
         method: "GET",
         headers: {
@@ -316,7 +316,7 @@ export const fetchInitialComments = async (
   size: number
 ) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/guest/list/comment?boardId=${boardId}&page=${page}&size=${size}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/list/comment?boardId=${boardId}&page=${page}&size=${size}`,
     {
       method: "GET",
       headers: {
@@ -351,7 +351,7 @@ export async function fetchInitialMemberData(
 }> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/user/findall?page=${page}&size=${size}&keyword=${encodeURIComponent(keyword)}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/user/findall?page=${page}&size=${size}&keyword=${encodeURIComponent(keyword)}`,
       {
         method: "GET",
         headers: {
