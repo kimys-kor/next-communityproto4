@@ -54,19 +54,24 @@ const HomeBannerClient: React.FC<BannerListProps> = ({ banners }) => {
   return (
     <main className="w-full h-auto bg-white rounded-2xl flex flex-col items-center">
       <ul className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-1">
-        {bannerList.map((banner) => (
-          <li key={banner.id} className="grid-element relative aspect-video">
-            <Image
-              src={banner.thumbNail}
-              alt={banner.partnerName}
-              fill
-              sizes="(max-width: 768px) 50vw, 33vw"
-              className="rounded-md cursor-pointer object-cover"
-              onClick={() => handleBannerClick(banner.id, banner.partnerUrl)}
-              unoptimized={banner.thumbNail?.toLowerCase().endsWith(".gif")}
-            />
-          </li>
-        ))}
+        {bannerList.map((banner) => {
+          console.log(
+            `Banner: ${banner.partnerName}, URL: ${banner.thumbNail}`
+          );
+          return (
+            <li key={banner.id} className="grid-element relative aspect-video">
+              <Image
+                src={banner.thumbNail}
+                alt={banner.partnerName}
+                fill
+                sizes="(max-width: 768px) 50vw, 33vw"
+                className="rounded-md cursor-pointer object-cover"
+                onClick={() => handleBannerClick(banner.id, banner.partnerUrl)}
+                unoptimized={banner.thumbNail?.toLowerCase().endsWith(".gif")}
+              />
+            </li>
+          );
+        })}
       </ul>
     </main>
   );
