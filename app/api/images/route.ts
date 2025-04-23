@@ -25,7 +25,7 @@ export async function POST(request: Request) {
   try {
     // request.formData() 대신 request.body 스트림 직접 사용
     const response = await fetch(
-      process.env.NEXT_PUBLIC_API_BASE_URL + "/user/upload",
+      process.env.NEXT_PUBLIC_API_URL + "/user/upload",
       {
         method: "POST",
         headers: {

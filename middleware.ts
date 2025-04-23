@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest) {
   // Attempt to refresh the token
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/user/refresh`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/refresh`,
       {
         method: "GET",
         credentials: "include",

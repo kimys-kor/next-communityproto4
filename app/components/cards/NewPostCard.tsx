@@ -9,7 +9,7 @@ const fetchBoardList = async (typeList: number[]) => {
   const typeListQuery = typeList.map((type) => `typeList=${type}`).join("&");
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/newList?page=${page}&size=${size}&${typeListQuery}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/guest/newList?page=${page}&size=${size}&${typeListQuery}`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },

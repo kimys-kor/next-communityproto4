@@ -12,7 +12,7 @@ export async function refreshUserInfo() {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/user/myinfo`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/myinfo`,
       {
         method: "GET",
         credentials: "include",
@@ -53,7 +53,7 @@ export const commentSaveServerAction = async (data: CommentRequest) => {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/user/write/comment`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/write/comment`,
       {
         method: "POST",
         headers: {
@@ -90,7 +90,7 @@ export const postSaveServerAction = async (data: savePostRequest) => {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/user/save/post`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/save/post`,
       {
         method: "POST",
         headers: {

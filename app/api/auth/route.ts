@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     const { username, password } = await request.json();
 
     const apiResponse = await fetch(
-      process.env.NEXT_PUBLIC_API_BASE_URL + "/guest/login",
+      process.env.NEXT_PUBLIC_API_URL + "/guest/login",
       {
         method: "POST",
         headers: {

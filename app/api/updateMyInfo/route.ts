@@ -21,7 +21,7 @@ export async function PUT(request: NextRequest) {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/user/update/myinfo`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/update/myinfo`,
       {
         method: "PUT",
         headers: {

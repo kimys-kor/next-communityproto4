@@ -15,15 +15,18 @@ export async function POST(request: Request) {
       );
     }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/saveBanner`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      credentials: "include",
-      body: JSON.stringify({ partnerName, thumbNail, partnerUrl }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/saveBanner`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        credentials: "include",
+        body: JSON.stringify({ partnerName, thumbNail, partnerUrl }),
+      }
+    );
 
     if (!response.ok) {
       const errorText = await response.text();

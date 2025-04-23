@@ -18,7 +18,7 @@ export async function POST(request: Request) {
 
     // Send the data to the actual API endpoint
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/master/saveAdmin`,
+      `${process.env.NEXT_PUBLIC_API_URL}/master/saveAdmin`,
       {
         method: "POST",
         headers: {
