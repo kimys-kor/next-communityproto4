@@ -138,7 +138,7 @@ function GuideContent() {
       </section>
 
       {/* Section 4: 꽁머니팡의 약속 */}
-      <section className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-8 rounded-lg shadow-xl text-center">
+      <section className="bg-gradient-to-r from-blue to-indigo-600 text-white p-8 rounded-lg shadow-xl text-center">
         <h2 className="text-3xl font-bold mb-4">꽁머니팡의 약속</h2>
         <p className="text-xl leading-relaxed max-w-3xl mx-auto">
           꽁머니팡은 항상 회원님들의 안전을 최우선으로 생각하며, 지속적인{" "}
