@@ -22,18 +22,32 @@ export async function POST(request: NextRequest) {
 
     const pointValue = Number(point);
 
-    // Construct the backend API URL
-    const backendUrl = `${process.env.API_URL}/admin/user/add/point?userId=${userId}&point=${pointValue}`;
-    console.log("Calling backend API to update points:", backendUrl); // For debugging
+    // Ensure NEXT_PUBLIC_API_URL is defined (as user reverted to this)
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    if (!apiUrl) {
+      console.error("NEXT_PUBLIC_API_URL environment variable is not defined!");
+      return NextResponse.json(
+        {
+          error: "Server configuration error: NEXT_PUBLIC_API_URL is missing.",
+        },
+        { status: 500 }
+      );
+    }
 
-    // Assuming PATCH method for the backend, adjust if needed (e.g., POST, PUT)
+    // Construct the backend API URL using the user-specified path and query parameters
+    // Assuming NEXT_PUBLIC_API_URL might contain /api, remove it before adding the correct path.
+    const backendUrl = `${apiUrl.replace("/api", "")}/admin/user/add/point?userId=${userId}&point=${pointValue}`;
+    console.log(
+      "Calling backend API (GET with query params to /admin path) to update points:",
+      backendUrl
+    );
+
+    // Send GET request
     const backendResponse = await fetch(backendUrl, {
-      method: "PATCH",
+      method: "GET", // Keep GET based on @GetMapping
       headers: {
-        // No Content-Type needed if body is empty
         Authorization: `${accessToken}`,
       },
-      // No body needed as data is in query params
     });
 
     // Check if the backend request was successful
@@ -45,7 +59,7 @@ export async function POST(request: NextRequest) {
           error: "Failed to update points via backend API.",
           details: errorText,
         },
-        { status: backendResponse.status } // Return backend's status code
+        { status: backendResponse.status }
       );
     }
 
