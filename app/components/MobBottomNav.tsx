@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const MobBottomNav: React.FC = () => {
   const scrollToTop = () => {
@@ -16,7 +17,7 @@ const MobBottomNav: React.FC = () => {
     <nav className="border-solid border-t border-gray-200 fixed bottom-0 left-0 right-0 bg-white md:hidden">
       <div className="flex justify-around items-center p-2">
         <Link href="/" className="flex flex-col justify-center items-center">
-          <img
+          <Image
             src="/images/icon/home.png"
             width={20}
             height={20}
@@ -28,7 +29,7 @@ const MobBottomNav: React.FC = () => {
           href="/partner"
           className="flex flex-col justify-center items-center"
         >
-          <img
+          <Image
             src="/images/partnerIcon.png"
             width={20}
             height={20}
@@ -40,7 +41,7 @@ const MobBottomNav: React.FC = () => {
           href="/event"
           className="flex flex-col justify-center items-center"
         >
-          <img
+          <Image
             src="/images/icon/event.png"
             width={20}
             height={20}
@@ -52,7 +53,7 @@ const MobBottomNav: React.FC = () => {
           href="/login"
           className="flex flex-col justify-center items-center"
         >
-          <img
+          <Image
             src="/images/icon/login.png"
             width={20}
             height={20}

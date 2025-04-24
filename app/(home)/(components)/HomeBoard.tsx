@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import HomeBoardWeekCard from "./HomeBoardWeekCard";
 import HomeBoardDayCard from "./HomeBoardDayCard";
@@ -8,7 +9,7 @@ function HomeBoard() {
       <article className="flex flex-col gap-2">
         <div className="font-bold text-lg flex justify-between items-center">
           <div className="flex items-center justify-between">
-            <img
+            <Image
               src="/images/new_blue_icon.png"
               width={40}
               height={40}
@@ -34,7 +35,7 @@ function HomeBoard() {
       <article className="flex flex-col gap-2">
         <div className="font-bold text-lg flex justify-between items-center">
           <div className="flex items-center justify-between">
-            <img
+            <Image
               src="/images/new_purple_icon.png"
               width={40}
               height={40}

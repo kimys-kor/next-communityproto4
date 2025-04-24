@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "../Logo";
+import Image from "next/image";
 
 function Footer() {
   return (
@@ -30,7 +31,7 @@ function Footer() {
                 ⓒ 꽁머니팡. All rights reserved.
               </p>
               <div className="w-full flex justify-center items-center">
-                <img
+                <Image
                   src="/images/icon/teleIcon.png"
                   width={230}
                   height={60}
