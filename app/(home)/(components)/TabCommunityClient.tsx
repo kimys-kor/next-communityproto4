@@ -62,7 +62,7 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
-            cache: "no-store",
+            next: { revalidate: 60 },
           }
         );
 

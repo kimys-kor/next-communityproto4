@@ -7,11 +7,12 @@ export async function GET(request: Request) {
 
   try {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_API_URL + `/guest/partnerList?page=${page}&size=${size}`,
+      process.env.NEXT_PUBLIC_API_URL +
+        `/guest/partnerList?page=${page}&size=${size}`,
       {
         method: "GET",
         credentials: "include",
-        cache: "no-store",
+        next: { revalidate: 60 },
       }
     );
 

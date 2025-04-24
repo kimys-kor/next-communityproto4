@@ -61,7 +61,7 @@ export const fetchInitialBoardListData = async (
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/guest/list?typ=${typ}&keyword=&page=${page}&size=${size}`,
-      { cache: "no-store" }
+      { next: { revalidate: 60 } }
     );
 
     if (!response.ok) {
@@ -101,7 +101,7 @@ export async function fetchInitialPhotoData(postType: number) {
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
-        cache: "no-store",
+        next: { revalidate: 60 },
       }
     );
 
@@ -135,7 +135,7 @@ export async function fetchInitialPhotoData(postType: number) {
 export const fetchInitialCommunityTabData = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/guest/list?typ=9&keyword=&page=0&size=4`,
-    { method: "GET" }
+    { method: "GET", next: { revalidate: 60 } }
   );
   const data = await response.json();
   return data.data.content;
@@ -145,7 +145,7 @@ export async function fetchInitialAnalyzeData(typ: number) {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/guest/list?typ=${typ}&keyword=&page=0&size=5`,
-      { cache: "no-store" }
+      { next: { revalidate: 60 } }
     );
 
     if (!response.ok) {
@@ -166,6 +166,7 @@ export async function fetchHomeBanner(): Promise<Banner[]> {
       `${process.env.NEXT_PUBLIC_API_URL}/guest/bannerlist`,
       {
         method: "GET",
+        next: { revalidate: 60 },
       }
     );
 
@@ -188,7 +189,7 @@ export async function fetchThreeBanner(): Promise<Banner[]> {
       `${process.env.NEXT_PUBLIC_API_URL}/guest/threeBannerlist`,
       {
         method: "GET",
-        cache: "no-store",
+        next: { revalidate: 60 },
       }
     );
 
@@ -218,6 +219,7 @@ export async function fetchBoardDayContent(
       {
         method: "GET",
         credentials: "include",
+        next: { revalidate: 60 },
       }
     );
 
@@ -244,6 +246,7 @@ export async function fetchBoardWeekContent(
       {
         method: "GET",
         credentials: "include",
+        next: { revalidate: 60 },
       }
     );
 
@@ -265,7 +268,7 @@ export async function fetchInitialPartnerData() {
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-      cache: "no-store",
+      next: { revalidate: 60 },
     }
   );
 
@@ -290,7 +293,7 @@ export const fetchInitialBoardContent = async (id: string) => {
         headers: {
           "Content-Type": "application/json",
         },
-        cache: "no-store",
+        next: { revalidate: 60 },
       }
     );
 
@@ -322,7 +325,7 @@ export const fetchInitialComments = async (
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-store",
+      next: { revalidate: 60 },
     }
   );
 
@@ -357,7 +360,7 @@ export async function fetchInitialMemberData(
         headers: {
           "Content-Type": "application/json",
         },
-        cache: "no-store",
+        next: { revalidate: 60 },
       }
     );
 

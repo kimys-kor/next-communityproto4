@@ -30,7 +30,7 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
-            cache: "no-store",
+            next: { revalidate: 60 },
           }
         );
 
@@ -39,16 +39,22 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
         }
 
         const data = await response.json();
-        setBoardList(data.data.content);
+        setBoardList(data.data.content || []);
       } catch (error) {
-        toast.error("게시글리스트 데이터 문제가 발생했습니다");
+        console.error("Error fetching board list for tab:", error);
+        toast.error("게시글 리스트 데이터 로딩 중 문제가 발생했습니다.");
+        setBoardList([]);
       }
     };
 
     const typMap = [2, 3, 4, 5, 6, 7, 8];
-    const typ = typMap[activeTab];
-
-    fetchBoardList(typ);
+    if (activeTab >= 0 && activeTab < typMap.length) {
+      const typ = typMap[activeTab];
+      fetchBoardList(typ);
+    } else {
+      console.error("Invalid activeTab index:", activeTab);
+      setBoardList([]);
+    }
   }, [activeTab]);
 
   return (

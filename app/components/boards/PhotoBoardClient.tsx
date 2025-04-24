@@ -53,7 +53,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
-          cache: "no-store",
+          next: { revalidate: 60 },
         }
       );
 
