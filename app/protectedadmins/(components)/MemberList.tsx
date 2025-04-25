@@ -25,7 +25,7 @@ async function fetchInitialMemberData(
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
-        next: { revalidate: 60 },
+        cache: "no-store",
       }
     );
 

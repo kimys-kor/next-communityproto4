@@ -21,7 +21,7 @@ export async function GET(request: Request) {
           "Content-Type": "application/json",
           Authorization: `${accessToken}`,
         },
-        next: { revalidate: 60 },
+        cache: "no-store",
       }
     );
 

@@ -11,7 +11,7 @@ export async function GET(request: Request) {
         method: "GET",
         credentials: "include",
         // next: { revalidate: 300 },
-        next: { revalidate: 60 },
+        cache: "no-store",
       }
     );
 

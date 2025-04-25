@@ -51,7 +51,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
             headers: {
               "Content-Type": "application/json",
             },
-            next: { revalidate: 60 },
+            cache: "no-store",
           }
         );
 

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AiOutlineMenu } from "react-icons/ai";
 import Sidebar from "@/app/components/layouts/Sidebar";
-import Image from "next/image";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -23,7 +22,7 @@ const Navbar = () => {
       href: "/partner",
       label: "파트너",
       icon: (
-        <Image
+        <img
           src="/images/partnerIcon.png"
           width={33}
           height={33}
@@ -45,7 +44,7 @@ const Navbar = () => {
         { href: "/sport/volley", label: "배구분석" },
       ],
       icon: (
-        <Image
+        <img
           src="/images/sportIcon.png"
           width={33}
           height={33}
@@ -65,7 +64,7 @@ const Navbar = () => {
         { href: "/community/case", label: "먹튀피해제보" },
       ],
       icon: (
-        <Image
+        <img
           src="/images/commuIcon.png"
           width={33}
           height={33}
