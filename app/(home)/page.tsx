@@ -55,7 +55,7 @@ export default function Home() {
           스포츠커뮤니티
         </h1>
 
-        {/* <HomeBanner></HomeBanner> */}
+        <HomeBanner></HomeBanner>
 
         <ProgressSliderPage></ProgressSliderPage>
 
